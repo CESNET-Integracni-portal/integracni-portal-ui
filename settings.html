@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cz">
+<html lang="cz" ng-app="settings">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -13,7 +13,7 @@
     
     <body>
         <div class="ui fixed inverted pointing menu">
-            <a class="item project" href="#">Integrační portál</a>
+            <a class="item project" href="./index.html">Integrační portál</a>
             <div class="right menu">
                 <div class="ui top right pointing mobile dropdown link item">
                     <i class="reorder icon"></i>
@@ -33,7 +33,7 @@
                         <a class="item"> Odhlásit </a>
                     </div>
                 </div>
-                <a href="#" class="item"> <i class="settings icon"></i></a>
+                <a href="./settings.html" class="item"> <i class="settings icon"></i></a>
                 <div class="item">
                   <div class="ui icon input">
                     <input type="text" placeholder="Search...">
@@ -66,33 +66,16 @@
                     </div>
                 </div>
                 <div class="ten wide column" style="">
-                    <div class="ui tabular small menu">
-                      <a class="item">Štítky</a>
-                      <a class="item">Skupiny</a>
-                      <a class="item">Organizační jednotky</a>
-                      <a class="active item">Změna hesla</a>
-                    </div>
-
-                    <div class="ui small form">
-                      <div class="field">
-                        <label>Současné heslo</label>
-                        <input type="password">
-                      </div>
-                      <div class="field">
-                        <label>Nové heslo</label>
-                        <input type="password">
-                      </div>
-                    </div>
-                    <div class="ui small submit button">Ok</div>
-                </div>
+                    <settings-tabs></settings-tabs>
             </div>
         </div>
 
         
 
         <script type="text/javascript" src="./js/jquery-2.1.1.js"></script>
-        <!--<script type="text/javascript" src="./js/angular.js"></script>-->
         <script type="text/javascript" src="./js/semantic.js"></script>
         <script type="text/javascript" src="./js/portal.js"></script>
+        <script type="text/javascript" src="./js/angular.js"></script>
+        <script type="text/javascript" src="./js/app.js"></script>
     </body>
 </html>
