@@ -50,12 +50,46 @@ font-size: 1.1rem;
   margin-right: 0.5em;
 }
 
+.ui.inverted.menu .item {
+  color: #BBBBBB;
+}
+
 .ui.inverted.menu .item.project {
   padding-left: 30px;
+  color: #FFFFFF;
 }
 
 .ui.vertical.menu {
   width: 10rem;
+}
+
+.sidebar-hide-btn {
+  color: rgb(68, 68, 68);
+  cursor: pointer;
+  display: block;
+  font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  height: 30px;
+  left: -37px;
+  line-height: 18px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: absolute;
+  text-decoration: none;
+  top: 40px;
+  width: 32px;
+  z-index: 6;
+  background-color: #FFFFFF;
+  border-top-left-radius: 0.325em;
+  border-bottom-left-radius: 0.325em;
+  border: 1px solid  #DFDFDF;
+}
+
+.sidebar-hide-btn i {
+  padding: 7px 7px 7px 5px;
 }
 
 /*-------------------
