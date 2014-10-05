@@ -156,6 +156,25 @@ font-size: 1.1rem;
 }
 
 /*-------------------
+        Forms
+--------------------*/
+
+.ui.form textarea, .ui.form input[type="color"], .ui.form input[type="date"], .ui.form input[type="datetime"], .ui.form input[type="datetime-local"], .ui.form input[type="email"], .ui.form input[type="month"], .ui.form input[type="number"], .ui.form input[type="password"], .ui.form input[type="search"], .ui.form input[type="tel"], .ui.form input[type="text"], .ui.form input[type="time"], .ui.form input[type="url"], .ui.form input[type="week"] {
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -o-border-radius: 0px;
+  border-radius: 0px;
+}
+
+.ui.form input[type="color"], .ui.form input[type="date"], .ui.form input[type="datetime"], .ui.form input[type="datetime-local"], .ui.form input[type="email"], .ui.form input[type="month"], .ui.form input[type="number"], .ui.form input[type="password"], .ui.form input[type="search"], .ui.form input[type="tel"], .ui.form input[type="time"], .ui.form input[type="url"], .ui.form input[type="week"] {
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -o-border-radius: 0px;
+  border-radius: 0px;
+  width: 400px;
+}
+
+/*-------------------
         FEL Blue
 --------------------*/
 
