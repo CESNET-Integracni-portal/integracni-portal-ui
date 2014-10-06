@@ -8,7 +8,7 @@
     };
   });
 
-  app.directive("SetOrgUnits", function() {
+  app.directive("SetOrgunits", function() {
     return {
       restrict: 'E',
       templateUrl: "./partials/set-org-units.html"

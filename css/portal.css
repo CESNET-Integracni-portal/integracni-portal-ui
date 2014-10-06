@@ -92,6 +92,14 @@ font-size: 1.1rem;
   padding: 7px 7px 7px 5px;
 }
 
+/* Tabular menu */
+
+.ui.tabular.menu .active.item {
+  border-radius: 0rem;
+  -webkit-box-shadow:0 .2em 0 #BBBBBB inset;
+  box-shadow:0 .2em 0 #BBBBBB inset;
+}
+
 /*-------------------
         Sidebar
 --------------------*/
@@ -166,19 +174,29 @@ font-size: 1.1rem;
   border-radius: 0px;
 }
 
-.ui.form input[type="color"], .ui.form input[type="date"], .ui.form input[type="datetime"], .ui.form input[type="datetime-local"], .ui.form input[type="email"], .ui.form input[type="month"], .ui.form input[type="number"], .ui.form input[type="password"], .ui.form input[type="search"], .ui.form input[type="tel"], .ui.form input[type="time"], .ui.form input[type="url"], .ui.form input[type="week"] {
+.ui.form input[type="color"], .ui.form input[type="date"], .ui.form input[type="datetime"], .ui.form input[type="datetime-local"], .ui.small.form input[type="text"], .ui.form input[type="email"], .ui.form input[type="month"], .ui.form input[type="number"], .ui.form input[type="password"], .ui.form input[type="search"], .ui.form input[type="tel"], .ui.form input[type="time"], .ui.form input[type="url"], .ui.form input[type="week"] {
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   -o-border-radius: 0px;
   border-radius: 0px;
-  width: 400px;
+  min-width: 282px;
+  max-width: 400px; 
+}
+
+.ui.form .two.fields {
+  max-width: 855px;
+}
+
+.ui.table .actions a {
+  text-decoration: none;
+  color: #0063a8; 
 }
 
 /*-------------------
         FEL Blue
 --------------------*/
 
-i.blue.icon, .ui.vertical.menu .item .menu .active.item {
+i.blue.icon, .ui.vertical.menu .item .menu .active.item, .ui.tabular.menu .active.item, .ui.tabular.menu .active.item:visited {
   color: #0063a8 !important;
 }
 
