@@ -2,7 +2,7 @@ $(document)
   .ready(function() {
 
   $('.sidebar')
-      .sidebar('attach events', '.label')
+      .sidebar('attach events', 'span')
     ;
 
     $('.dropdown')

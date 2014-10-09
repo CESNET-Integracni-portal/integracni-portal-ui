@@ -192,6 +192,10 @@ font-size: 1.1rem;
   color: #0063a8; 
 }
 
+span {
+  cursor : pointer;
+}
+
 /*-------------------
         FEL Blue
 --------------------*/
