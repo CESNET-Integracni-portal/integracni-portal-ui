@@ -1,27 +1,28 @@
 <!DOCTYPE html>
-<html lang="cz">
+<html lang="cz" ng-app="app">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-        <title>Portál</title>
+        <title ng-bind="$state.current.name + ' - ui-router'">Integrační portál</title>
 
         <link href="./css/semantic.css" rel="stylesheet" type="text/css">
         
         <link href="./css/portal.css" rel="stylesheet" type="text/css">
+        <base href="/integracni-portal-ui/" />
     </head>
     
     <body>
-        <div class="ui fixed inverted pointing menu">
-            <a class="item project" href="./index.html">Integrační portál</a>
+        <div class="ui fixed inverted pointing menu" ng-controller="HeaderController as header">
+            <a class="item project" ui-sref="index">Integrační portál</a>
             <div class="right menu">
                 <div class="ui top right pointing mobile dropdown link item">
                     <i class="reorder icon"></i>
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                      <a class="item">Classes</a>
-                      <a class="item">Cocktail Hours</a>
-                      <a class="item">Community</a>
+                      <a class="item" ui-sref="settings">Nastavení</a>
+                      <a class="item" ui-sref="tutorials">Tutoriály</a>
+                      <a class="item" ui-sref="logout">Odhlásit</a>
                     </div>
                 </div>
                 
@@ -29,11 +30,11 @@
                     Username <i class="dropdown icon"></i>
                     <div class="menu ui transition hidden">
                         <div class="item">Využití: 1,76GB (12%) z 13GB</div>
-                        <a class="item"> Tutoriály </a>
-                        <a class="item"> Odhlásit </a>
+                        <a class="item" ui-sref="tutorials"> Tutoriály </a>
+                        <a class="item" ui-sref="logout"> Odhlásit </a>
                     </div>
                 </div>
-                <a href="./settings.html" class="item"> <i class="settings icon"></i></a>
+                <a ui-sref="settings" class="item"> <i class="settings icon"></i></a>
                 <div class="item">
                   <div class="ui icon input">
                     <input type="text" placeholder="Search...">
@@ -45,15 +46,15 @@
         <div class="ui celled grid">
             <div class="row">
                 <div class="one wide column" style="">
-                    <div class="ui secondary vertical menu">
-                        <div class="item"> <i class="home icon" href="#"></i> Můj prostor
+                    <div class="ui secondary vertical menu" ng-controller="NavigationController as navigation">
+                        <div class="item"> <i class="home icon"></i> Můj prostor
                             <div class="menu">
-                              <a class="active blue item"> <i class="folder icon"></i> Složka 1</a>
-                              <a class="item"> <i class="folder icon"></i> Složka 2</a>
+                              <a class="blue item" > <i class="folder icon"></i> Složka 1</a>
+                              <a class="item" > <i class="folder icon"></i> Složka 2</a>
                             </div>
                         </div>
-                        <a class="item" href="./shared.html"> <i class="users icon"></i> Sdílené </a>
-                        <a class="item"> <i class="archive icon"></i> Archív </a>
+                        <a class="item" ui-sref-active="active" ui-sref="shared"> <i class="users icon"></i> Sdílené </a>
+                        <a class="item" ui-sref-active="active" ui-sref="archived"> <i class="archive icon"></i> Archív </a>
                         <a class="item">štítek 1</a>
                         <a class="item">štítek 2</a>
                         <div class="divider"></div>
@@ -63,77 +64,20 @@
                         
                     </div>
                 </div>
-                <div class="ten wide column" style="">
-                    <div class="ui breadcrumb">
-                      <a class="section"><i class="home icon"></i> Můj prostor </a>
-                      <i class="right arrow icon"></i>
-                      <span class="section">Složka 1</span>
-                      <a class="section"><i class="blue pin icon"></i></a>
-                      <a class="section"><i class="blue upload disk icon"></i></a>
-                      <a class="section"><i class="blue download disk icon"></i></a>
-                    </div>
-
-                    <div class="tiny ui icon buttons right">
-                      <div class="ui button active"><i class="list layout icon"></i></div>
-                      <div class="ui button"><i class="grid layout icon"></i></div>
-                    </div>
-
-                    <table class="ui basic table compact">
-                        <thead>
-                            <tr>
-                              <th><input type="checkbox"></th>
-                              <th>Název</th>
-                              <th>Sdílím s</th>
-                              <th>Velikost</th>
-                              <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td><i class="folder outline icon"></i> <span>Složka 3</span>
-                                    <a class="ui red label"> štítek 1 </a>
-                                </td>
-                                <td>Jan Novák</td>
-                                <td>--</td>
-                                <td class="actions">
-                                  <a href="#"><i class="edit icon"></i></a>
-                                  <a href="#"><i class="trash icon"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td><i class="file outline icon"></i>
-                                 <span>Soubor<span>
-                                 <a class="ui label"> Archiv </a>
-                                 </td>
-                                <td>Petr Novák</td>
-                                <td>3 MB</td>
-                                <td class="actions">
-                                  <a href="#"><i class="edit icon"></i></a>
-                                  <a href="#"><i class="trash icon"></i></a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                
-
-                    <div class="ui right vertical sidebar">
-                        <a href="#" class="sidebar-hide-btn" title="Close the board sidebar."> 
-                            <i class="right arrow icon"></i>
-                        </a>
-                        přidání štítku, přidání do archivu
-                      
-                    </div>
+                <div ui-view class="ten wide column" style="" ng-controller="ViewController as viewCtrl" >
+                    
                 </div>
             </div>
         </div>
 
-        
 
         <script type="text/javascript" src="./js/jquery-2.1.1.js"></script>
-        <!--<script type="text/javascript" src="./js/angular.js"></script>-->
+        <script type="text/javascript" src="./js/angular.js"></script>
         <script type="text/javascript" src="./js/semantic.js"></script>
+        <script type="text/javascript" src="./js/angular-ui-router.js"></script>
+        <script type="text/javascript" src="./js/app.js"></script>
         <script type="text/javascript" src="./js/portal.js"></script>
+        
+        <!--<script type="text/javascript" src="./js/mustache.js"></script>-->
     </body>
 </html>

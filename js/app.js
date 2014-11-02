@@ -1,5 +1,53 @@
 (function() {
-  var app = angular.module('settings', []);
+
+  var app = angular.module('app', ['ui.router']);
+
+  app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+
+    $urlRouterProvider.otherwise('/');
+
+    // The `when` method says if the url is ever the 1st param, then redirect to the 2nd param
+    // Here we are just setting up some convenience urls.
+   // .when('/c?id', '/contacts/:id')
+    //.when('/user/:id', '/contacts/:id')
+
+    // If the url is ever invalid, e.g. '/asdf', then redirect to '/' aka the home state
+    
+    $locationProvider.html5Mode(true);
+
+    $stateProvider
+      .state("index", {
+        url: "/",
+        template: "./partials/folder.html"
+      })    
+
+      .state("settings", {
+        url: "/settings",
+        template: "<settings-tabs></settings-tabs>" 
+      })
+
+      .state("archived", {
+        url: "/archived",
+        template: "./partials/archived.html"
+      })
+
+      .state("shared", {
+        url: "/shared",
+        template: "./partials/shared.html" 
+      });
+  });
+
+  app.controller('HeaderController', function() {
+    
+  });
+
+  app.controller('NavigationController', function() {
+    
+  });
+
+  app.controller('ViewController', function() {
+    
+  });
 
   app.directive("setChangePass", function() {
     return {
