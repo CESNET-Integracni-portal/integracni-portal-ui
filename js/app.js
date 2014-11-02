@@ -35,6 +35,10 @@
     this.fastFolders = fastFolders;
   });
 
+  app.controller('MainController', function() {
+    this.user = unitUser;
+  });
+
   app.controller('ViewController', function() {
     
   });
@@ -97,6 +101,11 @@
 // ---------------- DATA --------------------------------------
 //-------------------------------------------------------------
 
+  var unitUser = {
+    name : "Karel"
+  };
+
+  // ----- labels -----
   var labels = [{
     id: 1,
     name: "Štítek 1",
@@ -108,6 +117,7 @@
     color: "blue"
   }];
 
+// ----- fast Folders (in left navigation) -----
   var fastFolders = [{
     id: 1,
     name: "Rychlá složka 1",

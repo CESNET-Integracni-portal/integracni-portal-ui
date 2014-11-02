@@ -12,7 +12,8 @@
         <base href="/integracni-portal-ui/" />
     </head>
     
-    <body>
+    <body ng-controller="MainController as mainCtrl">
+        <!-- top navigation -->
         <div class="ui fixed inverted pointing menu">
             <a class="item project" ui-sref="index">Integrační portál</a>
             <div class="right menu">
@@ -27,7 +28,7 @@
                 </div>
                 
                 <div class="ui dropdown link item" href="#">
-                    Username <i class="dropdown icon"></i>
+                    {{mainCtrl.user.name}} <i class="dropdown icon"></i>
                     <div class="menu ui transition hidden">
                         <div class="item">Využití: 1,76GB (12%) z 13GB</div>
                         <a class="item" ui-sref="tutorials"> Tutoriály </a>
@@ -43,6 +44,7 @@
                 </div>
             </div>
         </div>
+
         <div class="ui celled grid">
             <div class="row">
                 <!-- left navigation -->
@@ -57,10 +59,10 @@
                         <a class="item" ui-sref-active="active" ui-sref="shared"> <i class="users icon"></i> Sdílené </a>
                         <a class="item" ui-sref-active="active" ui-sref="archived"> <i class="archive icon"></i> Archív </a>
                         <!-- labels -->
-                        <a class="item" ui-sref-active="active" ng-repeat="label in navigation.labels" ui-sref="label/{{label.id}}"><i class="bookmark {{label.color}} basic icon"></i>{{label.name}}</a>
+                        <a class="item" ng-repeat="label in navigation.labels" ui-sref="label/{{label.id}}"><i class="bookmark {{label.color}} basic icon"></i>{{label.name}}</a>
                         <div class="divider"></div>
                         <!-- fast folders -->
-                        <a class="item" ui-sref-active="active" ng-repeat="fast in navigation.fastFolders" ui-sref="fast.url"> {{fast.name}} </a>
+                        <a class="item" ng-repeat="fast in navigation.fastFolders" ui-sref="fast.url"> {{fast.name}} </a>
                         
                     </div>
                 </div>
