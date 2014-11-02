@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-        <title ng-bind="$state.current.name + ' - ui-router'">Integrační portál</title>
+        <title ng-bind="$state.current.name + ' - Integrační portál'">Integrační portál</title>
 
         <link href="./css/semantic.css" rel="stylesheet" type="text/css">
         
@@ -13,7 +13,7 @@
     </head>
     
     <body>
-        <div class="ui fixed inverted pointing menu" ng-controller="HeaderController as header">
+        <div class="ui fixed inverted pointing menu">
             <a class="item project" ui-sref="index">Integrační portál</a>
             <div class="right menu">
                 <div class="ui top right pointing mobile dropdown link item">
@@ -45,6 +45,7 @@
         </div>
         <div class="ui celled grid">
             <div class="row">
+                <!-- left navigation -->
                 <div class="one wide column" style="">
                     <div class="ui secondary vertical menu" ng-controller="NavigationController as navigation">
                         <div class="item"> <i class="home icon"></i> Můj prostor
@@ -55,15 +56,15 @@
                         </div>
                         <a class="item" ui-sref-active="active" ui-sref="shared"> <i class="users icon"></i> Sdílené </a>
                         <a class="item" ui-sref-active="active" ui-sref="archived"> <i class="archive icon"></i> Archív </a>
-                        <a class="item">štítek 1</a>
-                        <a class="item">štítek 2</a>
+                        <!-- labels -->
+                        <a class="item" ui-sref-active="active" ng-repeat="label in navigation.labels" ui-sref="label/{{label.id}}"><i class="bookmark {{label.color}} basic icon"></i>{{label.name}}</a>
                         <div class="divider"></div>
-                        <a class="item"> Rychlá složka </a>
-                        <a class="item"> Rychlá složka </a>
-                        <a class="item"> Rychlá složka </a>
+                        <!-- fast folders -->
+                        <a class="item" ui-sref-active="active" ng-repeat="fast in navigation.fastFolders" ui-sref="fast.url"> {{fast.name}} </a>
                         
                     </div>
                 </div>
+                <!-- content -->
                 <div ui-view class="ten wide column" style="" ng-controller="ViewController as viewCtrl" >
                     
                 </div>
