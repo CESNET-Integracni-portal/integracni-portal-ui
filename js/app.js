@@ -14,6 +14,11 @@
         templateUrl: "./partials/folder.html"
       })    
 
+      /*.state("folder.detail", {
+        url: "/{folderId: [0-9]+}",
+        templateUrl: "./partials/folder.html"
+      })*/  
+
       .state("settings", {
         url: "/settings",
         template: "<settings-tabs></settings-tabs>" 
@@ -53,7 +58,11 @@
   app.directive("setOrgunits", function() {
     return {
       restrict: 'E',
-      templateUrl: "./partials/set-org-units.html"
+      templateUrl: "./partials/set-org-units.html",
+      controller: function() {
+        this.units = units;
+      },
+      controllerAs: "unitsCtrl"
     };
   });
 
@@ -67,7 +76,11 @@
   app.directive("setLabels", function() {
     return {
       restrict: 'E',
-      templateUrl: "./partials/set-labels.html"
+      templateUrl: "./partials/set-labels.html",
+      controller: function() {
+        this.labels = labels;
+      },
+      controllerAs: "labelsCtrl"
     };
   });
 
@@ -129,8 +142,21 @@
     url: "/2"
   }];
 
-  var folders = {
+  var folders = [
+    {
+      id: 1,
 
+    }];
+
+  var units = [{
+      name: "SEN",
+      users: ["Jan Novák"],
+      size: 12345 
+  },{
+      name: "ATG",
+      users: ["Petr Novák", "Karolína Novotná"],
+      size: 12345 
   }
+  ];
 
 })();

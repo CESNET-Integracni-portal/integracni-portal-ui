@@ -32,21 +32,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr ng-repeat="unit in unitsCtrl.units">
                 <td><input type="checkbox"></td>
-                <td>SEN</td>
-                <td>Jan Novák, ... </td>
-                <td>XXX </td>
-                <td class="actions">
-                  <a href="#"><i class="edit icon"></i></a>
-                  <a href="#"><i class="trash icon"></i></a>
-                </td>
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>ATG</td>
-                <td>Petr Novák, ... </td>
-                <td>YYY </td>
+                <td>{{unit.name}}</td>
+                <td> <span ng-repat="unitUser in unit.users">{{unitUser}}</span> </td>
+                <td> {{unit.size}} </td>
                 <td class="actions">
                   <a href="#"><i class="edit icon"></i></a>
                   <a href="#"><i class="trash icon"></i></a>

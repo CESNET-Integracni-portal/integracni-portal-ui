@@ -24,17 +24,9 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr ng-repeat="label in labelsCtrl.labels">
                 <td><input type="checkbox"></td>
-                <td><a class="ui red label"> štítek 1 </a> </td>
-                <th class="actions">
-                  <a href="#"><i class="edit icon"></i></a>
-                  <a href="#"><i class="trash icon"></i></a>
-                </th>
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td><a class="ui label" style="background-color: #00B5AD;"> štítek 2 </a> </td>
+                <td><i class="bookmark {{label.color}} basic icon"></i>{{label.name}}</td>
                 <th class="actions">
                   <a href="#"><i class="edit icon"></i></a>
                   <a href="#"><i class="trash icon"></i></a>
