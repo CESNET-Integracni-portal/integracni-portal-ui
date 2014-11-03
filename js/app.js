@@ -69,7 +69,11 @@
   app.directive("setGroups", function() {
     return {
       restrict: 'E',
-      templateUrl: "./partials/set-groups.html"
+      templateUrl: "./partials/set-groups.html",
+      controller: function() {
+        this.groups = groups;
+      },
+      controllerAs: "groupsCtrl"
     };
   });
 
@@ -156,7 +160,14 @@
       name: "ATG",
       users: ["Petr Novák", "Karolína Novotná"],
       size: 12345 
-  }
-  ];
+  }];
+
+  var groups = [{
+      name: "Moje skupina",
+      users: ["Jan Novák"]
+  },{
+      name: "Moje skupina druhá",
+      users: ["Petr Novák", "Karolína Novotná"]
+  }];
 
 })();
