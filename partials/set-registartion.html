@@ -42,23 +42,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr ng-repeat="external in externalsCtrl.externals">
                 <td><input type="checkbox"></td>
-                <td>Jan Novák </td>
-                <td>jan.novak@fel.cvut.cz</td>
-                <td>3GB</td>
-                <td>Já</td>
-                <td class="actions">
-                  <a href="#"><i class="edit icon"></i></a>
-                  <a href="#"><i class="trash icon"></i></a>
-                </td>
-            </tr>
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>Petr Novák</td>
-                <td>jan.novak@fel.cvut.cz</td>
-                <td>3GB</td>
-                <td>Pert Novák</td>
+                <td>{{external.name}} </td>
+                <td>{{external.email}}</td>
+                <td>{{external.size}}</td>
+                <td>{{external.user}}</td>
                 <td class="actions">
                   <a href="#"><i class="edit icon"></i></a>
                   <a href="#"><i class="trash icon"></i></a>
