@@ -42,12 +42,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="external in externalsCtrl.externals">
+            <tr ng-repeat="external in externists">
                 <td><input type="checkbox"></td>
-                <td>{{external.name}} </td>
+                <td>{{external.username}} </td>
                 <td>{{external.email}}</td>
                 <td>{{external.size}}</td>
-                <td>{{external.user}}</td>
+                <td>{{external.user.email}}</td>
                 <td class="actions">
                   <a href="#"><i class="edit icon"></i></a>
                   <a href="#"><i class="trash icon"></i></a>

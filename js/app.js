@@ -96,8 +96,9 @@
     return {
       restrict: 'E',
       templateUrl: "./partials/set-registartion.html",
-      controller: function() {
-        this.externals = externals;
+      controller: function($scope, userService) {
+        var unitId = $scope.user.unitId;
+        $scope.externists = userService.getExternistsForUnit(unitId);
       },
       controllerAs: "externalsCtrl"
     };
@@ -150,31 +151,6 @@
       name: "ATG",
       users: ["Petr Novák", "Karolína Novotná"],
       size: 12345 
-  }];
-
-  
-
-  var externals = [{
-      id:1,
-      unitsId:1,
-      name: "Jan Novák",
-      email: "jan.novak@fel.cvut.cz",
-      size: 3,
-      user: "Petr Novák"
-  },{
-      id:2,
-      unitsId:1,
-      name: "Petr Novák",
-      email: "petr.novak@fel.cvut.cz",
-      size: 6,
-      user: "Jan Novák"
-  },{
-      id:3,
-      unitsId:2,
-      name: "Karolína Novotná",
-      email: "karolina.novotna@fel.cvut.cz",
-      size: 7,
-      user: "Jan Novák"
   }];
 
 })();
