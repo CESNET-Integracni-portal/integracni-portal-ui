@@ -6,10 +6,10 @@
   app.factory('userService', function(utils) {
       /**
       Users parameters:
-        id
-        username
-        permissions
-        unitId - id of unit group in which belongs
+        int id - unique
+        string username - 
+        array permissions
+        int unitId - id of unit group in which belongs
       */
       return {
         getById: function(userId){
@@ -21,10 +21,10 @@
   app.factory('labelService', function(utils) {
       /**
       Users parameters:
-        id
-        name
-        color
-        userId - 
+        int id - unique
+        string name
+        string color
+        int userId 
       */
       return {
         getById: function(labelId){
@@ -36,6 +36,23 @@
       };
   });
 
+  app.factory('groupService', function(utils) {
+      /**
+      Users parameters:
+        int id - unique
+        string name
+        array users
+        int userId 
+      */
+      return {
+        getById: function(groupId){
+          return utils.findById(groups, groupId);
+        },
+        getForUser: function(userId){
+          return utils.getAllWhere(groups, "userId", userId);
+        }
+      };
+  });
 //-------------------------------------------------------------
 // ---------------- UTILS --------------------------------------
 //-------------------------------------------------------------
@@ -114,13 +131,25 @@ app.factory('utils', function () {
     id: 1,
     name: "Štítek 1",
     color: "red",
-    userId: 1
+    userId: 2
   },
   {
     id: 2,
     name: "Štítek 2",
     color: "blue",
-    userId: 2
+    userId: 3
+  }];
+
+  var groups = [{
+      id: 1,
+      name: "Moje skupina",
+      users: ["Jan Novák"],
+      userId: 2
+  },{
+      id: 2,
+      name: "Moje skupina druhá",
+      users: ["Petr Novák", "Karolína Novotná"],
+      userId: 3
   }];
 
   })();

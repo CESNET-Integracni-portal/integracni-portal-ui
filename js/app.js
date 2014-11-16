@@ -72,8 +72,9 @@
     return {
       restrict: 'E',
       templateUrl: "./partials/set-groups.html",
-      controller: function() {
-        this.groups = groups;
+      controller: function($scope, groupService) {
+        var userId = $scope.user.id;
+        $scope.groups = groupService.getForUser(userId);
       },
       controllerAs: "groupsCtrl"
     };
@@ -151,15 +152,7 @@
       size: 12345 
   }];
 
-  var groups = [{
-      id:1,
-      name: "Moje skupina",
-      users: ["Jan Novák"]
-  },{
-      id:2,
-      name: "Moje skupina druhá",
-      users: ["Petr Novák", "Karolína Novotná"]
-  }];
+  
 
   var externals = [{
       id:1,
