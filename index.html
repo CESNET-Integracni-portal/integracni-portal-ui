@@ -28,7 +28,7 @@
                 </div>
                 
                 <div class="ui dropdown link item" href="#">
-                    {{mainCtrl.user.username}} <i class="dropdown icon"></i>
+                    {{user.username}} <i class="dropdown icon"></i>
                     <div class="menu ui transition hidden">
                         <div class="item">Využití: 1,76GB (12%) z 13GB</div>
                         <a class="item" ui-sref="tutorials"> Tutoriály </a>
@@ -59,7 +59,7 @@
                         <a class="item" ui-sref-active="active" ui-sref="shared"> <i class="users icon"></i> Sdílené </a>
                         <a class="item" ui-sref-active="active" ui-sref="archived"> <i class="archive icon"></i> Archív </a>
                         <!-- labels -->
-                        <a class="item" ng-repeat="label in navigation.labels" ui-sref="label/{{label.id}}"><i class="bookmark {{label.color}} basic icon"></i>{{label.name}}</a>
+                        <a class="item" ng-repeat="label in labels" ui-sref="label/{{label.id}}"><i class="bookmark {{label.color}} basic icon"></i>{{label.name}}</a>
                         <div class="divider"></div>
                         <!-- fast folders -->
                         <a class="item" ng-repeat="fast in navigation.fastFolders" ui-sref="fast.url"> {{fast.name}} </a>

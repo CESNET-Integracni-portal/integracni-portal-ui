@@ -18,6 +18,24 @@
       };
   });
 
+  app.factory('labelService', function(utils) {
+      /**
+      Users parameters:
+        id
+        name
+        color
+        userId - 
+      */
+      return {
+        getById: function(labelId){
+          return utils.findById(labels, labelId);
+        },
+        getForUser: function(userId){
+          return utils.getAllWhere(labels, "userId", userId);
+        }
+      };
+  });
+
 //-------------------------------------------------------------
 // ---------------- UTILS --------------------------------------
 //-------------------------------------------------------------
@@ -91,6 +109,18 @@ app.factory('utils', function () {
       unitId: 1
     }];
 
-  
+  // ----- labels -----
+  var labels = [{
+    id: 1,
+    name: "Štítek 1",
+    color: "red",
+    userId: 1
+  },
+  {
+    id: 2,
+    name: "Štítek 2",
+    color: "blue",
+    userId: 2
+  }];
 
   })();

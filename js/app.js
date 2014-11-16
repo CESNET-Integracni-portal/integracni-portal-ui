@@ -35,14 +35,16 @@
       });
   });
 
-  app.controller('NavigationController', function() {
-    this.labels = labels;
-    this.fastFolders = fastFolders;
+  app.controller('MainController', function($scope, userService) {
+    $scope.user = userService.getById(2);
   });
 
-  app.controller('MainController', function($scope, userService) {
-    this.user = userService.getById(4);
+  app.controller('NavigationController', function($scope, labelService) {
+    var userId = $scope.user.id;
+    $scope.labels = labelService.getForUser(userId);
+    this.fastFolders = fastFolders;
   });
+  
 
   app.controller('ViewController', function() {
     
@@ -81,8 +83,9 @@
     return {
       restrict: 'E',
       templateUrl: "./partials/set-labels.html",
-      controller: function() {
-        this.labels = labels;
+      controller: function($scope, labelService) {
+        var userId = $scope.user.id;
+        $scope.labels = labelService.getForUser(userId);
       },
       controllerAs: "labelsCtrl"
     };
@@ -117,18 +120,6 @@
       controllerAs: "tab"
     };
   });
-
-  // ----- labels -----
-  var labels = [{
-    id: 1,
-    name: "Štítek 1",
-    color: "red"
-  },
-  {
-    id: 2,
-    name: "Štítek 2",
-    color: "blue"
-  }];
 
 // ----- fast Folders (in left navigation) -----
   var fastFolders = [{

@@ -2,9 +2,9 @@
 <div class="ui tabular small menu">
   <a class="item" ng-class="{ active:tab.isSet(1) }" href ng-click="tab.setTab(1)">Štítky</a>
   <a class="item" ng-class="{ active:tab.isSet(2) }" href ng-click="tab.setTab(2)">Skupiny</a>
-  <a class="item" ng-class="{ active:tab.isSet(3) }" href ng-click="tab.setTab(3)" ng-show="mainCtrl.user.permissions.units">Organizační jednotky a prostor</a>
-  <a class="item" ng-class="{ active:tab.isSet(4) }" href ng-click="tab.setTab(4)" ng-show="mainCtrl.user.permissions.externists">Externisté</a>
-  <a class="item" ng-class="{ active:tab.isSet(5) }" href ng-click="tab.setTab(5)" ng-show="mainCtrl.user.permissions.password">Změna hesla</a>
+  <a class="item" ng-class="{ active:tab.isSet(3) }" href ng-click="tab.setTab(3)" ng-show="user.permissions.units">Organizační jednotky a prostor</a>
+  <a class="item" ng-class="{ active:tab.isSet(4) }" href ng-click="tab.setTab(4)" ng-show="user.permissions.externists">Externisté</a>
+  <a class="item" ng-class="{ active:tab.isSet(5) }" href ng-click="tab.setTab(5)" ng-show="user.permissions.password">Změna hesla</a>
 </div>
 
   <!--  Labels Tab's Content  -->
