@@ -1,6 +1,6 @@
 (function() {
 
-  var app = angular.module('app', ['ui.router']);
+  app = angular.module('app', ['ui.router']);
 
   app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
@@ -40,8 +40,8 @@
     this.fastFolders = fastFolders;
   });
 
-  app.controller('MainController', function() {
-    this.user = unitUser;
+  app.controller('MainController', function($scope, userService) {
+    this.user = userService.getById(4);
   });
 
   app.controller('ViewController', function() {
@@ -91,7 +91,11 @@
   app.directive("setRegistartion", function() {
     return {
       restrict: 'E',
-      templateUrl: "./partials/set-registartion.html"
+      templateUrl: "./partials/set-registartion.html",
+      controller: function() {
+        this.externals = externals;
+      },
+      controllerAs: "externalsCtrl"
     };
   });
 
@@ -113,14 +117,6 @@
       controllerAs: "tab"
     };
   });
-
-//-------------------------------------------------------------
-// ---------------- DATA --------------------------------------
-//-------------------------------------------------------------
-
-  var unitUser = {
-    name : "Karel"
-  };
 
   // ----- labels -----
   var labels = [{
@@ -153,21 +149,48 @@
     }];
 
   var units = [{
+      id: 1,
       name: "SEN",
       users: ["Jan Novák"],
       size: 12345 
   },{
+      id:2,
       name: "ATG",
       users: ["Petr Novák", "Karolína Novotná"],
       size: 12345 
   }];
 
   var groups = [{
+      id:1,
       name: "Moje skupina",
       users: ["Jan Novák"]
   },{
+      id:2,
       name: "Moje skupina druhá",
       users: ["Petr Novák", "Karolína Novotná"]
+  }];
+
+  var externals = [{
+      id:1,
+      unitsId:1,
+      name: "Jan Novák",
+      email: "jan.novak@fel.cvut.cz",
+      size: 3,
+      user: "Petr Novák"
+  },{
+      id:2,
+      unitsId:1,
+      name: "Petr Novák",
+      email: "petr.novak@fel.cvut.cz",
+      size: 6,
+      user: "Jan Novák"
+  },{
+      id:3,
+      unitsId:2,
+      name: "Karolína Novotná",
+      email: "karolina.novotna@fel.cvut.cz",
+      size: 7,
+      user: "Jan Novák"
   }];
 
 })();
