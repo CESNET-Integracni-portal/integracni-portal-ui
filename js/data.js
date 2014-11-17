@@ -3,7 +3,7 @@
 
 (function() {
 
-  app.factory('userService', function(utils) {
+  app.factory('userService', function(utils, labelService) {
       /**
       Users parameters:
         int id - unique
@@ -16,8 +16,13 @@
 
       */
       return {
+        /*
+          join users labels
+        */
         getById: function(userId){
-          return utils.findById(users, userId);
+          var user = utils.findById(users, userId);
+          user.labels = labelService.getForUser(userId);
+          return user;
         },
 
         getExternistsForUnit: function(unitId){
@@ -60,6 +65,7 @@
         int userId 
       */
       return {
+        
         getById: function(groupId){
           return utils.findById(groups, groupId);
         },

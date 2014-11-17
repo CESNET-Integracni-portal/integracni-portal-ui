@@ -39,9 +39,9 @@
     $scope.user = userService.getById(2);
   });
 
-  app.controller('NavigationController', function($scope, labelService) {
-    var userId = $scope.user.id;
-    $scope.labels = labelService.getForUser(userId);
+  app.controller('NavigationController', function($scope) {
+    //var userId = $scope.user.id;
+    //$scope.labels = labelService.getForUser(userId);
     this.fastFolders = fastFolders;
   });
   
@@ -85,8 +85,8 @@
       restrict: 'E',
       templateUrl: "./partials/set-labels.html",
       controller: function($scope, labelService) {
-        var userId = $scope.user.id;
-        $scope.labels = labelService.getForUser(userId);
+        //var userId = $scope.user.id;
+        //$scope.labels = labelService.getForUser(userId);
       },
       controllerAs: "labelsCtrl"
     };
