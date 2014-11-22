@@ -70,9 +70,57 @@
     return {
       restrict: 'E',
       templateUrl: "./partials/set-groups.html",
-      controller: function($scope, groupService) {
+      controller: function($scope, groupService, userService) {
         var userId = $scope.user.id;
-        $scope.groups = groupService.getForUser(userId);
+        var that = this;
+
+        $scope.save = function(group){
+          // create
+          if ($scope.index === null){
+            group.userId = userId;
+            var createdGroup = groupService.create(group);
+            $scope.user.groups.push(angular.copy(createdGroupl));
+            that.reset();
+          //update
+          } else {
+            var updatedGroup = groupService.updateGroup(group);
+            $scope.user.groups[$scope.index] = angular.copy(updatedGroup);
+            that.reset();
+          }
+        };
+
+        /*$scope.addUser = function(index){
+          that.users[index].disabled = true;
+          that.users[index].originalIndex = index;
+          $scope.group.users.push(that.users[index]);
+        };
+
+        $scope.isDisabled = function(user){
+          return true; //(typeof user.disabled !== 'undefined' && user.disabled );
+        };
+
+        $scope.removeUser = function(index){
+          that.users[$scope.group.users[index].originalIndex].disabled = true;
+          $scope.group.users.splice(index, 1);
+        };*/
+
+        $scope.deleteGroup = function(index){
+          $scope.user.groups.splice(index, 1);
+          groupService.deleteGroup(index);
+        };
+
+        $scope.editGroup = function(index, group){
+          $scope.group = angular.copy(group);
+          $scope.index = index;
+        };
+
+        this.reset = functin(){
+          $scope.group = {};
+          $scope.group.users = [];
+          that.users = userService.getAll();
+          $scope.index = null;
+        };
+        this.reset();
       },
       controllerAs: "groupsCtrl"
     };
@@ -84,7 +132,7 @@
       templateUrl: "./partials/set-labels.html",
       controller: function($scope, labelService) {
         var userId = $scope.user.id;
-        $scope.label ={};
+        $scope.label = {};
         $scope.index = null;
         $scope.save = function(label){
           // create

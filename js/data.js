@@ -3,7 +3,7 @@
 
 (function() {
 
-  app.factory('userService', function(utils, labelService) {
+  app.factory('userService', function(utils, labelService, groupService) {
       /**
       Users parameters:
         int id - unique
@@ -22,6 +22,7 @@
         getById: function(userId){
           var user = utils.findById(users, userId);
           user.labels = labelService.getForUser(userId);
+          user.groups = groupService.getForUser(userId);
           return user;
         },
 
@@ -34,7 +35,11 @@
         getWhere: function(column, value, array){
           if (array === null) array = users;
           return utils.getAllWhere(array, column, value);
+        },
+        getAll: function(){
+          return users;
         }
+
       };
   });
 
@@ -83,7 +88,18 @@
         },
         getForUser: function(userId){
           return utils.getAllWhere(groups, "userId", userId);
-        }
+        },
+        create: function(group){
+          // create on server side
+          return group;
+        },
+        deleteGroup: function(index){
+          // delete on server side
+        }, 
+        updateGroup: function(group){
+          // update on server side
+          return group;
+        } 
       };
   });
 

@@ -2,11 +2,17 @@
   <div class="three fields">
     <div class="field">
       <label>Název</label>
-      <input type="text">
+      <input type="text" ng-model="group.name">
     </div>
     <div class="field">
       <label>Účastníci</label>
-      <input type="text">
+      <div ng-repeat="user in group.users" class="ui image label">
+        {{user.username}}
+        <i ng-click="removeUser($index)" class="delete icon"></i>
+      </div>
+      <select name="user">
+        <option ng-repeat="user in groupsCtrl.users" ng-click="addUser($index)" ng-disabled="{{isDisabled(user)}}">{{user.username}}</option>
+      </select>
     </div>
     <div class="field">
       <label>&nbsp;</label>
@@ -25,13 +31,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="group in groups">
+            <tr ng-repeat="group in user.groups">
                 <td><input type="checkbox"></td>
                 <td>{{group.name}}</td>
                 <td> {{group.users.join(', ')}}</td>
                 <td class="actions">
-                  <a href="#"><i class="edit icon"></i></a>
-                  <a href="#"><i class="trash icon"></i></a>
+                  <a ng-click="editGroup($index, group)"><i class="edit icon"></i></a>
+                  <a ng-click="deleteGroup($index)"><i class="trash icon"></i></a>
                 </td>
             </tr>
         </tbody>
