@@ -52,8 +52,20 @@
         },
         getForUser: function(userId){
           return utils.getAllWhere(labels, "userId", userId);
-        }
+        },
+        create: function(label){
+          // create on server side
+          return label;
+        },
+        deleteLabel: function(index){
+          // delete on server side
+        }, 
+        updateLabel: function(label){
+          // update on server side
+          return label;
+        } 
       };
+
   });
 
   app.factory('groupService', function(utils) {
