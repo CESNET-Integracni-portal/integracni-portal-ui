@@ -84,6 +84,35 @@
 
   });
 
+  app.factory('unitService', function(utils) {
+      /**
+      Users parameters:
+        int id - unique
+        string name
+        array users
+        int userId 
+      */
+      return {
+        getById: function(unitId){
+          return utils.findById(units, unitId);
+        },
+        getAll: function(){
+          return units;
+        },
+        create: function(unit){
+          // create on server side
+          return unit;
+        },
+        deleteUnit: function(unitId){
+          // delete on server side
+        }, 
+        updateUnit: function(unit){
+          // update on server side
+          return unit;
+        } 
+      };
+  });
+
   app.factory('groupService', function(utils) {
       /**
       Users parameters:
@@ -234,6 +263,19 @@ app.factory('utils', function () {
       name: "Moje skupina druhá",
       users: ["Petr Novák", "Karolína Novotná"],
       userId: 3
+  }];
+
+  // ----- units -----
+  var units = [{
+      id: 1,
+      name: "SEN",
+      users: ["Jan Novák"],
+      size: 12345 
+  },{
+      id:2,
+      name: "ATG",
+      users: ["Petr Novák", "Karolína Novotná"],
+      size: 6543 
   }];
 
   })();

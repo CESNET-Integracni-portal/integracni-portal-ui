@@ -36,7 +36,7 @@
   });
 
   app.controller('MainController', function($scope, userService) {
-    $scope.user = userService.getById(2);
+    $scope.user = userService.getById(1);
   });
 
   app.controller('NavigationController', function($scope) {
@@ -59,8 +59,40 @@
     return {
       restrict: 'E',
       templateUrl: "./partials/set-org-units.html",
-      controller: function() {
-        this.units = units;
+      controller: function($scope, unitService, userService) {
+        this.units = unitService.getAll();
+        this.users = userService.getAll();
+        var that = this;
+
+        $scope.saveUnit = function(unit){
+          // create
+          if ($scope.index === null){
+            var createdUnit = unitService.create(unit);
+            that.units.push(angular.copy(createdUnit));
+            that.reset();
+          //update
+          } else {
+            var updatedUnit = unitService.updateUnit(unit);
+            that.units[$scope.index] = angular.copy(updatedUnit);
+            that.reset();
+          }
+        };
+
+        $scope.deleteUnit = function(index){
+          that.units.splice(index, 1);
+          userService.deleteUser(index);
+        };
+
+        $scope.editUnit = function(index, unit){
+          $scope.unit = angular.copy(unit);
+          $scope.index = index;
+        };
+
+        this.reset = function(){
+          $scope.unit = {};
+          $scope.index = null;
+        };
+        this.reset();
       },
       controllerAs: "unitsCtrl"
     };
@@ -74,7 +106,7 @@
         var userId = $scope.user.id;
         var that = this;
 
-        $scope.save = function(group){
+        $scope.saveGroup = function(group){
           // create
           if ($scope.index === null){
             group.userId = userId;
@@ -138,7 +170,7 @@
         var userId = $scope.user.id;
         $scope.label = {};
         $scope.index = null;
-        $scope.save = function(label){
+        $scope.saveLabel = function(label){
           // create
           if ($scope.index === null){
             label.userId = userId;
@@ -181,7 +213,7 @@
         this.users = userService.getAll();
         var that = this;
 
-        $scope.save = function(externist){
+        $scope.saveExternists = function(externist){
           // create
           if ($scope.index === null){
             externist.unitId = unitId;
@@ -254,16 +286,6 @@
 
     }];
 
-  var units = [{
-      id: 1,
-      name: "SEN",
-      users: ["Jan Novák"],
-      size: 12345 
-  },{
-      id:2,
-      name: "ATG",
-      users: ["Petr Novák", "Karolína Novotná"],
-      size: 12345 
-  }];
+  
 
 })();
