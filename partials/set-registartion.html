@@ -4,28 +4,27 @@
   <div class="two fields">
       <div class="field">
         <label>Jméno a přijmení</label>
-        <input type="text">
+        <input type="text" ng-model="user.username">
       </div>
       <div class="field">
-        <label>Organizační jednotka</label>
-        <input type="email">
+        <label>Na čí doporučení</label>
+        <select name="user" ng-model="user.user">
+          <option ng-repeat="onuser in externalsCtrl.users" ng-value="{{$index}}">{{onuser.username}}</option>
+        </select>
       </div>
   </div>
   <div class="two fields">
       <div class="field">
         <label>Email</label>
-        <input type="email">
+        <input type="email" ng-model="user.email">
       </div>
       <div class="field">
-        <label>Prostor</label>
-        <input type="email">
+        <label>Prostor (GB)</label>
+        <input type="number" ng-model="user.size">
       </div>
   </div>
-  <div class="field">
-    <label>Na čí doporučení</label>
-    <input type="text">
-  </div>
-  <div class="ui small submit button">Registrovat</div>
+  
+  <div class="ui small submit button" ng-click="save(user)">Registrovat</div>
 </div>
     
 
@@ -49,8 +48,8 @@
                 <td>{{external.size}}</td>
                 <td>{{external.user.email}}</td>
                 <td class="actions">
-                  <a href="#"><i class="edit icon"></i></a>
-                  <a href="#"><i class="trash icon"></i></a>
+                  <a ng-click="editUser($index, external)"><i class="edit icon"></i></a>
+                  <a ng-click="deleteUser($index)"><i class="trash icon"></i></a>
                 </td>
             </tr>
         </tbody>

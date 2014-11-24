@@ -79,7 +79,7 @@
           if ($scope.index === null){
             group.userId = userId;
             var createdGroup = groupService.create(group);
-            $scope.user.groups.push(angular.copy(createdGroupl));
+            $scope.user.groups.push(angular.copy(createdGroup));
             that.reset();
           //update
           } else {
@@ -89,20 +89,23 @@
           }
         };
 
-        /*$scope.addUser = function(index){
-          that.users[index].disabled = true;
-          that.users[index].originalIndex = index;
-          $scope.group.users.push(that.users[index]);
+        $scope.addUser = function(index){
+          if ($scope.group.user !== null){
+            that.users[index].disabled = true;
+            that.users[index].originalIndex = index;
+            $scope.group.users.push(that.users[index]);
+            $scope.group.user = null;
+          }
         };
 
         $scope.isDisabled = function(user){
-          return true; //(typeof user.disabled !== 'undefined' && user.disabled );
+          return (typeof user.disabled !== 'undefined' && user.disabled );
         };
 
         $scope.removeUser = function(index){
           that.users[$scope.group.users[index].originalIndex].disabled = true;
           $scope.group.users.splice(index, 1);
-        };*/
+        };
 
         $scope.deleteGroup = function(index){
           $scope.user.groups.splice(index, 1);
@@ -114,9 +117,10 @@
           $scope.index = index;
         };
 
-        this.reset = functin(){
+        this.reset = function(){
           $scope.group = {};
           $scope.group.users = [];
+          $scope.group.user = null;
           that.users = userService.getAll();
           $scope.index = null;
         };
@@ -174,6 +178,40 @@
       controller: function($scope, userService) {
         var unitId = $scope.user.unitId;
         $scope.externists = userService.getExternistsForUnit(unitId);
+        this.users = userService.getAll();
+        var that = this;
+
+        $scope.save = function(user){
+          // create
+          if ($scope.index === null){
+            user.unitId = unitId;
+            var createdUser = userService.create(user);
+            $scope.externists.push(angular.copy(createdUser));
+            that.reset();
+          //update
+          } else {
+            var updatedUser = userService.updateUser(user);
+            $scope.externists[$scope.index] = angular.copy(updatedUser);
+            that.reset();
+          }
+        };
+
+        $scope.deleteUser = function(index){
+          $scope.externists.splice(index, 1);
+          userService.deleteUser(index);
+        };
+
+        $scope.editUser = function(index, user){
+          $scope.user = angular.copy(user);
+          $scope.index = index;
+        };
+
+        this.reset = function(){
+          $scope.user = {};
+          $scope.index = null;
+        };
+        this.reset();
+
       },
       controllerAs: "externalsCtrl"
     };

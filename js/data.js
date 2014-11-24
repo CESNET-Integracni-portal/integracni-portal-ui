@@ -38,7 +38,18 @@
         },
         getAll: function(){
           return users;
-        }
+        },
+        create: function(user){
+          // create on server side
+          return user;
+        },
+        deleteUser: function(userId){
+          // delete on server side
+        }, 
+        updateLabel: function(user){
+          // update on server side
+          return user;
+        } 
 
       };
   });
@@ -62,7 +73,7 @@
           // create on server side
           return label;
         },
-        deleteLabel: function(index){
+        deleteLabel: function(labelId){
           // delete on server side
         }, 
         updateLabel: function(label){
@@ -93,7 +104,7 @@
           // create on server side
           return group;
         },
-        deleteGroup: function(index){
+        deleteGroup: function(groupId){
           // delete on server side
         }, 
         updateGroup: function(group){

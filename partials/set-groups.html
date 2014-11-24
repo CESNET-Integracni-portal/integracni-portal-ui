@@ -10,13 +10,13 @@
         {{user.username}}
         <i ng-click="removeUser($index)" class="delete icon"></i>
       </div>
-      <select name="user">
-        <option ng-repeat="user in groupsCtrl.users" ng-click="addUser($index)" ng-disabled="{{isDisabled(user)}}">{{user.username}}</option>
+      <select name="user" ng-click="addUser()">
+        <option ng-repeat="user in groupsCtrl.users" ng-value="{{$index}}" ng-disabled="{{isDisabled(user)}}">{{user.username}}</option>
       </select>
     </div>
     <div class="field">
       <label>&nbsp;</label>
-      <div class="ui small submit button">Ok</div>
+      <div class="ui small submit button" ng-click="save(group)">Ok</div>
     </div>
   </div>
 </div>
