@@ -36,7 +36,7 @@
   });
 
   app.controller('MainController', function($scope, userService) {
-    $scope.user = userService.getById(1);
+    $scope.user = userService.getById(2);
   });
 
   app.controller('NavigationController', function($scope) {
