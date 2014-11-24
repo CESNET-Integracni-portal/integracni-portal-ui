@@ -181,16 +181,16 @@
         this.users = userService.getAll();
         var that = this;
 
-        $scope.save = function(user){
+        $scope.save = function(externist){
           // create
           if ($scope.index === null){
-            user.unitId = unitId;
-            var createdUser = userService.create(user);
+            externist.unitId = unitId;
+            var createdUser = userService.create(externist);
             $scope.externists.push(angular.copy(createdUser));
             that.reset();
           //update
           } else {
-            var updatedUser = userService.updateUser(user);
+            var updatedUser = userService.updateUser(externist);
             $scope.externists[$scope.index] = angular.copy(updatedUser);
             that.reset();
           }
@@ -201,13 +201,13 @@
           userService.deleteUser(index);
         };
 
-        $scope.editUser = function(index, user){
-          $scope.user = angular.copy(user);
+        $scope.editUser = function(index, externist){
+          $scope.externist = angular.copy(externist);
           $scope.index = index;
         };
 
         this.reset = function(){
-          $scope.user = {};
+          $scope.externist = {};
           $scope.index = null;
         };
         this.reset();

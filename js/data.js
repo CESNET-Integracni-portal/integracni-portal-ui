@@ -46,7 +46,7 @@
         deleteUser: function(userId){
           // delete on server side
         }, 
-        updateLabel: function(user){
+        updateUser: function(user){
           // update on server side
           return user;
         } 
