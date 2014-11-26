@@ -41,9 +41,10 @@
       .state("archived", {
         url: "/archived",
         templateUrl: "./partials/archived.html",
-        controller: function($scope){
-          $scope.archive = 
-          attachSidebar
+        controller: function($scope, archiveService){
+          archiveService.getAll().success(function(data){
+            $scope.archives = data;
+          });
         }
       })
 
@@ -60,6 +61,16 @@
         controller: attachSidebar
       });
 
+  });
+
+  app.directive("attachSidebar",function(){
+    return function(scope, element, attrs){
+        //scope=local scope , element is dom and attrs is attributes of it.
+        var sidebar = $('.sidebar');
+        sidebar.sidebar('attach events', 'span');
+        sidebar.sidebar('hide');
+
+    }
   });
 
   app.controller('MainController', function($scope, userService) {
