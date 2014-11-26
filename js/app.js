@@ -2,6 +2,10 @@
 
   app = angular.module('app', ['ui.router']);
 
+  app.run(function(oauthService){
+    oauthService.refresh();
+  });
+
 // ROUTING
   app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
@@ -19,8 +23,7 @@
         url: "/",
         templateUrl: "./partials/folder.html",
         controller: function($scope, oauthService){
-          oauthService.refresh();
-          $scope.$apply();
+          
         }
       })    
       // iterates over folders

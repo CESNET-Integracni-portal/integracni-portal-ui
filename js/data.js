@@ -148,7 +148,7 @@
 //-------------------------------------------------------------
 
 // url of the server, where api is
-var baseUrl =  "http://147.32.80.219:8080/integracni-portal/rest/v0.1/";
+var baseUrl =  "http://147.32.80.219:8080/integracni-portal/";
 // token for authorization this application on the server
 var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI2ZDI0NjE3ZTY1NTRkNzFhNjg2MTRjMzQ0MzZkNjc=';
 
@@ -237,29 +237,34 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
       };
   });
 
-  app.factory('oauthService', function(cookieService, $http, $location) {
+  app.factory('oauthService', function(cookieService, $http, $location, $window) {
       return {
         _accessTokenId: "accessToken",
         _refreshToken: "refreshToken",
         _tokenType: "tokenType",
 
-        loginWithPass: function($http, username, password){
-          $http({
+        loginWithPass: function( username, password){
+          var that = this;
+          return $http({
             method: 'POST',
             url: baseUrl + 'oauth/token',
-            data: {
+            data: $.param({
               username: username,
               password: password,
               grant_type: 'password'
-            },
+            }),
             headers: {
-              Authorization: authorization_token
+              Authorization: authorization_token,
+              "Content-Type": 'application/x-www-form-urlencoded'
             }
-          }).success(function(response, cookieService){
-            cookieService.setCookie(this._accessTokenId, response.access_token, response.expires);
-            cookieService.setCookie(this._tokenType, response.token_type, response.expires);
-            cookieService.setCookie(this._refreshToken, response.refresh_token);
-          });
+          }).success(function(response){
+            cookieService.setCookie(that._accessTokenId, response.access_token, response.expires);
+            cookieService.setCookie(that._tokenType, response.token_type, response.expires);
+            cookieService.setCookie(that._refreshToken, response.refresh_token);
+            that.redirectToApp();
+          })/*.error(function(data, status, headers, config){
+            errorCallback(data, status, headers, config);
+          })*/;
         },
         
         logout: function(){
@@ -277,12 +282,13 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
             $http({
               method: 'POST',
               url: baseUrl + 'oauth/token',
-              data: {
+              data: $.param({
                 grant_type: 'refresh_token',
                 refresh_token: refreshToken
-              },
+              }),
               headers: {
-                Authorization: authorization_token
+                Authorization: authorization_token,
+                "Content-Type": 'application/x-www-form-urlencoded'
               }
             }).success(function(response, cookieService){
               cookieService.setCookie(this._accessTokenId, response.access_token, response.expires);
@@ -298,9 +304,18 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
         },
 
         redirectToLoginPage: function(){
-          $location.path("/login").replace();
-        }
+          var path = $location.path();
+          var absUrl = $location.absUrl();
+          var basepath = absUrl.substring(0, (absUrl.length-path.length));
+          $window.location.href = basepath +"/login";
+        },
 
+        redirectToApp: function(){
+          //var path = $location.path();
+          var absUrl = $location.absUrl();
+          var basepath = absUrl.substring(0, (absUrl.length-5));
+          $window.location.href = basepath;
+        }
       };
   });
 
