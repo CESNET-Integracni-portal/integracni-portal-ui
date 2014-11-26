@@ -37,7 +37,7 @@
             <tr ng-repeat="unit in unitsCtrl.units">
                 <td><input type="checkbox"></td>
                 <td>{{unit.name}}</td>
-                <td> {{unit.users.join(', ')}} </td>
+                <td> {{unit.admins.join(', ')}} </td>
                 <td> {{unit.size}} </td>
                 <td class="actions">
                   <a ng-click="editUnit($index, unit)"><i class="edit icon"></i></a>
