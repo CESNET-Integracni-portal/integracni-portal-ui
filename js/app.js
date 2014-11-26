@@ -2,17 +2,30 @@
 
   app = angular.module('app', ['ui.router']);
 
+// ROUTING
   app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
     $urlRouterProvider.otherwise('/');
     
     $locationProvider.html5Mode(true);
 
+    var attachSidebar = function() {
+          $('.sidebar').sidebar('attach events', 'span');
+        };
+
     $stateProvider
+      // index route, my space
       .state("index", {
         url: "/",
-        templateUrl: "./partials/folder.html"
+        templateUrl: "./partials/folder.html",
+        controller: attachSidebar
       })    
+      // iterates over folders
+      .state("folderIterate", {
+        url: "/folder/{folderId:[1-9][0-9]*}",
+        templateUrl: "./partials/folder.html",
+        controller: attachSidebar
+      }) 
 
       /*.state("folder.detail", {
         url: "/{folderId: [0-9]+}",
@@ -24,15 +37,29 @@
         template: "<settings-tabs></settings-tabs>" 
       })
 
+      // archive
       .state("archived", {
         url: "/archived",
-        templateUrl: "./partials/archived.html"
+        templateUrl: "./partials/archived.html",
+        controller: function($scope){
+          $scope.archive = 
+          attachSidebar
+        }
       })
+
+      // iterates over archive
+      .state("archiveIterate", {
+        url: "/archive/{folderId:[1-9][0-9]*}",
+        templateUrl: "./partials/folder.html",
+        controller: attachSidebar
+      }) 
 
       .state("shared", {
         url: "/shared",
-        templateUrl: "./partials/shared.html" 
+        templateUrl: "./partials/shared.html",
+        controller: attachSidebar
       });
+
   });
 
   app.controller('MainController', function($scope, userService) {
