@@ -144,7 +144,187 @@
   });
 
 //-------------------------------------------------------------
-// ---------------- UTILS --------------------------------------
+//---------------- FOLDERS  -----------------------------------
+//-------------------------------------------------------------
+
+// url of the server, where api is
+var baseUrl =  "http://147.32.80.219:8080/integracni-portal/rest/v0.1/";
+// token for authorization this application on the server
+var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI2ZDI0NjE3ZTY1NTRkNzFhNjg2MTRjMzQ0MzZkNjc=';
+
+  app.factory('cookieService', function($http) {
+      return {
+        _defaultExp : 86400, //in seconds (86400 = 1 day)
+
+        /**
+         * Set cookie
+         * @param name
+         * @param val value
+         * @param exp |null expiration in seconds, it's used _defaultExp when null
+         */
+        setCookie : function(name, val, exp){
+            var d = new Date();
+            if (exp === undefined){
+                exp = this._defaultExp;
+            }
+            d.setTime(d.getTime() + (exp*1000));
+            var expires = "expires="+d.toGMTString();
+            var toSet = name + "=" + val + ";" + expires;
+            document.cookie = toSet;
+        },
+
+        /**
+         * Delete cookie
+         * @param string name of cookie
+         */
+        deleteCookie : function(name){
+            document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;";
+        },
+
+        /**
+         * Get the value of cookie
+         * @param string name of cookie
+         */
+        getCookie : function(cname){
+          var name = cname + "=";
+          var cookies = document.cookie.split(';');
+          for(var i=0; i<cookies.length; i++) {
+              var c = cookies[i].trim();
+              if (c.indexOf(name) != -1) return c.substring(name.length,c.length);
+          }
+          return null;
+        }
+      };
+  });
+
+  app.factory('httpService', function(cookieService, $http, oauthService) {
+      return {
+        _accessTokenId: "accessToken",
+        _refreshToken: "refreshToken",
+        _tokenType: "tokenType",
+        _first: true,
+
+        createRequest: function( method, url, data, errorCallback){
+          var that = this;
+          var accessToken = cookieService.get(this._accessTokenId);
+          var tokenType = ookieService.get(this._tokenType);
+          if (accessToken !== null && tokenType !== null){
+
+            this._first = true;
+            return $http({
+              method: method,
+              url: url,
+              data: data,
+              headers: {
+                Authorization: tokenType + " " + accessToken
+              }
+            }).error(function(data, status, headers, config){
+
+            });
+          } else if (this._first) {
+            this._first = false;
+            oauthService.refresh().success(function(){
+              that.createRequest(method, url, data);
+            }).error(function(){
+              that.redirectToLogin();
+            });
+          } else {
+            this.redirectToLogin();
+          } 
+        },
+
+        redirectToLogin: function(){
+
+        }
+      };
+  });
+
+  app.factory('oauthService', function(cookieService, $http) {
+      return {
+        _accessTokenId: "accessToken",
+        _refreshToken: "refreshToken",
+        _tokenType: "tokenType",
+
+        loginWithPass: function($http, username, password){
+          $http({
+            method: 'POST',
+            url: baseUrl + 'oauth/token',
+            data: {
+              username: username,
+              password: password,
+              grant_type: 'password'
+            },
+            headers: {
+              Authorization: authorization_token
+            }
+          }).success(function(response, cookieService){
+            cookieService.setCookie(this._accessTokenId, response.access_token, response.expires);
+            cookieService.setCookie(this._tokenType, response.token_type, response.expires);
+            cookieService.setCookie(this._refreshToken, response.refresh_token);
+          });
+        },
+        
+        logout: function(){
+          cookieService.deleteCookie(this._accessTokenId);
+          cookieService.deleteCookie(this._tokenType);
+          cookieService.deleteCookie(this._refreshToken);
+        },
+
+        refresh: function(){
+          $http({
+            method: 'POST',
+            url: baseUrl + 'oauth/token',
+            data: {
+              grant_type: 'refresh_token',
+              refresh_token: cookieService.getCookie(_refreshToken)
+            },
+            headers: {
+              Authorization: authorization_token
+            }
+          }).success(function(response, cookieService){
+            cookieService.setCookie(this._accessTokenId, response.access_token, response.expires);
+            cookieService.setCookie(this._tokenType, response.token_type, response.expires);
+            cookieService.setCookie(this._refreshToken, response.refresh_token);
+          });
+        }
+      };
+  });
+
+
+app.factory('archiveService', function(utils, $http) {
+      /**
+      Users parameters:
+        int id - unique
+        string name
+        array users
+        int userId 
+      */
+      return {
+
+        getAll: function(){
+          return $http.get(baseUrl + 'archive');
+        },
+        
+        getById: function(archiveId){
+          return $http.get(baseUrl + 'archive/folder/' + archiveId);
+        },
+        
+        create: function(group){
+          // create on server side
+          return group;
+        },
+        deleteArchive: function(groupId){
+          // delete on server side
+        }, 
+        updateArchive: function(group){
+          // update on server side
+          return group;
+        } 
+      };
+  });
+
+//-------------------------------------------------------------
+//---------------- UTILS --------------------------------------
 //-------------------------------------------------------------
 
 app.factory('utils', function () {
@@ -269,12 +449,12 @@ app.factory('utils', function () {
   var units = [{
       id: 1,
       name: "SEN",
-      users: ["Jan Novák"],
+      admins: ["Jan Novák"],
       size: 12345 
   },{
       id:2,
       name: "ATG",
-      users: ["Petr Novák", "Karolína Novotná"],
+      admins: ["Petr Novák", "Karolína Novotná"],
       size: 6543 
   }];
 
