@@ -19,23 +19,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr ng-repeat="folder in archive.folders" attach-sidebar>
                                 <td><input type="checkbox"></td>
-                                <td><i class="folder outline icon"></i> <span>Složka 3</span>
-                                <a class="ui red label"> štítek 1 </a>
-                                </td>
+                                <td><i class="folder outline icon"></i> <span>{{folder.name}}</span></td>
                                 <td>--</td>
-                                <td>Petr Novák</td>
+                                <td>{{folder.owner.username}}</td>
                                 <td class="actions">
                                   <a href="#"><i class="blue pin icon"></i></i></a>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr ng-repeat="file in archive.files" attach-sidebar>
                                 <td><input type="checkbox"></td>
-                                <td><i class="file outline icon"></i>
-                                 <span>Soubor<span></td>
-                                <td>3MB</td>
-                                <td>Jan Novák</td>
+                                <td><i class="file outline icon"></i><span>{{file.name}}<span></td>
+                                <td>{{file.filesize}}</td>
+                                <td>{{file.owner.username}}</td>
                                 <td class="actions">
                                 </td>
                             </tr>

@@ -218,8 +218,6 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
               headers: {
                 Authorization: tokenType + " " + accessToken
               }
-            }).error(function(data, status, headers, config){
-
             });
           } else if (this._first) {
             this._first = false;
@@ -234,12 +232,12 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
         },
 
         redirectToLogin: function(){
-
+          oauthService.redirectToLoginPage();
         }
       };
   });
 
-  app.factory('oauthService', function(cookieService, $http) {
+  app.factory('oauthService', function(cookieService, $http, $location) {
       return {
         _accessTokenId: "accessToken",
         _refreshToken: "refreshToken",
@@ -271,22 +269,38 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
         },
 
         refresh: function(){
-          $http({
-            method: 'POST',
-            url: baseUrl + 'oauth/token',
-            data: {
-              grant_type: 'refresh_token',
-              refresh_token: cookieService.getCookie(_refreshToken)
-            },
-            headers: {
-              Authorization: authorization_token
-            }
-          }).success(function(response, cookieService){
-            cookieService.setCookie(this._accessTokenId, response.access_token, response.expires);
-            cookieService.setCookie(this._tokenType, response.token_type, response.expires);
-            cookieService.setCookie(this._refreshToken, response.refresh_token);
-          });
+          var refreshToken = cookieService.getCookie(this._refreshToken);
+          if (refreshToken === null) {
+            this.redirectToLoginPage();
+          } else {
+            var that = this;
+            $http({
+              method: 'POST',
+              url: baseUrl + 'oauth/token',
+              data: {
+                grant_type: 'refresh_token',
+                refresh_token: refreshToken
+              },
+              headers: {
+                Authorization: authorization_token
+              }
+            }).success(function(response, cookieService){
+              cookieService.setCookie(this._accessTokenId, response.access_token, response.expires);
+              cookieService.setCookie(this._tokenType, response.token_type, response.expires);
+              cookieService.setCookie(this._refreshToken, response.refresh_token);
+            }).error(function(){
+              cookieService.deleteCookie(this._accessTokenId);
+              cookieService.deleteCookie(this._tokenType);
+              cookieService.deleteCookie(this._refreshToken);
+              that.redirectToLoginPage();
+            });
+          }
+        },
+
+        redirectToLoginPage: function(){
+          $location.path("/login").replace();
         }
+
       };
   });
 

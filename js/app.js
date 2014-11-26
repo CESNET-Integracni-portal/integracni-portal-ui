@@ -18,7 +18,10 @@
       .state("index", {
         url: "/",
         templateUrl: "./partials/folder.html",
-        controller: attachSidebar
+        controller: function($scope, oauthService){
+          oauthService.refresh();
+          $scope.$apply();
+        }
       })    
       // iterates over folders
       .state("folderIterate", {
@@ -43,7 +46,7 @@
         templateUrl: "./partials/archived.html",
         controller: function($scope, archiveService){
           archiveService.getAll().success(function(data){
-            $scope.archives = data;
+            $scope.archive = { folders: data};
           });
         }
       })
