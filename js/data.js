@@ -147,8 +147,11 @@
 //---------------- FOLDERS  -----------------------------------
 //-------------------------------------------------------------
 
+// url of the server, where ouath is
+var baseUrlForOauth =  "http://147.32.80.219:8080/integracni-portal/";
 // url of the server, where api is
-var baseUrl =  "http://147.32.80.219:8080/integracni-portal/";
+var baseUrl =  "http://147.32.80.219:8080/integracni-portal/rest/v0.1/";
+
 // token for authorization this application on the server
 var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI2ZDI0NjE3ZTY1NTRkNzFhNjg2MTRjMzQ0MzZkNjc=';
 
@@ -247,7 +250,7 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
           var that = this;
           return $http({
             method: 'POST',
-            url: baseUrl + 'oauth/token',
+            url: baseUrlForOauth + 'oauth/token',
             data: $.param({
               username: username,
               password: password,
@@ -281,7 +284,7 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
             var that = this;
             $http({
               method: 'POST',
-              url: baseUrl + 'oauth/token',
+              url: baseUrlForOauth + 'oauth/token',
               data: $.param({
                 grant_type: 'refresh_token',
                 refresh_token: refreshToken
