@@ -1,12 +1,14 @@
                     <div class="ui breadcrumb">
-                      <a ui-sref="archived" class="section"><i class="archive icon"></i> Archív </a>
+                      <a ui-sref="archived" class="section"><i class="archive icon"></i> </a>
                       /
                       <span ng-repeat="breadcrumb in archive.breadcrumbs">
                         <a ng-href="archiveIterate({folderId:breadcrumb.id})" class="margin-right-xs">{{breadcrumb.name}}</a>
-                        /
+                        /&nbsp; &nbsp;
                       </span>
-                      <span class="section"></i> <h2>{{archive.name}}</h2></span>
-                      <a class="section"><i class="blue download disk icon"></i></a>
+
+                      <span class="section">&nbsp;  &nbsp; <h2>{{archive.name}}</h2></span>
+                      <a class="action" ng-click="rename()"><i class="edit icon"></i></a>
+                      <a class="action"><i class="blue download disk icon"></i></a>
                     </div>
 
                     <div class="tiny ui icon buttons right">

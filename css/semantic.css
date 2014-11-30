@@ -3805,7 +3805,7 @@ i.basic.icon.calendar:before {
   content: '📅';
 }
 /* '\1f4c5' */
-i.basic.icon.cancel:before {
+i.basic.icon.cancelcancel:before {
   content: '\2716';
 }
 /* '✖' */

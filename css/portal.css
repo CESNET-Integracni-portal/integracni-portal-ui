@@ -2,8 +2,7 @@
             Global
 *******************************/
 
-html,
-body {
+html, body {
   font-size: 15px;
   height: 100%;
 }
@@ -17,6 +16,13 @@ body {
   text-rendering: optimizeLegibility;
   min-width: 320px;
 }
+
+h2 {
+  margin: 0;
+  padding-left: 10px; 
+  padding-right: 10px; 
+}
+
 
 /*******************************
             Global
@@ -132,7 +138,7 @@ font-size: 1.1rem;
         Grid
 --------------------*/
 
-.grid, .grid > .row {
+.grid, .grid > .row.leftmenu {
   height: 100%;
 }
 
@@ -201,10 +207,6 @@ font-size: 1.1rem;
   color: #0063a8; 
 }
 
-span {
-  cursor : pointer;
-}
-
 .ui.checkbox label.color {
   padding-right:1.5em; 
   padding-left:1.2em;
@@ -215,11 +217,44 @@ span {
   position: relative;
   display: inline-block;
 }
+
+/*-------------------
+        Breadcrumb
+--------------------*/
+.breadcrumb {
+  padding-left: 0.5em;
+}
+
+.breadcrumb a {
+  text-decoration: none;
+}
+
+.breadcrumb .action i {
+  margin:0;
+}
+
+/*-------------------
+        Table
+--------------------*/
+table a {
+  text-decoration: none;
+}
+
+.dark.stripe {
+  background-color: #333333;
+  background: url(./../images/dark-bg.png) repeat;
+  color: #FFFFFF;
+}
+
+.stripe .column .label {
+  margin-bottom: 1em;
+}
+
 /*-------------------
         FEL Blue
 --------------------*/
 
-i.blue.icon, .ui.vertical.menu .item .menu .active.item, .ui.tabular.menu .active.item, .ui.tabular.menu .active.item:visited {
+i.blue.icon, .ui.vertical.menu .item .menu .active.item, .ui.tabular.menu .active.item, .ui.tabular.menu .active.item:visited, .breadcrumb a, table a {
   color: #0063a8 !important;
 }
 

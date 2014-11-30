@@ -36,6 +36,7 @@
                     </div>
                 </div>
                 <a ui-sref="settings" class="item"> <i class="settings icon"></i></a>
+                <a ng-click="logout()" class="item"> <i class="icon sign out"></i></a>
                 <div class="item">
                   <div class="ui icon input">
                     <input type="text" placeholder="Search...">
@@ -46,7 +47,7 @@
         </div>
 
         <div class="ui celled grid">
-            <div class="row">
+            <div class="row leftmenu">
                 <!-- left navigation -->
                 <div class="one wide column" style="">
                     <div class="ui secondary vertical menu" ng-controller="NavigationController as navigation">
@@ -71,6 +72,13 @@
                     
                 </div>
             </div>
+        </div>
+
+        <div class="ui right vertical sidebar">
+          <div ng-if="sidebarShow">
+              <div custom-sidebar="{{mySidebar}}"></div>
+          </div>
+          
         </div>
 
 

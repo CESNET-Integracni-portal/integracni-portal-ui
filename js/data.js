@@ -172,7 +172,7 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
             }
             d.setTime(d.getTime() + (exp*1000));
             var expires = "expires="+d.toGMTString();
-            var toSet = name + "=" + val + ";" + expires;
+            var toSet = name + "=" + val + ";" + expires + ";path=/";
             document.cookie = toSet;
         },
 
@@ -264,7 +264,7 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
             cookieService.setCookie(that._accessTokenId, response.access_token, response.expires_in);
             cookieService.setCookie(that._tokenType, response.token_type, response.expires_in);
             cookieService.setCookie(that._refreshToken, response.refresh_token);
-            urlService.redirectToApp;
+            urlService.redirectToApp();
           })/*.error(function(data, status, headers, config){
             errorCallback(data, status, headers, config);
           })*/;
@@ -274,12 +274,13 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
           cookieService.deleteCookie(this._accessTokenId);
           cookieService.deleteCookie(this._tokenType);
           cookieService.deleteCookie(this._refreshToken);
+          urlService.redirectToLoginPage();
         },
 
         refresh: function(){
           var refreshToken = cookieService.getCookie(this._refreshToken);
           if (refreshToken === null) {
-            urlService.redirectToLoginPage;
+            urlService.redirectToLoginPage();
           } else {
             var that = this;
             $http({
@@ -301,7 +302,7 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
               cookieService.deleteCookie(that._accessTokenId);
               cookieService.deleteCookie(that._tokenType);
               cookieService.deleteCookie(that._refreshToken);
-              urlService.redirectToLoginPage;
+              urlService.redirectToLoginPage();
             });
           }
         }
@@ -317,8 +318,8 @@ app.factory('urlService', function($location, $window) {
         },
 
         redirectToLoginPage: function(){
-          var basepath = this.basePath;
-          $window.location.href = basepath +"/login";
+          var basepath = this.basePath();
+          $window.location.href = basepath + "/login";
         },
 
         redirectToApp: function(){

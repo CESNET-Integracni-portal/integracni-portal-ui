@@ -23,7 +23,7 @@
         url: "/",
         templateUrl: "./partials/folder.html",
         controller: function($scope, oauthService){
-          
+          console.log("something");
         }
       })    
       // iterates over folders
@@ -52,6 +52,9 @@
             $scope.archive = { folders: data};
             $scope.archive.breadcrumbs =[];
           });
+          $scope.rename = function(){
+
+          };
         }
       })
 
@@ -64,6 +67,9 @@
           archiveService.getById(folderId).success(function(data){
             $scope.archive = data;
           });
+          $scope.rename = function(){
+            $scope.defineSidebar("./partials/sidebar/edit_name.html", folderId);
+          }
         }
       })
 
@@ -75,62 +81,48 @@
 
   });
 
-  app.directive("attachSidebar",function(){
-    return function(scope, element, attrs){
-        //scope=local scope , element is dom and attrs is attributes of it.
-        var sidebar = $('.sidebar');
-        sidebar.sidebar('attach events', 'span');
-        sidebar.sidebar('hide');
-
-    }
-  });
-
 app.directive("archivedShow", function() {
     return {
       restrict: 'E',
       templateUrl: "./partials/archived_show.html",
       controller: function($scope, unitService, userService) {
-        this.units = unitService.getAll();
-        this.users = userService.getAll();
-        var that = this;
-
-        $scope.saveUnit = function(unit){
-          // create
-          if ($scope.index === null){
-            var createdUnit = unitService.create(unit);
-            that.units.push(angular.copy(createdUnit));
-            that.reset();
-          //update
-          } else {
-            var updatedUnit = unitService.updateUnit(unit);
-            that.units[$scope.index] = angular.copy(updatedUnit);
-            that.reset();
-          }
-        };
-
-        $scope.deleteUnit = function(index){
-          that.units.splice(index, 1);
-          userService.deleteUser(index);
-        };
-
-        $scope.editUnit = function(index, unit){
-          $scope.unit = angular.copy(unit);
-          $scope.index = index;
-        };
-
-        this.reset = function(){
-          $scope.unit = {};
-          $scope.index = null;
-        };
-        this.reset();
+        
       },
       controllerAs: "unitsCtrl"
     };
   });
 
-  app.controller('MainController', function($scope, userService, urlService) {
+  app.controller('MainController', function($scope, userService, urlService, oauthService) {
     $scope.user = userService.getById(2);
     $scope.basePath = urlService.basePath();
+
+    $scope.logout = function(){
+      oauthService.logout();
+    };
+
+    $scope.deaultSidebar = function(){
+      $scope.mySidebar = {tempateUrl: "./partials/archived_show.html", data: {}};;
+      $('.sidebar').sidebar('hide');
+      $scope.sidebarShow = false;
+    };
+    $scope.defineSidebar = function(templateUrl, data){
+      $scope.mySidebar = {tempateUrl: templateUrl, data: data};
+       $('.sidebar').sidebar('show');
+       $scope.sidebarShow = true;
+    };
+    $scope.deaultSidebar();
+  });
+
+  app.directive("customSidebar", function() {
+    var mySidebar;
+
+    if (typeof mySidebar === 'undefined' || mySidebar === null){
+      return ;
+    }
+    return {
+      restrict: 'E',
+      templateUrl: mySidebar.template
+    };
   });
 
   app.controller('NavigationController', function($scope) {
