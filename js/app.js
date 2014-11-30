@@ -69,14 +69,36 @@
       .state("archiveIterate", {
         url: "/archived/{folderId:[1-9][0-9]*}",
         templateUrl: "./partials/archived_detail.html",
-        controller: function($scope, archiveService, $stateParams){
+        controller: function($scope, archiveService, $stateParams, urlService){
           var folderId = $stateParams.folderId;
           archiveService.getById(folderId).success(function(data){
             $scope.archive = data;
           });
+
+          $scope.addFolder = function(){
+            archiveService.createFolder(folderId, "NewFolder").success(function(data){
+              $scope.archive.folders.push(data);
+            });
+          };
+
           $scope.rename = function(){
-            $scope.defineSidebar("./partials/sidebar/edit_name.html", folderId);
-          }
+            archiveService.renameFolder(folderId, "NewNamedFolder").success(function(data){
+              archiveService.getById(folderId).success(function(data){
+                $scope.archive = data;
+              });
+            });
+          };
+
+          $scope.deleteFolder = function(){
+            archiveService.deleteFolder(folderId).success(function(data){
+              if ($scope.archive.breadcrumbs.length>0){
+                var last = $scope.archive.breadcrumbs[$scope.archive.breadcrumbs.length-1];
+                urlService.redirect("archived/"+last.id);
+              } else {
+                urlService.redirect("archived");
+              }
+            });
+          };
         }
       })
 

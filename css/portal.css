@@ -254,7 +254,7 @@ table a {
         FEL Blue
 --------------------*/
 
-i.blue.icon, .ui.vertical.menu .item .menu .active.item, .ui.tabular.menu .active.item, .ui.tabular.menu .active.item:visited, .breadcrumb a, table a {
+i.blue.icon, .ui.vertical.menu .item .menu .active.item, .ui.tabular.menu .active.item, .ui.tabular.menu .active.item:visited, .breadcrumb a, table a, table a:visited {
   color: #0063a8 !important;
 }
 

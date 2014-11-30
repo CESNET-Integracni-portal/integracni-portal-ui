@@ -312,7 +312,7 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
       };
   });
 
-app.factory('urlService', function($location, $window) {
+  app.factory('urlService', function($location, $window) {
       return {
         basePath: function(){
           var path = $location.path();
@@ -323,6 +323,10 @@ app.factory('urlService', function($location, $window) {
         redirectToLoginPage: function(){
           var basepath = this.basePath();
           $window.location.href = basepath + "/login";
+        },
+
+        redirect: function(url){
+          $location.path(url);
         },
 
         redirectToApp: function(){
@@ -359,7 +363,21 @@ app.factory('archiveService', function(utils, $http, httpService) {
           getById: function(archiveId){
             return $http.get(baseUrl + 'archive/folder/' + archiveId);
           },
+
+          createFolder: function(folderId, name){
+            // create on server side
+            return httpService.createRequest("POST", baseUrl + 'archive/folder/' + folderId, {name : name}, "application/json");
+          },
+
+          renameFolder: function(folderId, name){
+            // create on server side
+            return httpService.createRequest("PUT", baseUrl + 'archive/folder/' + folderId, {name : name}, "application/json");
+          },
           
+          deleteFolderdeleteFolder: function(folderId){
+            // create on server side
+            return httpService.createRequest("DELETE", baseUrl + 'archive/folder/' + folderId, {}, "application/json");
+          },
           
           deleteArchive: function(groupId){
             // delete on server side
