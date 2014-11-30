@@ -50,16 +50,22 @@
         controller: function($scope, archiveService){
           archiveService.getAll().success(function(data){
             $scope.archive = { folders: data};
+            $scope.archive.breadcrumbs =[];
           });
         }
       })
 
       // iterates over archive
       .state("archiveIterate", {
-        url: "/archive/{folderId:[1-9][0-9]*}",
-        templateUrl: "./partials/folder.html",
-        controller: attachSidebar
-      }) 
+        url: "/archived/{folderId:[1-9][0-9]*}",
+        templateUrl: "./partials/archived_detail.html",
+        controller: function($scope, archiveService, $stateParams){
+          var folderId = $stateParams.folderId;
+          archiveService.getById(folderId).success(function(data){
+            $scope.archive = data;
+          });
+        }
+      })
 
       .state("shared", {
         url: "/shared",
@@ -79,8 +85,52 @@
     }
   });
 
-  app.controller('MainController', function($scope, userService) {
+app.directive("archivedShow", function() {
+    return {
+      restrict: 'E',
+      templateUrl: "./partials/archived_show.html",
+      controller: function($scope, unitService, userService) {
+        this.units = unitService.getAll();
+        this.users = userService.getAll();
+        var that = this;
+
+        $scope.saveUnit = function(unit){
+          // create
+          if ($scope.index === null){
+            var createdUnit = unitService.create(unit);
+            that.units.push(angular.copy(createdUnit));
+            that.reset();
+          //update
+          } else {
+            var updatedUnit = unitService.updateUnit(unit);
+            that.units[$scope.index] = angular.copy(updatedUnit);
+            that.reset();
+          }
+        };
+
+        $scope.deleteUnit = function(index){
+          that.units.splice(index, 1);
+          userService.deleteUser(index);
+        };
+
+        $scope.editUnit = function(index, unit){
+          $scope.unit = angular.copy(unit);
+          $scope.index = index;
+        };
+
+        this.reset = function(){
+          $scope.unit = {};
+          $scope.index = null;
+        };
+        this.reset();
+      },
+      controllerAs: "unitsCtrl"
+    };
+  });
+
+  app.controller('MainController', function($scope, userService, urlService) {
     $scope.user = userService.getById(2);
+    $scope.basePath = urlService.basePath();
   });
 
   app.controller('NavigationController', function($scope) {

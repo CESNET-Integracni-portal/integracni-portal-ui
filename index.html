@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="cz" ng-app="app">
+<html lang="cz" ng-app="app" ng-controller="MainController as mainCtrl">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
         <title ng-bind="$state.current.name + ' - Integrační portál'">Integrační portál</title>
 
-        <link href="./css/semantic.css" rel="stylesheet" type="text/css">
-        
-        <link href="./css/portal.css" rel="stylesheet" type="text/css">
+        <link href="./css/semantic.css" ng-href="./css/semantic.css" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="favicon.ico" >
+        <link href="./css/portal.css" ng-href="./css/portal.css" rel="stylesheet" type="text/css">
         <base href="/integracni-portal-ui/" />
     </head>
     
-    <body ng-controller="MainController as mainCtrl">
+    <body >
         <!-- top navigation -->
         <div class="ui fixed inverted pointing menu">
             <a class="item project" ui-sref="index">Integrační portál</a>
-            <div class="right menu">
+            <div class="menu right">
                 <div class="ui top right pointing mobile dropdown link item">
                     <i class="reorder icon"></i>
                     <i class="dropdown icon"></i>

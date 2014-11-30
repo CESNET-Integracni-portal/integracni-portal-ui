@@ -200,7 +200,7 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
       };
   });
 
-  app.factory('httpService', function(cookieService, $http, oauthService) {
+  app.factory('httpService', function(cookieService, $http, oauthService, urlService) {
       return {
         _accessTokenId: "accessToken",
         _refreshToken: "refreshToken",
@@ -235,12 +235,12 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
         },
 
         redirectToLogin: function(){
-          oauthService.redirectToLoginPage();
+          urlService.redirectToLoginPage();
         }
       };
   });
 
-  app.factory('oauthService', function(cookieService, $http, $location, $window) {
+  app.factory('oauthService', function(cookieService, $http, $location, $window, urlService) {
       return {
         _accessTokenId: "accessToken",
         _refreshToken: "refreshToken",
@@ -261,10 +261,10 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
               "Content-Type": 'application/x-www-form-urlencoded'
             }
           }).success(function(response){
-            cookieService.setCookie(that._accessTokenId, response.access_token, response.expires);
-            cookieService.setCookie(that._tokenType, response.token_type, response.expires);
+            cookieService.setCookie(that._accessTokenId, response.access_token, response.expires_in);
+            cookieService.setCookie(that._tokenType, response.token_type, response.expires_in);
             cookieService.setCookie(that._refreshToken, response.refresh_token);
-            that.redirectToApp();
+            urlService.redirectToApp;
           })/*.error(function(data, status, headers, config){
             errorCallback(data, status, headers, config);
           })*/;
@@ -279,7 +279,7 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
         refresh: function(){
           var refreshToken = cookieService.getCookie(this._refreshToken);
           if (refreshToken === null) {
-            this.redirectToLoginPage();
+            urlService.redirectToLoginPage;
           } else {
             var that = this;
             $http({
@@ -293,23 +293,31 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
                 Authorization: authorization_token,
                 "Content-Type": 'application/x-www-form-urlencoded'
               }
-            }).success(function(response, cookieService){
-              cookieService.setCookie(this._accessTokenId, response.access_token, response.expires);
-              cookieService.setCookie(this._tokenType, response.token_type, response.expires);
-              cookieService.setCookie(this._refreshToken, response.refresh_token);
+            }).success(function(response){
+              cookieService.setCookie(that._accessTokenId, response.access_token, response.expires_in);
+              cookieService.setCookie(that._tokenType, response.token_type, response.expires_in);
+              cookieService.setCookie(that._refreshToken, response.refresh_token);
             }).error(function(){
-              cookieService.deleteCookie(this._accessTokenId);
-              cookieService.deleteCookie(this._tokenType);
-              cookieService.deleteCookie(this._refreshToken);
-              that.redirectToLoginPage();
+              cookieService.deleteCookie(that._accessTokenId);
+              cookieService.deleteCookie(that._tokenType);
+              cookieService.deleteCookie(that._refreshToken);
+              urlService.redirectToLoginPage;
             });
           }
+        }
+      };
+  });
+
+app.factory('urlService', function($location, $window) {
+      return {
+        basePath: function(){
+          var path = $location.path();
+          var absUrl = $location.absUrl();
+          return absUrl.substring(0, (absUrl.length-path.length));
         },
 
         redirectToLoginPage: function(){
-          var path = $location.path();
-          var absUrl = $location.absUrl();
-          var basepath = absUrl.substring(0, (absUrl.length-path.length));
+          var basepath = this.basePath;
           $window.location.href = basepath +"/login";
         },
 
