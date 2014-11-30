@@ -52,6 +52,13 @@
             $scope.archive = { folders: data};
             $scope.archive.breadcrumbs =[];
           });
+
+          $scope.addRootFolder = function(){
+            archiveService.createFolderInRoot("NewFolder").success(function(data){
+              $scope.archive.folders.push(data);
+            });
+          };
+
           $scope.rename = function(){
 
           };

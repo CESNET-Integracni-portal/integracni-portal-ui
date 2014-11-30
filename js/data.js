@@ -158,7 +158,12 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
   app.factory('cookieService', function($http) {
       return {
         _defaultExp : 86400, //in seconds (86400 = 1 day)
-
+        _accessToken : null,
+        _tokenType : null,
+        _refreshToken : null,
+        _accessTokenId: "accessToken",
+        _refreshToken: "refreshToken",
+        _tokenType: "tokenType",
         /**
          * Set cookie
          * @param name
@@ -166,6 +171,7 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
          * @param exp |null expiration in seconds, it's used _defaultExp when null
          */
         setCookie : function(name, val, exp){
+
             var d = new Date();
             if (exp === undefined){
                 exp = this._defaultExp;
@@ -207,10 +213,10 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
         _tokenType: "tokenType",
         _first: true,
 
-        createRequest: function( method, url, data, errorCallback){
+        createRequest: function( method, url, data, contentType){
           var that = this;
-          var accessToken = cookieService.get(this._accessTokenId);
-          var tokenType = ookieService.get(this._tokenType);
+          var accessToken = cookieService.getCookie(this._accessTokenId);
+          var tokenType = cookieService.getCookie(this._tokenType);
           if (accessToken !== null && tokenType !== null){
 
             this._first = true;
@@ -219,7 +225,8 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
               url: url,
               data: data,
               headers: {
-                Authorization: tokenType + " " + accessToken
+                Authorization: tokenType + " " + accessToken,
+                "Content-Type": contentType
               }
             });
           } else if (this._first) {
@@ -227,15 +234,11 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
             oauthService.refresh().success(function(){
               that.createRequest(method, url, data);
             }).error(function(){
-              that.redirectToLogin();
+              urlService.redirectToLoginPage();
             });
           } else {
-            this.redirectToLogin();
+            urlService.redirectToLoginPage();
           } 
-        },
-
-        redirectToLogin: function(){
-          urlService.redirectToLoginPage();
         }
       };
   });
@@ -332,7 +335,7 @@ app.factory('urlService', function($location, $window) {
   });
 
 
-app.factory('archiveService', function(utils, $http) {
+app.factory('archiveService', function(utils, $http, httpService) {
       /**
       Users parameters:
         int id - unique
@@ -342,25 +345,29 @@ app.factory('archiveService', function(utils, $http) {
       */
       return {
 
-        getAll: function(){
-          return $http.get(baseUrl + 'archive');
-        },
-        
-        getById: function(archiveId){
-          return $http.get(baseUrl + 'archive/folder/' + archiveId);
-        },
-        
-        create: function(group){
-          // create on server side
-          return group;
-        },
-        deleteArchive: function(groupId){
-          // delete on server side
-        }, 
-        updateArchive: function(group){
-          // update on server side
-          return group;
-        } 
+        // root
+          getAll: function(){
+            return $http.get(baseUrl + 'archive');
+          },
+          
+          createFolderInRoot: function(name){
+            // create on server side
+            return httpService.createRequest("POST", baseUrl + 'archive', {name : name}, "application/json");
+          },
+
+        // subfolder of root
+          getById: function(archiveId){
+            return $http.get(baseUrl + 'archive/folder/' + archiveId);
+          },
+          
+          
+          deleteArchive: function(groupId){
+            // delete on server side
+          }, 
+          updateArchive: function(group){
+            // update on server side
+            return group;
+          } 
       };
   });
 
