@@ -374,18 +374,18 @@ app.factory('archiveService', function(utils, $http, httpService) {
             return httpService.createRequest("PUT", baseUrl + 'archive/folder/' + folderId, {name : name}, "application/json");
           },
           
-          deleteFolderdeleteFolder: function(folderId){
+          deleteFolder: function(folderId){
             // create on server side
             return httpService.createRequest("DELETE", baseUrl + 'archive/folder/' + folderId, {}, "application/json");
           },
           
-          deleteArchive: function(groupId){
-            // delete on server side
-          }, 
-          updateArchive: function(group){
-            // update on server side
-            return group;
-          } 
+          addFile: function(file, name){
+            // create on server side
+            return httpService.createRequest(
+              "DELETE", 
+              baseUrl + 'archive/folder/' + folderId, 
+              $.param({fileName: file, name: name}), "multipart/form-data");
+          }
       };
   });
 

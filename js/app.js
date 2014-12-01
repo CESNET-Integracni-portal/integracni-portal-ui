@@ -52,11 +52,28 @@
             $scope.archive = { folders: data};
             $scope.archive.breadcrumbs =[];
           });
+          var modal = null;
 
-          $scope.addRootFolder = function(){
-            archiveService.createFolderInRoot("NewFolder").success(function(data){
+          var getModal = function(){
+            if (modal === null) {
+              modal = $('#add.modal');
+            }
+            return modal;
+          };
+
+          $scope.add = function(){
+            getModal().modal('show');
+            /*archiveService.createFolderInRoot("NewFolder").success(function(data){
+              $scope.archive.folders.push(data);
+            });*/
+          };
+
+          $scope.createFolder = function(folder){
+            archiveService.createFolderInRoot(folder.name).success(function(data){
               $scope.archive.folders.push(data);
             });
+            folder.name ="";
+            getModal().modal('hide');
           };
 
           $scope.rename = function(){
@@ -79,10 +96,25 @@
             $scope.archive = data;
           });
 
-          $scope.addFolder = function(){
-            archiveService.createFolder(folderId, "NewFolder").success(function(data){
+          var modal = null;
+
+          var getModal = function(){
+            if (modal === null) {
+              modal = $('#add.modal');
+            }
+            return modal;
+          };
+
+          $scope.add = function(){
+            getModal().modal('show');
+          };
+
+          $scope.createFolder = function(folder){
+            archiveService.createFolder(folderId, folder.name).success(function(data){
               $scope.archive.folders.push(data);
             });
+            folder.name ="";
+            getModal().modal('hide');
           };
 
           $scope.rename = function(){
@@ -102,6 +134,14 @@
                 urlService.redirect("archived");
               }
             });
+          };
+
+          $scope.setName = function(){
+            file.name = file.file;
+          };
+
+          $scope.uploadFile = function(file){
+
           };
 
           $scope.empty = function(){
