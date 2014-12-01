@@ -157,7 +157,11 @@
           };
 
           $scope.uploadFile = function(file){
-
+            archiveService.addFile(folderId, file.filename, file.name).success(function(data){
+              $scope.archive.files.push(data);
+            });
+            file = {};
+            getModal().modal('hide');
           };
 
           $scope.empty = function(){
@@ -342,6 +346,16 @@
         var userId = $scope.user.id;
         $scope.label = {};
         $scope.index = null;
+
+        var modal = null;
+
+        var getModal = function(){
+          if (modal === null) {
+            modal = $('#add.modal');
+          }
+          return modal;
+        };
+
         $scope.saveLabel = function(label){
           // create
           if ($scope.index === null){
@@ -358,6 +372,7 @@
             label.color = null;
             $scope.index = null;
           }
+          getModal().modal('hide');
         };
 
         $scope.deleteLabel = function(index){
@@ -368,7 +383,16 @@
         $scope.editLabel = function(index, label){
           $scope.label = angular.copy(label);
           $scope.index = index;
-        }
+          getModal().modal('show');
+        };
+
+        $scope.addLabel = function(){
+          getModal().modal('show');
+        };
+
+        $scope.empty = function(){
+            return (typeof $scope.label === 'undefined' || $scope.label.length === 0 );
+          };
 
       },
       controllerAs: "labelsCtrl"

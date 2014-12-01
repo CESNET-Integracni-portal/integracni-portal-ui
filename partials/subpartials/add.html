@@ -1,5 +1,28 @@
                     <div id="add" class="ui modal">
                       <i class="close icon"></i>
+
+                      
+
+                      <div class="header">
+                        Nahrát soubor
+                      </div>
+                      <div class="content">
+                        <form class="ui small form">
+                          
+                          <div class="field">
+                            <label>Pojmenovat jako</label>
+                            <input type="text" ng-model="newfile.name">
+                          </div>
+                          <div class="field">
+                            <label>Vyberte soubor</label>
+                            <input type="file" ng-model="newfile.filename">
+                          </div>
+                          <div ng-click="uploadFile(newfile)" class="ui button">
+                            Nahrát soubor
+                          </div>
+                        </form>
+                      </div>
+
                       <div class="header">
                         Přidání složky
                       </div>
@@ -15,23 +38,4 @@
                         </form>
                       </div>
 
-                      <div class="header">
-                        Nahrát soubor
-                      </div>
-                      <div class="content">
-                        <form class="ui small form">
-                          <div class="field">
-                            <label>Vyberte soubor</label>
-                            <input type="file" ng-model="file.file" ng-click="setName(file)">
-                          </div>
-                          <div class="field">
-                            <label>Pojmenovat jako</label>
-                            <input type="text" ng-model="file.name">
-                          </div>
-                          <div ng-click="uploadFile(file)" class="ui button">
-                            Nahrát soubor
-                          </div>
-                        </form>
-                      </div>
                     </div>
-                    

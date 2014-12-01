@@ -379,11 +379,11 @@ app.factory('archiveService', function(utils, $http, httpService) {
             return httpService.createRequest("DELETE", baseUrl + 'archive/folder/' + folderId, {}, "application/json");
           },
           
-          addFile: function(file, name){
+          addFile: function(folderId, file, name){
             // create on server side
             return httpService.createRequest(
-              "DELETE", 
-              baseUrl + 'archive/folder/' + folderId, 
+              "POST", 
+              baseUrl + 'archive/folder/' + folderId + "/files", 
               $.param({fileName: file, name: name}), "multipart/form-data");
           }
       };
