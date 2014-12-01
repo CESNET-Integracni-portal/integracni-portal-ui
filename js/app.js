@@ -76,6 +76,15 @@
             getModal().modal('hide');
           };
 
+          $scope.deleteFolder = function(folderId){
+            archiveService.deleteFolder(folderId).success(function(data){
+                archiveService.getAll().success(function(data){
+                  $scope.archive = { folders: data};
+                  $scope.archive.breadcrumbs =[];
+                });
+            });
+          };
+
           $scope.rename = function(){
 
           };
@@ -125,13 +134,20 @@
             });
           };
 
-          $scope.deleteFolder = function(){
-            archiveService.deleteFolder(folderId).success(function(data){
-              if ($scope.archive.breadcrumbs.length>0){
-                var last = $scope.archive.breadcrumbs[$scope.archive.breadcrumbs.length-1];
-                urlService.redirect("archived/"+last.id);
+          $scope.deleteFolder = function(delFolderId){
+            var folderToDelete = (typeof delFolderId === 'undefined' ? folderId : delFolderId);
+            archiveService.deleteFolder(folderToDelete).success(function(data){
+              if (typeof delFolderId === 'undefined') {
+                if ($scope.archive.breadcrumbs.length>0){
+                  var last = $scope.archive.breadcrumbs[$scope.archive.breadcrumbs.length-1];
+                  urlService.redirect("archived/"+last.id);
+                } else {
+                  urlService.redirect("archived");
+                }
               } else {
-                urlService.redirect("archived");
+                archiveService.getById(folderId).success(function(data){
+                  $scope.archive = data;
+                });
               }
             });
           };
@@ -158,17 +174,6 @@
         controller: attachSidebar
       });
 
-  });
-
-app.directive("archivedShow", function() {
-    return {
-      restrict: 'E',
-      templateUrl: "./partials/archived_show.html",
-      controller: function($scope, unitService, userService) {
-        
-      },
-      controllerAs: "unitsCtrl"
-    };
   });
 
   app.controller('MainController', function($scope, userService, urlService, oauthService) {

@@ -15,7 +15,8 @@
                                 <td>--</td>
                                 <td>{{folder.owner.username}}</td>
                                 <td class="actions">
-                                  <a href="#"><i class="blue pin icon"></i></i></a>
+                                  <a class="action"><i class="blue pin icon"></i></a>
+                                  <a class="action" ng-click="deleteFolder(folder.id)"><i class="trash icon"></i></a>
                                 </td>
                             </tr>
                             <tr ng-repeat="file in archive.files" attach-sidebar>
