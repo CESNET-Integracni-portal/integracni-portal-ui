@@ -183,7 +183,7 @@
   app.controller('MainController', function($scope, userService, urlService, oauthService) {
     $scope.user = userService.getById(2);
     $scope.basePath = urlService.basePath();
-    $scope.table = true;
+    $scope.table = false;
 
     $scope.showAsTable = function(){
       $scope.table = true;

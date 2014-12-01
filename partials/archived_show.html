@@ -3,7 +3,7 @@
                     <div class="ui button" ng-class="{ active:!table }" ng-click="showAsItems()"><i class="grid layout icon"></i></div>
                   </div>
                   <div class="clear"></div>
-                  
+
                   <div ng-show="table">
                     <table class="ui basic table compact">
                         <thead>
@@ -40,7 +40,35 @@
                       Složka je prázdná.
                     </p>
                   </div>
-                  <div ng-hide="table"> items</div>
+                  <div ng-hide="table">
+                    <div class="ui items">
+                      
+                      <div class="item" ng-repeat="folder in archive.folders">
+                        <i class=" massive folder outline icon"></i>
+                        <div class="content">
+                          <a class="name center" ui-sref="archiveIterate({folderId:folder.id})">{{folder.name}}</a>
+                          <p>Vlastník: {{folder.owner.username}} </p>
+                          <div class="actions">
+                            <a class="action"><i class="blue pin icon"></i></a>
+                                  <a class="action" ng-click="deleteFolder(folder.id)"><i class="trash icon"></i></a>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="item" ng-repeat="file in archive.files" >
+                        <i class=" massive file outline icon"></i>
+                        <div class="content">
+                          <a class="name center" ui-sref="archiveIterate({folderId:folder.id})">{{file.filename}}</a>
+                          <p>Velikost: {{file.filesize}} </p>
+                          <p>Vlastník: {{file.owner.username}} </p>
+                          <div class="actions">
+                            <a class="action"><i class="blue pin icon"></i></a>
+                                  <a class="action" ng-click="deleteFolder(folder.id)"><i class="trash icon"></i></a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
                     
 
