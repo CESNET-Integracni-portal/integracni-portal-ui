@@ -67,6 +67,8 @@ font-size: 1.1rem;
 .ui.inverted.menu .item.project {
   padding-left: 30px;
   color: #FFFFFF;
+  position: relative;
+  float: left;
 }
 
 .ui.vertical.menu {
