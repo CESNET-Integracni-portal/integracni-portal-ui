@@ -62,6 +62,10 @@
           $scope.rename = function(){
 
           };
+
+          $scope.empty = function(){
+            return (typeof $scope.archive === 'undefined' || (typeof $scope.archive.folders === 'undefined' || $scope.archive.folders.length === 0) && (typeof $scope.archive.files === 'undefined' || $scope.archive.files.length === 0));
+          };
         }
       })
 
@@ -99,6 +103,12 @@
               }
             });
           };
+
+          $scope.empty = function(){
+            return (typeof $scope.archive === 'undefined' || (typeof $scope.archive.folders === 'undefined' || $scope.archive.folders.length === 0) && (typeof $scope.archive.files === 'undefined' || $scope.archive.files.length === 0));
+          };
+
+          
         }
       })
 
@@ -149,8 +159,10 @@ app.directive("archivedShow", function() {
       return ;
     }
     return {
-      restrict: 'E',
-      templateUrl: mySidebar.template
+      restrict: 'EA',
+      templateUrl: function(tElement, tAttrs) {
+        return tAttrs.templateUrl;
+      }
     };
   });
 
