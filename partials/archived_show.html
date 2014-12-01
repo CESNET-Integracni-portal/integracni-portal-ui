@@ -1,4 +1,11 @@
-                  <table class="ui basic table compact">
+                  <div class="tiny ui icon buttons right">
+                    <div class="ui button" ng-class="{ active:table }"  ng-click="showAsTable()"><i class="list layout icon"></i></div>
+                    <div class="ui button" ng-class="{ active:!table }" ng-click="showAsItems()"><i class="grid layout icon"></i></div>
+                  </div>
+                  <div class="clear"></div>
+                  
+                  <div ng-show="table">
+                    <table class="ui basic table compact">
                         <thead>
                             <tr>
                               <th><input type="checkbox"></th>
@@ -29,10 +36,13 @@
                             </tr>
                         </tbody>
                     </table>
-
                     <p ng-show="empty()" class="animate-if">
                       Složka je prázdná.
                     </p>
+                  </div>
+                  <div ng-hide="table"> items</div>
+
+                    
 
                     <div ng-include="'./partials/subpartials/add.html'"> ... </div>
                 

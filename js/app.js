@@ -183,6 +183,15 @@
   app.controller('MainController', function($scope, userService, urlService, oauthService) {
     $scope.user = userService.getById(2);
     $scope.basePath = urlService.basePath();
+    $scope.table = true;
+
+    $scope.showAsTable = function(){
+      $scope.table = true;
+    };
+
+    $scope.showAsItems = function(){
+      $scope.table = false;
+    };
 
     $scope.logout = function(){
       oauthService.logout();

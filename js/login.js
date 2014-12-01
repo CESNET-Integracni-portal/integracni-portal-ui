@@ -26,8 +26,13 @@
     $scope.superAdmin = function(){
       login("admin", "admin");
     };
+    
     $scope.unitManager = function(){
-      login("pff", "pff");
+      login("unit_manager", "unit_manager");
+    };
+
+    $scope.normalUser = function(){
+      login("unit_manager", "unit_manager");
     };
   });
 
