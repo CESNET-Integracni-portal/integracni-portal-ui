@@ -23,27 +23,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr ng-repeat="folder in archive.folders">
                                 <td><input type="checkbox"></td>
-                                <td><i class="folder outline icon"></i> <span>Složka 3</span>
+                                <td><a ui-sref="archiveIterate({folderId:folder.id})"><i class="folder outline icon"></i> <span>{{folder.name}}</span></a>
                                     <a class="item" ng-repeat="label in folder.labels" ui-sref="label/{{label.id}}"><i class="bookmark red basic icon"></i></a>
                                 </td>
                                 <td>Jan Novák</td>
                                 <td>--</td>
                                 <td class="actions">
+                                  <a class="action" ><i class="download disk icon"></i></a>
                                   <a href="#"><i class="edit icon"></i></a>
+                                  <a class="action"><i class="blue pin icon"></i></a>
                                   <a href="#"><i class="trash icon"></i></a>
                                 </td>
                             </tr>
-                            <tr>
+                            <tr ng-repeat="file in archive.files" attach-sidebar>
                                 <td><input type="checkbox"></td>
                                 <td><i class="file outline icon"></i>
-                                 <span>Soubor<span>
-                                 <a class="item" ui-sref="archived"> <i class="archive icon"></i> </a>
+                                 <span>{{file.filename}}<span>
                                  </td>
                                 <td>Petr Novák</td>
-                                <td>3 MB</td>
+                                <td>{{file.filesize}} MB</td>
                                 <td class="actions">
+                                <a class="action" ><i class="download disk icon"></i></a>
                                   <a href="#"><i class="edit icon"></i></a>
                                   <a href="#"><i class="trash icon"></i></a>
                                 </td>

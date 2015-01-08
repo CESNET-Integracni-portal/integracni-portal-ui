@@ -26,7 +26,7 @@
                       <div class="item">Využití: 1,76GB (12%) z 13GB</div>
                       <a class="item" ui-sref="settings">Nastavení</a>
                       <a class="item" ui-sref="tutorials">Nápověda</a>
-                      <a class="item" ui-sref="logout"> <i class="icon sign out"></i>Odhlásit</a>
+                      <a class="item" ng-click="logout()"> <i class="icon sign out"></i>Odhlásit</a>
                     </div>
                 </div>
                 
@@ -42,7 +42,7 @@
                     <div class="menu ui transition hidden">
                         <div class="item">Využití: 1,76GB (12%) z 13GB</div>
                         <a class="item" ui-sref="tutorials"> Nápověda </a>
-                        <a class="item" ui-sref="logout"> <i class="icon sign out"></i> Odhlásit </a>
+                        <a class="item" ng-click="logout()"> <i class="icon sign out"></i> Odhlásit </a>
                     </div>
                 </div>
                 <a ng-click="logout()" class="item"> <i class="icon sign out"></i></a>
@@ -68,7 +68,7 @@
                     <div class="ui fixed bottom small borderless vertical menu">
                          <div class="item">Využití: </div>
                          <div class="item">1,76GB (12%) z 13GB</div>
-                        <a class="item blue" ui-sref="tutorials"> Tutoriál </a>
+                        <a class="item blue" ui-sref="tutorials"> Nápověda </a>
                     </div>
                 </div>
                 <!-- content -->
@@ -79,6 +79,9 @@
         </div>
 
         <div class="ui right vertical sidebar">
+        <a href="#" class="sidebar-hide-btn" title="Close the board sidebar."> 
+                            <i class="right arrow icon"></i>
+                        </a>
             <i class="massive folder icon"></i>
 
             <h2> UML </h2>
@@ -93,6 +96,7 @@
             <br>
             <!--labels-->
             <form class="ui small form">
+
                           <div class="field">
                             <label> </label>
                             <div ng-repeat="label in user.labels">

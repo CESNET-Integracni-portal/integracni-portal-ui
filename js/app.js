@@ -22,8 +22,51 @@
       .state("index", {
         url: "/",
         templateUrl: "./partials/folder.html",
-        controller: function($scope, oauthService){
-          console.log("something");
+        controller: function($scope, archiveService){
+          archiveService.getAll().success(function(data){
+            $scope.archive = { folders: data};
+            $scope.archive.breadcrumbs =[];
+          });
+          var modal = null;
+
+          var getModal = function(){
+            if (modal === null) {
+              modal = $('#add.modal');
+            }
+            return modal;
+          };
+
+          $scope.add = function(){
+            getModal().modal('show');
+            /*archiveService.createFolderInRoot("NewFolder").success(function(data){
+              $scope.archive.folders.push(data);
+            });*/
+          };
+
+          $scope.createFolder = function(folder){
+            archiveService.createFolderInRoot(folder.name).success(function(data){
+              $scope.archive.folders.push(data);
+            });
+            folder.name ="";
+            getModal().modal('hide');
+          };
+
+          $scope.deleteFolder = function(folderId){
+            archiveService.deleteFolder(folderId).success(function(data){
+                archiveService.getAll().success(function(data){
+                  $scope.archive = { folders: data};
+                  $scope.archive.breadcrumbs =[];
+                });
+            });
+          };
+
+          $scope.rename = function(){
+
+          };
+
+          $scope.empty = function(){
+            return (typeof $scope.archive === 'undefined' || (typeof $scope.archive.folders === 'undefined' || $scope.archive.folders.length === 0) && (typeof $scope.archive.files === 'undefined' || $scope.archive.files.length === 0));
+          };
         }
       })    
       // iterates over folders

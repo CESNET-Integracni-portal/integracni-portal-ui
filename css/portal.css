@@ -135,6 +135,7 @@ font-size: 1.1rem;
   -webkit-transition: margin-left 0.3s ease;
   -moz-transition: margin-left 0.3s ease;
   transition: margin-left 0.3s ease;
+  padding-left: 10px;
 }
 
 .ui.right.sidebar {
@@ -145,8 +146,9 @@ font-size: 1.1rem;
   margin-left: -271px !important;
 }
 
-.one.wide.column {}
-
+.ui.right.sidebar i.massive.icon{
+  padding-left: 60px;
+}
 /*-------------------
         Grid
 --------------------*/
