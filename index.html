@@ -22,28 +22,31 @@
                     <i class="reorder icon"></i>
                     <i class="dropdown icon"></i>
                     <div class="menu">
+                      <div class="item">{{user.username}}</div>
+                      <div class="item">Využití: 1,76GB (12%) z 13GB</div>
                       <a class="item" ui-sref="settings">Nastavení</a>
-                      <a class="item" ui-sref="tutorials">Tutoriály</a>
-                      <a class="item" ui-sref="logout">Odhlásit</a>
+                      <a class="item" ui-sref="tutorials">Nápověda</a>
+                      <a class="item" ui-sref="logout"> <i class="icon sign out"></i>Odhlásit</a>
                     </div>
                 </div>
                 
-                <div class="ui dropdown link item" href="#">
-                    {{user.username}} <i class="dropdown icon"></i>
-                    <div class="menu ui transition hidden">
-                        <div class="item">Využití: 1,76GB (12%) z 13GB</div>
-                        <a class="item" ui-sref="tutorials"> Tutoriály </a>
-                        <a class="item" ui-sref="logout"> Odhlásit </a>
-                    </div>
-                </div>
-                <a ui-sref="settings" class="item"> <i class="settings icon"></i></a>
-                <a ng-click="logout()" class="item"> <i class="icon sign out"></i></a>
                 <div class="item">
                   <div class="ui icon input">
                     <input type="text" placeholder="Search...">
                     <i class="search link icon"></i>
                   </div>
                 </div>
+                <a ui-sref="settings" class="item"> <i class="settings icon"></i></a>
+                <div class="ui dropdown link item" href="#">
+                    {{user.username}} <i class="dropdown icon"></i>
+                    <div class="menu ui transition hidden">
+                        <div class="item">Využití: 1,76GB (12%) z 13GB</div>
+                        <a class="item" ui-sref="tutorials"> Nápověda </a>
+                        <a class="item" ui-sref="logout"> <i class="icon sign out"></i> Odhlásit </a>
+                    </div>
+                </div>
+                <a ng-click="logout()" class="item"> <i class="icon sign out"></i></a>
+                
             </div>
         </div>
 
@@ -52,20 +55,20 @@
                 <!-- left navigation -->
                 <div class="one wide column" style="">
                     <div class="ui secondary vertical menu" ng-controller="NavigationController as navigation">
-                        <div class="item"> <i class="home icon"></i> Můj prostor
-                            <div class="menu">
-                              <a class="blue item" > <i class="folder icon"></i> Složka 1</a>
-                              <a class="item" > <i class="folder icon"></i> Složka 2</a>
-                            </div>
-                        </div>
+                        <a class="item" ui-sref-active="active" ui-sref="index"> <i class="home icon"></i> Můj prostor </a>
                         <a class="item" ui-sref-active="active" ui-sref="shared"> <i class="users icon"></i> Sdílené </a>
-                        <a class="item" ui-sref-active="active" ui-sref="archived"> <i class="archive icon"></i> Archív </a>
+                        <a class="item" ui-sref-active="active" ui-sref="archived"> <i class="archive icon"> </i>Archiv </a>
                         <!-- labels -->
                         <a class="item" ng-repeat="label in user.labels" ui-sref="label/{{label.id}}"><i class="bookmark {{label.color}} basic icon"></i>{{label.name}}</a>
                         <div class="divider"></div>
                         <!-- fast folders -->
-                        <a class="item" ng-repeat="fast in navigation.fastFolders" ui-sref="fast.url"> {{fast.name}} </a>
+                        <a class="item" ng-repeat="fast in navigation.fastFolders" ui-sref="fast.url"> <i class="pin icon"></i> {{fast.name}} </a>
                         
+                    </div>
+                    <div class="ui fixed bottom small borderless vertical menu">
+                         <div class="item">Využití: </div>
+                         <div class="item">1,76GB (12%) z 13GB</div>
+                        <a class="item blue" ui-sref="tutorials"> Tutoriál </a>
                     </div>
                 </div>
                 <!-- content -->
@@ -76,9 +79,67 @@
         </div>
 
         <div class="ui right vertical sidebar">
-          <div ng-if="sidebarShow">
-              <div custom-sidebar="{{mySidebar}}"></div>
-          </div>
+            <i class="massive folder icon"></i>
+
+            <h2> UML </h2>
+
+            <!--actions-->
+              <a class="action" ><i class="blue download disk icon"></i></a>
+              <a class="action" ><i class="blue edit icon"></i></a>
+              <a class="action"><i class="blue pin icon"></i></a>
+              <a class="action" ng-click="deleteFolder(folder.id)"><i class="blue trash icon"></i></a>
+
+            <br>
+            <br>
+            <!--labels-->
+            <form class="ui small form">
+                          <div class="field">
+                            <label> </label>
+                            <div ng-repeat="label in user.labels">
+                        <input  type="checkbox" name="label.id" value="{{label.name}}">
+                        <label><i class="bookmark {{label.color}} basic icon"></i>{{label.name}}</label>
+                        </div>
+            </div>
+            <br>
+            <form class="ui small form">
+                          <div class="field">
+                            <label>Nový název složky</label>
+                            <input type="text" ng-model="folder.name" value="UML">
+                          </div>
+                          <div ng-click="createFolder(folder)" class="ui button">
+                            Uložit
+                          </div>
+                        </form>
+
+            
+            <br>
+            <!--share-->
+            <form class="ui small form">
+                          <div class="field">
+                            <label>Sdílet s</label>
+                            <select name="user" ng-click="addUser()">
+        <option>----</option>
+        <option>Jan Novák</option>
+      </select>
+                          </div>
+                          <div class="ui button">
+                            Sdílet
+                          </div>
+                        </form>
+            
+            
+
+                
+
+        </form>
+
+
+
+
+          <!--<div ng-if="sidebarShow">
+              <div custom-sidebar="{{mySidebar}}">
+              </div>
+          </div>-->
           
         </div>
 

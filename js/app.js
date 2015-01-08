@@ -476,13 +476,8 @@
 // ----- fast Folders (in left navigation) -----
   var fastFolders = [{
     id: 1,
-    name: "Rychlá složka 1",
+    name: "work",
     url: "/1" // id původní složky
-  },
-  {
-    id: 2,
-    name: "Rychlá složka 2",
-    url: "/2"
   }];
 
   var folders = [

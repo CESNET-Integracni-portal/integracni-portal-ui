@@ -22,8 +22,11 @@
                                 <td>--</td>
                                 <td>{{folder.owner.username}}</td>
                                 <td class="actions">
+                                  <a class="action" ><i class="download disk icon"></i></a>
+                                  <a class="action" ><i class="edit icon"></i></a>
                                   <a class="action"><i class="blue pin icon"></i></a>
                                   <a class="action" ng-click="deleteFolder(folder.id)"><i class="trash icon"></i></a>
+
                                 </td>
                             </tr>
                             <tr ng-repeat="file in archive.files" attach-sidebar>
@@ -32,6 +35,7 @@
                                 <td>{{file.filesize}}</td>
                                 <td>{{file.owner.username}}</td>
                                 <td class="actions">
+                                  <a class="action" ><i class="download disk icon"></i></a>
                                 </td>
                             </tr>
                         </tbody>

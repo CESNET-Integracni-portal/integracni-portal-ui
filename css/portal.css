@@ -121,6 +121,11 @@ font-size: 1.1rem;
   box-shadow:0 .2em 0 #BBBBBB inset;
 }
 
+.ui.menu {
+  -webkit-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.1);
+}
+
 /*-------------------
         Sidebar
 --------------------*/
@@ -140,6 +145,8 @@ font-size: 1.1rem;
   margin-left: -271px !important;
 }
 
+.one.wide.column {}
+
 /*-------------------
         Grid
 --------------------*/
@@ -155,6 +162,11 @@ font-size: 1.1rem;
 .ui.celled.grid > .column:not(.row), .ui.celled.grid > .row > .column {
    -webkit-box-shadow: none;
           box-shadow: none;
+}
+
+.ui.grid > .row > .ten.wide.column {
+  -webkit-box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
 }
 
 /*-------------------
@@ -269,7 +281,7 @@ table a {
         FEL Blue
 --------------------*/
 
-i.blue.icon, .ui.vertical.menu .item .menu .active.item, .ui.tabular.menu .active.item, .ui.tabular.menu .active.item:visited, .breadcrumb a, table a, table a:visited {
+.blue,  i.blue.icon, .ui.vertical.menu .item .menu .active.item, .ui.tabular.menu .active.item, .ui.tabular.menu .active.item:visited, .breadcrumb a, table a, table a:visited {
   color: #0063a8 !important;
 }
 

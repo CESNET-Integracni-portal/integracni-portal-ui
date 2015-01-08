@@ -444,13 +444,13 @@ app.factory('utils', function () {
     },
     // manager of units
     {id: 2,
-      username: "UnitsManager",
+      username: "Kateřina Hašlarová",
       email: "jan.novak@fel.cvut.cz",
       unitId: 1,
       permissions: {
-        units: false, 
+        units: true, 
         externists: true,
-        password: false
+        password: true
       },
       size: 4
     },
@@ -487,15 +487,15 @@ app.factory('utils', function () {
   // ----- labels -----
   var labels = [{
     id: 1,
-    name: "Štítek 1",
+    name: "Důležité",
     color: "red",
     userId: 2
   },
   {
     id: 2,
-    name: "Štítek 2",
+    name: "TODO",
     color: "blue",
-    userId: 3
+    userId: 2
   }];
 
   // ----- groups -----
