@@ -95,7 +95,7 @@ font-size: 1.1rem;
   overflow-y: hidden;
   position: absolute;
   text-decoration: none;
-  top: 40px;
+  top: 20px;
   width: 32px;
   z-index: 6;
   background-color: #FFFFFF;
@@ -148,6 +148,11 @@ font-size: 1.1rem;
 
 .ui.right.sidebar i.massive.icon{
   padding-left: 60px;
+}
+
+.ui.right.sidebar .ui.small.form input[type="text"]{
+  min-width:150px; 
+  max-width:245px;
 }
 /*-------------------
         Grid
