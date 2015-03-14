@@ -1,0 +1,11 @@
+<!-- Tabs Go Here -->
+<div class="ui tabular small menu">
+  <a class="item" ng-class="{ active:tab.isSet(3) }" href ng-click="tab.setTab(3)" ng-show="user.permissions.units">Organizační jednotky a prostor</a>
+  <a class="item" ng-class="{ active:tab.isSet(4) }" href ng-click="tab.setTab(4)" ng-show="user.permissions.externists">Externisté</a>
+</div>
+
+  <!--  Organization Units Tab's Content  -->
+  <set-orgunits ng-show="tab.isSet(3)"></set-orgunits>
+
+  <!--  Registration Tab's Content  -->
+  <set-registartion ng-show="tab.isSet(4)"></set-registartion>

@@ -1,6 +1,5 @@
 
 
-
 (function() {
 
   app.factory('userService', function(utils, labelService, groupService) {
@@ -54,6 +53,8 @@
       };
   });
 
+
+// LABEL SERVICE
   app.factory('labelService', function(utils) {
       /**
       Users parameters:
@@ -84,6 +85,8 @@
 
   });
 
+
+// UNIT SERVICE
   app.factory('unitService', function(utils) {
       /**
       Users parameters:
@@ -113,6 +116,8 @@
       };
   });
 
+
+// GROUP SERVICE
   app.factory('groupService', function(utils) {
       /**
       Users parameters:
@@ -148,6 +153,7 @@
 //-------------------------------------------------------------
 
 // url of the server, where ouath is
+// 147.32.80.219
 var baseUrlForOauth =  "http://147.32.80.219:8080/integracni-portal/";
 // url of the server, where api is
 var baseUrl =  "http://147.32.80.219:8080/integracni-portal/rest/v0.1/";
@@ -159,8 +165,6 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
       return {
         _defaultExp : 86400, //in seconds (86400 = 1 day)
         _accessToken : null,
-        _tokenType : null,
-        _refreshToken : null,
         _accessTokenId: "accessToken",
         _refreshToken: "refreshToken",
         _tokenType: "tokenType",
@@ -243,6 +247,8 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
       };
   });
 
+
+// AUTHORIZATION
   app.factory('oauthService', function(cookieService, $http, $location, $window, urlService) {
       return {
         _accessTokenId: "accessToken",
@@ -312,6 +318,7 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
       };
   });
 
+// URL SERVICE
   app.factory('urlService', function($location, $window) {
       return {
         basePath: function(){
@@ -338,7 +345,7 @@ var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI
       };
   });
 
-
+// ARCHIVE SERVICE
 app.factory('archiveService', function(utils, $http, httpService) {
       /**
       Users parameters:

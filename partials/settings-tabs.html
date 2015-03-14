@@ -2,8 +2,6 @@
 <div class="ui tabular small menu">
   <a class="item" ng-class="{ active:tab.isSet(1) }" href ng-click="tab.setTab(1)">Štítky</a>
   <a class="item" ng-class="{ active:tab.isSet(2) }" href ng-click="tab.setTab(2)">Skupiny</a>
-  <a class="item" ng-class="{ active:tab.isSet(3) }" href ng-click="tab.setTab(3)" ng-show="user.permissions.units">Organizační jednotky a prostor</a>
-  <a class="item" ng-class="{ active:tab.isSet(4) }" href ng-click="tab.setTab(4)" ng-show="user.permissions.externists">Externisté</a>
   <a class="item" ng-class="{ active:tab.isSet(5) }" href ng-click="tab.setTab(5)" ng-show="user.permissions.password">Změna hesla</a>
 </div>
 
@@ -12,12 +10,6 @@
 
   <!--  Groups Tab's Content  -->
   <set-groups ng-show="tab.isSet(2)"></set-groups>
-
-  <!--  Orgranization Units Tab's Content  -->
-  <set-orgunits ng-show="tab.isSet(3)"></set-orgunits>
-
-  <!--  Registration Tab's Content  -->
-  <set-registartion ng-show="tab.isSet(4)"></set-registartion>
 
   <!--  Change password Tab's Content  -->
   <set-change-pass ng-show="tab.isSet(5)"></set-change-pass>
