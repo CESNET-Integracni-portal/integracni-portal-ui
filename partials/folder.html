@@ -1,63 +1,67 @@
 <div class="ui breadcrumb">
-                      <a class="section"><i class="home icon"></i> Můj prostor </a>
-                      /
-                      <span class="section">Složka 1</span>
-                      <a class="section"><i class="blue pin icon"></i></a>
-                      <a class="section"><i class="blue upload disk icon"></i></a>
-                      <a class="section"><i class="blue download disk icon"></i></a>
-                    </div>
+    <i class="home icon"></i>
+    <h2 class="section"> Můj prostor </h2>
+    <a class="section"><i class="blue pin icon"></i></a>
+    <a class="section"><i class="blue upload disk icon"></i></a>
+    <a class="section"><i class="blue download disk icon"></i></a>
+</div>
 
-                    <div class="tiny ui icon buttons right">
-                      <div class="ui button active"><i class="list layout icon"></i></div>
-                      <div class="ui button"><i class="grid layout icon"></i></div>
-                    </div>
+<div class="tiny ui icon buttons right">
+    <div class="ui button" ng-class="{ 'active':table }"  ng-click="showAsTable()"><i class="list layout icon"></i></div>
+    <div class="ui button" ng-class="{ 'active':!table }" ng-click="showAsItems()"><i class="grid layout icon"></i></div>
+</div>
+<div class="clear"></div>
 
-                    <table class="ui basic table compact">
-                        <thead>
-                            <tr>
-                              <th><input type="checkbox"></th>
-                              <th>Název</th>
-                              <th>Sdílím s</th>
-                              <th>Velikost</th>
-                              <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="folder in archive.folders">
-                                <td><input type="checkbox"></td>
-                                <td><a ui-sref="archiveIterate({folderId:folder.id})"><i class="folder outline icon"></i> <span>{{folder.name}}</span></a>
-                                    <a class="item" ng-repeat="label in folder.labels" ui-sref="label/{{label.id}}"><i class="bookmark red basic icon"></i></a>
-                                </td>
-                                <td>Jan Novák</td>
-                                <td>--</td>
-                                <td class="actions">
-                                  <a class="action" ><i class="download disk icon"></i></a>
-                                  <a href="#"><i class="edit icon"></i></a>
-                                  <a class="action"><i class="blue pin icon"></i></a>
-                                  <a href="#"><i class="trash icon"></i></a>
-                                </td>
-                            </tr>
-                            <tr ng-repeat="file in archive.files" attach-sidebar>
-                                <td><input type="checkbox"></td>
-                                <td><i class="file outline icon"></i>
-                                 <span>{{file.filename}}<span>
-                                 </td>
-                                <td>Petr Novák</td>
-                                <td>{{file.filesize}} MB</td>
-                                <td class="actions">
-                                <a class="action" ><i class="download disk icon"></i></a>
-                                  <a href="#"><i class="edit icon"></i></a>
-                                  <a href="#"><i class="trash icon"></i></a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                
-
-                    <div class="ui right vertical sidebar">
-                        <a href="#" class="sidebar-hide-btn" title="Close the board sidebar."> 
-                            <i class="right arrow icon"></i>
-                        </a>
-                        přidání štítku, přidání do archivu
-                      
-                    </div>
+<div ng-show="table">
+    <table class="ui basic table compact">
+        <thead>
+            <tr>
+                <th><input type="checkbox"></th>
+                <th>Název</th>
+                <th>Sdílím s</th>
+                <th>Velikost</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="folder in archive.folders">
+                <td><input type="checkbox"></td>
+                <td><a ui-sref="archiveIterate({folderId:folder.id})"><i class="folder outline icon"></i> <span>{{folder.name}}</span></a>
+                    <a class="item" ng-repeat="label in folder.labels" ui-sref="label/{{label.id}}"><i class="bookmark red basic icon"></i></a>
+                </td>
+                <td>Jan Novák</td>
+                <td>--</td>
+                <td class="actions">
+                    <a class="action" ><i class="download disk icon"></i></a>
+                    <a href="#"><i class="edit icon"></i></a>
+                    <a class="action"><i class="blue pin icon"></i></a>
+                    <a href="#"><i class="trash icon"></i></a>
+                </td>
+            </tr>
+            <tr ng-repeat="file in archive.files" attach-sidebar>
+                <td><input type="checkbox"></td>
+                <td><i class="file outline icon"></i>
+                    <span>{{file.filename}}</span>
+                </td>
+                <td>Petr Novák</td>
+                <td>{{file.filesize}} MB</td>
+                <td class="actions">
+                    <a class="action" ><i class="download disk icon"></i></a>
+                    <a href="#"><i class="edit icon"></i></a>
+                    <a href="#"><i class="trash icon"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div ng-hide="table">
+    <div class="ui-items">
+        
+    </div>
+</div>
+<div class="ui right vertical sidebar">
+    <a href="#" class="sidebar-hide-btn" title="Close the board sidebar."> 
+        <i class="right arrow icon"></i>
+    </a>
+    přidání štítku, přidání do archivu
+</div>

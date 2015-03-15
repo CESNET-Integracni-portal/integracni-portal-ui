@@ -92,9 +92,9 @@
                 })
 
                 // archive
-                .state("archived", {
-                    url: "/archived",
-                    templateUrl: "./partials/archived.html",
+                .state("archive", {
+                    url: "/archive",
+                    templateUrl: "./partials/archive.html",
                     controller: function ($scope, archiveService) {
                         archiveService.getAll().success(function (data) {
                             $scope.archive = {folders: data};
@@ -103,28 +103,29 @@
                         var modal = null;
 
                         var getModal = function () {
-                            if (modal === null) {
-                                modal = $('#add.modal');
-                            }
+
+                            modal = $('#add.modal');
                             return modal;
                         };
 
                         $scope.add = function () {
+
                             getModal().modal('show');
-                            /*archiveService.createFolderInRoot("NewFolder").success(function(data){
-                             $scope.archive.folders.push(data);
-                             });*/
                         };
 
                         $scope.createFolder = function (folder) {
+
                             archiveService.createFolderInRoot(folder.name).success(function (data) {
                                 $scope.archive.folders.push(data);
                             });
                             folder.name = "";
-                            getModal().modal('hide');
+                            getModal().modal('hide dimmer');
+                            getModal().destroy();
+
                         };
 
                         $scope.deleteFolder = function (folderId) {
+
                             archiveService.deleteFolder(folderId).success(function (data) {
                                 archiveService.getAll().success(function (data) {
                                     $scope.archive = {folders: data};
@@ -134,10 +135,11 @@
                         };
 
                         $scope.rename = function () {
-
+                            // TODO
                         };
 
                         $scope.empty = function () {
+
                             return (typeof $scope.archive === 'undefined' || (typeof $scope.archive.folders === 'undefined' || $scope.archive.folders.length === 0) && (typeof $scope.archive.files === 'undefined' || $scope.archive.files.length === 0));
                         };
                     }
@@ -145,8 +147,8 @@
 
                 // iterates over archive
                 .state("archiveIterate", {
-                    url: "/archived/{folderId:[1-9][0-9]*}",
-                    templateUrl: "./partials/archived_detail.html",
+                    url: "/archive/{folderId:[1-9][0-9]*}",
+                    templateUrl: "./partials/archive_detail.html",
                     controller: function ($scope, archiveService, $stateParams, urlService) {
                         var folderId = $stateParams.folderId;
                         archiveService.getById(folderId).success(function (data) {
@@ -156,25 +158,29 @@
                         var modal = null;
 
                         var getModal = function () {
-                            if (modal === null) {
-                                modal = $('#add.modal');
-                            }
+
+                            modal = $('#add.modal');
                             return modal;
                         };
 
                         $scope.add = function () {
+
                             getModal().modal('show');
                         };
 
                         $scope.createFolder = function (folder) {
+
                             archiveService.createFolder(folderId, folder.name).success(function (data) {
                                 $scope.archive.folders.push(data);
                             });
                             folder.name = "";
-                            getModal().modal('hide');
+                            getModal().modal('hide dimmer');
+                            getModal().destroy();
+
                         };
 
                         $scope.rename = function () {
+
                             archiveService.renameFolder(folderId, "NewNamedFolder").success(function (data) {
                                 archiveService.getById(folderId).success(function (data) {
                                     $scope.archive = data;
@@ -183,17 +189,20 @@
                         };
 
                         $scope.deleteFolder = function (delFolderId) {
+
                             var folderToDelete = (typeof delFolderId === 'undefined' ? folderId : delFolderId);
                             archiveService.deleteFolder(folderToDelete).success(function (data) {
+
                                 if (typeof delFolderId === 'undefined') {
                                     if ($scope.archive.breadcrumbs.length > 0) {
                                         var last = $scope.archive.breadcrumbs[$scope.archive.breadcrumbs.length - 1];
-                                        urlService.redirect("archived/" + last.id);
+                                        urlService.redirect("archive/" + last.id);
                                     } else {
-                                        urlService.redirect("archived");
+                                        urlService.redirect("archive");
                                     }
                                 } else {
                                     archiveService.getById(folderId).success(function (data) {
+
                                         $scope.archive = data;
                                     });
                                 }
@@ -201,22 +210,25 @@
                         };
 
                         $scope.setName = function () {
+
                             file.name = file.file;
                         };
 
                         $scope.uploadFile = function (file) {
+
                             archiveService.addFile(folderId, file.filename, file.name).success(function (data) {
                                 $scope.archive.files.push(data);
                             });
                             file = {};
-                            getModal().modal('hide');
+                            getModal().modal('hide dimmer');
+                            getModal().destroy();
+
                         };
 
                         $scope.empty = function () {
+
                             return (typeof $scope.archive === 'undefined' || (typeof $scope.archive.folders === 'undefined' || $scope.archive.folders.length === 0) && (typeof $scope.archive.files === 'undefined' || $scope.archive.files.length === 0));
                         };
-
-
                     }
                 })
 
@@ -229,29 +241,36 @@
     });
 
     app.controller('MainController', function ($scope, userService, urlService, oauthService) {
+
         $scope.user = userService.getById(2);
         $scope.basePath = urlService.basePath();
         $scope.table = true;
 
         $scope.showAsTable = function () {
+
             $scope.table = true;
         };
 
         $scope.showAsItems = function () {
+
             $scope.table = false;
         };
 
         $scope.logout = function () {
+
             oauthService.logout();
         };
 
         $scope.deaultSidebar = function () {
-            $scope.mySidebar = {tempateUrl: "./partials/archived_show.html", data: {}};
+
+            $scope.mySidebar = {tempateUrl: "./partials/archive_show.html", data: {}};
             ;
             $('.sidebar').sidebar('hide');
             $scope.sidebarShow = false;
         };
+
         $scope.defineSidebar = function (templateUrl, data) {
+
             $scope.mySidebar = {tempateUrl: templateUrl, data: data};
             $('.sidebar').sidebar('show');
             $scope.sidebarShow = true;
@@ -276,7 +295,6 @@
     app.controller('NavigationController', function ($scope) {
         this.fastFolders = fastFolders;
     });
-
 
     app.controller('ViewController', function () {
         // TODO
@@ -408,9 +426,7 @@
                 var modal = null;
 
                 var getModal = function () {
-                    if (modal === null) {
-                        modal = $('#add.modal');
-                    }
+                    modal = $('#add.modal');
                     return modal;
                 };
 
@@ -430,8 +446,8 @@
                         label.color = null;
                         $scope.index = null;
                     }
-                    getModal().modal('hide');
-                    getModal().modal('')
+                    getModal().modal('hide dimmer');
+                    getModal().destroy();
                 };
 
                 $scope.deleteLabel = function (index) {
