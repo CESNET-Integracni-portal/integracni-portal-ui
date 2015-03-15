@@ -30,9 +30,7 @@
                         var modal = null;
 
                         var getModal = function () {
-                            if (modal === null) {
-                                modal = $('#add.modal');
-                            }
+                            modal = $('#add.modal');
                             return modal;
                         };
 
@@ -103,7 +101,6 @@
                         var modal = null;
 
                         var getModal = function () {
-
                             modal = $('#add.modal');
                             return modal;
                         };
@@ -158,7 +155,6 @@
                         var modal = null;
 
                         var getModal = function () {
-
                             modal = $('#add.modal');
                             return modal;
                         };
@@ -567,6 +563,6 @@
 
     var folders = [
         {
-            id: 1,
+            id: 1
         }];
 })();

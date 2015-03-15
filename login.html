@@ -1,60 +1,60 @@
 <!DOCTYPE html>
 <html lang="cz" ng-app="app">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title ng-bind="$state.current.name + ' - Integrační portál'">Integrační portál</title>
-    <link href="./css/semantic.min.css" rel="stylesheet" type="text/css">
-    <link href="./css/portal.css" rel="stylesheet" type="text/css">
-    <link rel="shortcut icon" href="favicon.ico" >
-    <base href="/integracni-portal-ui/" />
-  </head>
-  <body ng-controller="MainController as mainCtrl" class="index">
-    <div class="dark stripe">
-      <div class="ui page grid">
-        <div class="column">
-          
-            <h1 class="center aligned ui header">Integrační portál FEL</h1>
-          
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <title ng-bind="$state.current.name + ' - Integrační portál'">Integrační portál</title>
+        <link href="./css/semantic.min.css" rel="stylesheet" type="text/css">
+        <link href="./css/portal.css" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="favicon.ico" >
+        <base href="/integracni-portal-ui/" />
+    </head>
+    <body ng-controller="MainController as mainCtrl" class="index">
+        <div class="dark stripe">
+            <div class="ui page grid">
+                <div class="column">
+
+                    <h1 class="center aligned ui header">Integrační portál FEL</h1>
+
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <div class="ui page grid stackable segment" style="padding-top: 3.5rem; padding-bottom: 3.5rem;">
-      <div class="row">
-        <div class="column">
-            <h2 class="center aligned ui header">Přihlásit se jako</h2>
+        <div class="ui page grid stackable segment" style="padding-top: 3.5rem; padding-bottom: 3.5rem;">
+            <div class="row">
+                <div class="column">
+                    <h2 class="center aligned ui header">Přihlásit se jako</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div ng-show="errorMessage" style="text-align: center;" class="ui warning icon message">{{errorMessage}} </div>
+
+                </div>
+            </div>
+
+            <div class="ui two wide column"></div>
+            <div class="twelve wide column" style="width: 75%;">
+
+                <div class="ui three column center aligned stackable grid">
+                    <div class="column">
+                        <div class="ui large button" ng-click="superAdmin()">Super Admin</div>
+                    </div>
+                    <div class="column">
+                        <div class="ui large button" ng-click="unitManager()">Unit Manager</div>
+                    </div>
+                    <div class="column">
+                        <div class="ui large button" ng-click="superAdmin()">User</div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="column">
-            <div ng-show="errorMessage" style="text-align: center;" class="ui warning icon message">{{errorMessage}} </div>
-          
-        </div>
-      </div>
 
-      <div class="ui two wide column"></div>
-      <div class="twelve wide column" style="width: 75%;">
-
-        <div class="ui three column center aligned stackable grid">
-          <div class="column">
-            <div class="ui large button" ng-click="superAdmin()">Super Admin</div>
-          </div>
-          <div class="column">
-            <div class="ui large button" ng-click="unitManager()">Unit Manager</div>
-          </div>
-          <div class="column">
-            <div class="ui large button" ng-click="superAdmin()">User</div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <script type="text/javascript" src="./libs/jquery-2.1.3.js"></script>
-    <script type="text/javascript" src="./libs/angular.js"></script>
-    <script type="text/javascript" src="./libs/semantic.min.js"></script>
-    <script type="text/javascript" src="./js/login.js"></script>
-    <script type="text/javascript" src="./js/data.js"></script>
-  </body>
+        <script type="text/javascript" src="./libs/jquery-1.11.2.min.js"></script>
+        <script type="text/javascript" src="./libs/angular.min.js"></script>
+        <script type="text/javascript" src="./libs/semantic.min.js"></script>
+        <script type="text/javascript" src="./js/login.js"></script>
+        <script type="text/javascript" src="./js/data.js"></script>
+    </body>
 </html>

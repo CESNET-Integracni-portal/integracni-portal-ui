@@ -1,5 +1,3 @@
-
-
 (function () {
 
     app.factory('userService', function (utils, labelService, groupService) {
