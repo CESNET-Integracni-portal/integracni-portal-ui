@@ -103,37 +103,38 @@
                         <label><i class="bookmark {{label.color}} basic icon"></i>{{label.name}}</label>
                     </div>
                 </div>
-                <br>
-                <form class="ui small form">
-                    <div class="field">
-                        <label>Nový název složky</label>
-                        <input type="text" ng-model="folder.name" value="UML">
-                    </div>
-                    <div ng-click="createFolder(folder)" class="ui button">
-                        Uložit
-                    </div>
-                </form>
+            </form>
+            <br>
 
+            <form class="ui small form">
+                <div class="field">
+                    <label>Nový název složky</label>
+                    <input type="text" ng-model="folder.name" value="UML">
+                </div>
+                <div ng-click="createFolder(folder)" class="ui button">
+                    Uložit
+                </div>
+            </form>
+            <br>
 
-                <br>
-                <!--share-->
-                <form class="ui small form">
-                    <div class="field">
-                        <label>Sdílet s</label>
-                        <select name="user" ng-click="addUser()">
-                            <option>----</option>
-                            <option>Jan Novák</option>
-                        </select>
-                    </div>
-                    <div class="ui button">
-                        Sdílet
-                    </div>
-                </form>
+            <!--share-->
+            <form class="ui small form">
+                <div class="field">
+                    <label>Sdílet s</label>
+                    <select name="user" ng-click="addUser()">
+                        <option>----</option>
+                        <option>Jan Novák</option>
+                    </select>
+                </div>
+                <div class="ui button">
+                    Sdílet
+                </div>
+            </form>
 
-                <!--<div ng-if="sidebarShow">
-                    <div custom-sidebar="{{mySidebar}}">
-                    </div>
-                </div>-->
+            <!--<div ng-if="sidebarShow">
+                <div custom-sidebar="{{mySidebar}}">
+                </div>
+            </div>-->
         </div>
 
         <script type="text/javascript" src="./libs/jquery-1.11.2.min.js"></script>

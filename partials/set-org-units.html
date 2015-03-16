@@ -1,48 +1,27 @@
-<div class="ui small form">
-  <div class="two fields">
-    <div class="field">
-      <label>Název</label>
-      <input type="text" ng-model="unit.name">
-    </div>
-    <div class="field">
-      <label>Velikost prostoru (GB)</label>
-      <input type="number" ng-model="unit.size">
-    </div>
-  </div>
-  <div class="two fields">
-    <div class="field">
-      <label>Správce</label>
-      <select name="user" ng-model="unit.user">
-        <option ng-repeat="onuser in externalsCtrl.users" ng-value="{{$index}}">{{onuser.username}}</option>
-      </select>
-    </div>
-    <div class="field">
-      <label>&nbsp;</label>
-      <div class="ui small submit button" ng-click="saveUnit(label)">Uložit</div>
-    </div>
-  </div>
-</div>
+<p class="right"><a class="action" ng-click="addOrgunit()"> <i class="big blue add sign icon"></i> Přidat organizační jednotku </a></p>
 
 <table class="ui basic table compact">
-        <thead>
-            <tr>
-              <th><input type="checkbox"></th>
-              <th>Název</th>
-              <th>Správce/i</th>
-              <th>Velikost prostoru (GB)</th>
-              <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="unit in unitsCtrl.units">
-                <td><input type="checkbox"></td>
-                <td>{{unit.name}}</td>
-                <td> {{unit.admins.join(', ')}} </td>
-                <td> {{unit.size}} </td>
-                <td class="actions">
-                  <a ng-click="editUnit($index, unit)"><i class="edit icon"></i></a>
-                  <a ng-click="deleteUnit($index)"><i class="trash icon"></i></a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <thead>
+        <tr>
+            <th><input type="checkbox"></th>
+            <th>Název</th>
+            <th>Správce/i</th>
+            <th>Velikost prostoru (GB)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="unit in unitsCtrl.units">
+            <td><input type="checkbox"></td>
+            <td>{{unit.name}}</td>
+            <td> {{unit.admins.join(', ')}} </td>
+            <td> {{unit.size}} </td>
+            <td class="actions">
+                <a ng-click="editUnit($index, unit)"><i class="edit icon"></i></a>
+                <a ng-click="deleteUnit($index)"><i class="trash icon"></i></a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div ng-include="'./partials/modals/orgunits_modal.html'"></div>

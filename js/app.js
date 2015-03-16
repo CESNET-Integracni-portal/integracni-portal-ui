@@ -30,7 +30,7 @@
                         var modal = null;
 
                         var getModal = function () {
-                            modal = $('#addfolder.modal');
+                            modal = $('#folder.modal');
                             return modal;
                         };
 
@@ -98,7 +98,7 @@
                         var modal = null;
 
                         var getModal = function () {
-                            modal = $('#addfolder.modal');
+                            modal = $('#folder.modal');
                             return modal;
                         };
 
@@ -152,7 +152,7 @@
                         var modal = null;
 
                         var getModal = function () {
-                            modal = $('#addfolder.modal');
+                            modal = $('#folder.modal');
                             return modal;
                         };
 
@@ -308,6 +308,16 @@
                 this.units = unitService.getAll();
                 this.users = userService.getAll();
                 var that = this;
+                var modal = null;
+
+                var getModal = function () {
+                    modal = $('#orgunit.modal');
+                    return modal;
+                };
+
+                $scope.addOrgunit = function () {
+                    getModal().modal('show');
+                };
 
                 $scope.saveUnit = function (unit) {
                     // create
@@ -321,6 +331,8 @@
                         that.units[$scope.index] = angular.copy(updatedUnit);
                         that.reset();
                     }
+                    getModal().modal('hide dimmer');
+                    getModal().destroy();
                 };
 
                 $scope.deleteUnit = function (index) {
@@ -350,6 +362,16 @@
             controller: function ($scope, groupService, userService) {
                 var userId = $scope.user.id;
                 var that = this;
+                var modal = null;
+
+                var getModal = function () {
+                    modal = $('#group.modal');
+                    return modal;
+                };
+
+                $scope.addGroup = function () {
+                    getModal().modal('show');
+                };
 
                 $scope.saveGroup = function (group) {
                     // create
@@ -364,6 +386,8 @@
                         $scope.user.groups[$scope.index] = angular.copy(updatedGroup);
                         that.reset();
                     }
+                    getModal().modal('hide dimmer');
+                    getModal().destroy();
                 };
 
                 $scope.addUser = function (index) {
@@ -415,12 +439,15 @@
                 var userId = $scope.user.id;
                 $scope.label = {};
                 $scope.index = null;
-
                 var modal = null;
 
                 var getModal = function () {
-                    modal = $('#addlabel.modal');
+                    modal = $('#label.modal');
                     return modal;
+                };
+
+                $scope.addLabel = function () {
+                    getModal().modal('show');
                 };
 
                 $scope.saveLabel = function (label) {
@@ -454,10 +481,6 @@
                     getModal().modal('show');
                 };
 
-                $scope.addLabel = function () {
-                    getModal().modal('show');
-                };
-
                 $scope.empty = function () {
                     return (typeof $scope.label === 'undefined' || $scope.label.length === 0);
                 };
@@ -467,15 +490,26 @@
         };
     });
 
-    app.directive("setRegistartion", function () {
+    app.directive("setExternist", function () {
         return {
             restrict: 'E',
-            templateUrl: "./partials/set-registartion.html",
+            templateUrl: "./partials/set-externist.html",
             controller: function ($scope, userService) {
                 var unitId = $scope.user.unitId;
                 $scope.externists = userService.getExternistsForUnit(unitId);
                 this.users = userService.getAll();
                 var that = this;
+                var modal = null;
+
+                var getModal = function () {
+                    modal = $('#externist.modal');
+                    return modal;
+                };
+
+                $scope.addExternist = function () {
+
+                    getModal().modal('show');
+                };
 
                 $scope.saveExternists = function (externist) {
                     // create
@@ -490,6 +524,8 @@
                         $scope.externists[$scope.index] = angular.copy(updatedUser);
                         that.reset();
                     }
+                    getModal().modal('hide dimmer');
+                    getModal().destroy();
                 };
 
                 $scope.deleteUser = function (index) {
@@ -516,7 +552,7 @@
     app.directive("adminTabs", function () {
         return {
             restrict: "E",
-            templateUrl: "./partials/admin-tabs.html",
+            templateUrl: "./partials/settings_pages/admin-tabs.html",
             controller: function () {
                 this.tab = 3;
 
@@ -535,7 +571,7 @@
     app.directive("settingsTabs", function () {
         return {
             restrict: "E",
-            templateUrl: "./partials/settings-tabs.html",
+            templateUrl: "./partials/settings_pages/settings-tabs.html",
             controller: function () {
                 this.tab = 1;
 

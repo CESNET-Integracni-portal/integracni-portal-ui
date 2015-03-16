@@ -1,0 +1,31 @@
+<p>Externí uživatelé v rámci organizační jednotky, které jste členem.</p>
+
+<p class="right"><a class="action" ng-click="addExternist()"> <i class="big blue add sign icon"></i> Registrovat externistu </a></p>
+
+<table class="ui basic table compact">
+    <thead>
+        <tr>
+            <th><input type="checkbox"></th>
+            <th>Jméno a přijmení</th>
+            <th>Email</th>
+            <th>Prostor</th>
+            <th>Na doporučení</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="external in externists">
+            <td><input type="checkbox"></td>
+            <td>{{external.username}} </td>
+            <td>{{external.email}}</td>
+            <td>{{external.size}}</td>
+            <td>{{external.user.email}}</td>
+            <td class="actions">
+                <a ng-click="editUser($index, external)"><i class="edit icon"></i></a>
+                <a ng-click="deleteUser($index)"><i class="trash icon"></i></a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div ng-include="'./partials/modals/externist_modal.html'"></div>

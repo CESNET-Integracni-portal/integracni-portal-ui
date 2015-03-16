@@ -1,0 +1,18 @@
+<div id="orgunit" class="ui modal">
+    <i class="close icon"></i>
+
+    <div class="header">
+        Organizační jednotka
+    </div>
+    <div class="content">
+        <form class="ui small form">
+            <div class="field">
+                <label>Název jednotky</label>
+                <input type="text" ng-model="unit.name">
+            </div>
+            <div ng-click="saveUnit(unit)" class="ui button">
+                Vytvořit jednotku
+            </div>
+        </form>
+    </div>
+</div>
