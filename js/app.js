@@ -30,15 +30,12 @@
                         var modal = null;
 
                         var getModal = function () {
-                            modal = $('#add.modal');
+                            modal = $('#addfolder.modal');
                             return modal;
                         };
 
                         $scope.add = function () {
                             getModal().modal('show');
-                            /*archiveService.createFolderInRoot("NewFolder").success(function(data){
-                             $scope.archive.folders.push(data);
-                             });*/
                         };
 
                         $scope.createFolder = function (folder) {
@@ -101,7 +98,7 @@
                         var modal = null;
 
                         var getModal = function () {
-                            modal = $('#add.modal');
+                            modal = $('#addfolder.modal');
                             return modal;
                         };
 
@@ -155,7 +152,7 @@
                         var modal = null;
 
                         var getModal = function () {
-                            modal = $('#add.modal');
+                            modal = $('#addfolder.modal');
                             return modal;
                         };
 
@@ -422,7 +419,7 @@
                 var modal = null;
 
                 var getModal = function () {
-                    modal = $('#add.modal');
+                    modal = $('#addlabel.modal');
                     return modal;
                 };
 
