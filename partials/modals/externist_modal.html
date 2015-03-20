@@ -6,9 +6,25 @@
     </div>
     <div class="content">
         <form class="ui small form">
-            <div class="field">
-                <label>Jméno externisty</label>
-                <input type="text" ng-model="externist.username">
+            <div class="four fields">
+                <div class="field">
+                    <label>Uživatelské jméno externisty</label>
+                    <input type="text" ng-model="externist.username">
+                </div>
+                <div class="field">
+                    <label>Na čí doporučení</label>
+                    <select name="user" ng-model="externist.user">
+                        <option ng-repeat="onuser in externalsCtrl.users" ng-value="{{$index}}">{{onuser.username}}</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Email</label>
+                    <input type="email" ng-model="externist.email">
+                </div>
+                <div class="field">
+                    <label>Prostor (GB)</label>
+                    <input type="number" ng-model="externist.size">
+                </div>
             </div>
             <div ng-click="saveExternists(externist)" class="ui button">
                 Registrovat externistu

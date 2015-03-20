@@ -6,12 +6,25 @@
     </div>
     <div class="content">
         <form class="ui small form">
-            <div class="field">
-                <label>Název jednotky</label>
-                <input type="text" ng-model="unit.name">
-            </div>
-            <div ng-click="saveUnit(unit)" class="ui button">
-                Vytvořit jednotku
+            <div class="four fields">
+                <div class="field">
+                    <label>Název</label>
+                    <input type="text" ng-model="unit.name">
+                </div>
+                <div class="field">
+                    <label>Velikost prostoru (GB)</label>
+                    <input type="number" ng-model="unit.size">
+                </div>
+                <div class="field">
+                    <label>Správce</label>
+                    <select name="user" ng-model="unit.user">
+                        <option ng-repeat="onuser in externalsCtrl.users" ng-value="{{$index}}">{{onuser.username}}</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>&nbsp;</label>
+                    <div class="ui small submit button" ng-click="saveUnit(unit)">Uložit</div>
+                </div>
             </div>
         </form>
     </div>

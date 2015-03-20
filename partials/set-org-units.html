@@ -17,8 +17,8 @@
             <td> {{unit.admins.join(', ')}} </td>
             <td> {{unit.size}} </td>
             <td class="actions">
-                <a ng-click="editUnit($index, unit)"><i class="edit icon"></i></a>
-                <a ng-click="deleteUnit($index)"><i class="trash icon"></i></a>
+                <a class="action" ng-click="editUnit($index, unit)"><i class="edit icon"></i></a>
+                <a class="action" ng-click="deleteUnit($index)"><i class="trash icon"></i></a>
             </td>
         </tr>
     </tbody>

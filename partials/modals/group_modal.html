@@ -6,9 +6,17 @@
     </div>
     <div class="content">
         <form class="ui small form">
-            <div class="field">
-                <label>Název skupiny</label>
-                <input type="text" ng-model="group.name">
+            <div class="two fields">
+                <div class="field">
+                    <label>Název skupiny</label>
+                    <input type="text" ng-model="group.name">
+                </div>
+                <div class="field">
+                    <label>Členové</label>
+                    <select name="user" ng-click="addUser()">
+                        <option ng-repeat="user in groupsCtrl.users" ng-value="{{$index}}" ng-disabled="{{isDisabled(user)}}">{{user.username}}</option>
+                    </select>
+                </div>
             </div>
             <div ng-click="saveGroup(group)" class="ui button">
                 Vytvořit skupinu

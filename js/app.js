@@ -343,6 +343,7 @@
                 $scope.editUnit = function (index, unit) {
                     $scope.unit = angular.copy(unit);
                     $scope.index = index;
+                    getModal().modal('show');
                 };
 
                 this.reset = function () {
@@ -416,6 +417,7 @@
                 $scope.editGroup = function (index, group) {
                     $scope.group = angular.copy(group);
                     $scope.index = index;
+                    getModal().modal('show');
                 };
 
                 this.reset = function () {
@@ -536,6 +538,7 @@
                 $scope.editUser = function (index, externist) {
                     $scope.externist = angular.copy(externist);
                     $scope.index = index;
+                    getModal().modal('show');
                 };
 
                 this.reset = function () {
