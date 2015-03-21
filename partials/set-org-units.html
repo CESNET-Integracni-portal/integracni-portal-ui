@@ -5,7 +5,7 @@
         <tr>
             <th><input type="checkbox"></th>
             <th>Název</th>
-            <th>Správce/i</th>
+            <th>Správce</th>
             <th>Velikost prostoru (GB)</th>
             <th></th>
         </tr>
@@ -14,8 +14,8 @@
         <tr ng-repeat="unit in unitsCtrl.units">
             <td><input type="checkbox"></td>
             <td>{{unit.name}}</td>
-            <td> {{unit.admins.join(', ')}} </td>
-            <td> {{unit.size}} </td>
+            <td>{{unit.admin}}</td>
+            <td>{{unit.size}}</td>
             <td class="actions">
                 <a class="action" ng-click="editUnit($index, unit)"><i class="edit icon"></i></a>
                 <a class="action" ng-click="deleteUnit($index)"><i class="trash icon"></i></a>

@@ -418,7 +418,7 @@
         //super user
         {id: 1,
             username: "SuperUser",
-            email: "jan.novak@fel.cvut.cz",
+            email: "super@fel.cvut.cz",
             unitId: 0,
             permissions: {
                 units: true,
@@ -430,7 +430,7 @@
         // manager of units
         {id: 2,
             username: "Kateřina Hašlarová",
-            email: "jan.novak@fel.cvut.cz",
+            email: "haslakat@fel.cvut.cz",
             unitId: 1,
             permissions: {
                 units: true,
@@ -442,7 +442,7 @@
         // externist
         {id: 3,
             username: "Externist",
-            email: "jan.novak@fel.cvut.cz",
+            email: "externista@fel.cvut.cz",
             unitId: 1,
             permissions: {
                 units: false,
@@ -486,25 +486,25 @@
     var groups = [{
             id: 1,
             name: "Moje skupina",
-            users: ["Jan Novák"],
+            users: ["novakj@fel.cvut.cz"],
             userId: 2
         }, {
             id: 2,
             name: "Moje skupina druhá",
-            users: ["Petr Novák", "Karolína Novotná"],
-            userId: 3
+            users: ["novakpet@fel.cvut.cz", "karnovot@fel.cvut.cz"],
+            userId: 2
         }];
 
     // ----- units -----
     var units = [{
             id: 1,
             name: "SEN",
-            admins: ["Jan Novák"],
+            admin: "novakj@fel.cvut.cz",
             size: 12345
         }, {
             id: 2,
             name: "ATG",
-            admins: ["Petr Novák", "Karolína Novotná"],
+            admin: "karnovot@fel.cvut.cz",
             size: 6543
         }];
 })();
