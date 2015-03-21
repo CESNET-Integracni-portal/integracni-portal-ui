@@ -369,6 +369,11 @@
                     modal = $('#group.modal');
                     return modal;
                 };
+                
+                $scope.showMembers = function (group) {
+                    $scope.group = angular.copy(group);
+                    $('#members.modal').modal('show');
+                };
 
                 $scope.addGroup = function () {
                     getModal().modal('show');
