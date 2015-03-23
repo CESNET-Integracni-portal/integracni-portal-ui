@@ -1,6 +1,6 @@
 (function () {
 
-    app = angular.module('app', ['ui.router']);
+    app = angular.module('app', ['ui.router', 'Mac']);
 
     app.run(function (oauthService) {
         oauthService.refresh();
@@ -364,12 +364,18 @@
                 var userId = $scope.user.id;
                 var that = this;
                 var modal = null;
+                $scope.users = userService.getAll();
+                alert($scope.users);
 
                 var getModal = function () {
                     modal = $('#group.modal');
                     return modal;
                 };
-                
+
+                $scope.addMember = function (group) {
+                    $('#addmem.modal').modal('show');
+                };
+
                 $scope.showMembers = function (group) {
                     $scope.group = angular.copy(group);
                     $('#members.modal').modal('show');

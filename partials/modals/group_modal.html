@@ -12,10 +12,11 @@
                     <input type="text" ng-model="group.name">
                 </div>
                 <div class="field">
-                    <label>Členové</label>
-                    <select name="user" ng-click="addUser()">
-                        <option ng-repeat="user in groupsCtrl.users" ng-value="{{$index}}" ng-disabled="{{isDisabled(user)}}">{{user.username}}</option>
-                    </select>
+                    <label>Přidat člena</label>
+                    <mac-autocomplete mac-autocomplete-source="users" mac-autocomplete-label="email" mac-placeholder='"e-mail uživatele"' ng-model="group.member"></mac-autocomplete>
+                    <!--  <select name="user" ng-click="addUser()">
+                          <option ng-repeat="user in groupsCtrl.users" ng-value="{{$index}}" ng-disabled="{{isDisabled(user)}}">{{user.username}}</option>
+                      </select>-->
                 </div>
             </div>
             <div ng-click="saveGroup(group)" class="ui button">

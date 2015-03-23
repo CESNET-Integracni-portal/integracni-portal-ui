@@ -382,7 +382,7 @@
             // Util for finding an object by its 'id' property among an array
             findById: function findById(array, id) {
                 for (var i = 0; i < array.length; i++) {
-                    if (array[i].id == id)
+                    if (array[i].id === id)
                         return array[i];
                 }
                 return null;
@@ -391,7 +391,7 @@
             getAllWhere: function getAllWhere(array, column, value) {
                 var result = [];
                 for (var i = 0; i < array.length; i++) {
-                    if (typeof array[i][column] !== 'undefined' && array[i][column] == value)
+                    if (typeof array[i][column] !== 'undefined' && array[i][column] === value)
                         result.push(array[i]);
                 }
                 return result;
