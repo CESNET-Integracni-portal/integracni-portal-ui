@@ -1,3 +1,4 @@
+
 (function () {
 
     app.factory('userService', function (utils, labelService, groupService) {
@@ -50,7 +51,6 @@
         };
     });
 
-// LABEL SERVICE
     app.factory('labelService', function (utils) {
         /**
          Users parameters:
@@ -81,7 +81,6 @@
 
     });
 
-// UNIT SERVICE
     app.factory('unitService', function (utils) {
         /**
          Users parameters:
@@ -158,26 +157,28 @@
         return {
             _defaultExp: 86400, //in seconds (86400 = 1 day)
             _accessToken: null,
+            _tokenType: null,
+            _refreshToken: null,
             _accessTokenId: "accessToken",
             _refreshToken: "refreshToken",
-            _tokenType: "tokenType",
-            /**
-             * Set cookie
-             * @param name
-             * @param val value
-             * @param exp |null expiration in seconds, it's used _defaultExp when null
-             */
-            setCookie: function (name, val, exp) {
+                    _tokenType: "tokenType",
+                    /**
+                     * Set cookie
+                     * @param name
+                     * @param val value
+                     * @param exp |null expiration in seconds, it's used _defaultExp when null
+                     */
+                    setCookie: function (name, val, exp) {
 
-                var d = new Date();
-                if (exp === undefined) {
-                    exp = this._defaultExp;
-                }
-                d.setTime(d.getTime() + (exp * 1000));
-                var expires = "expires=" + d.toGMTString();
-                var toSet = name + "=" + val + ";" + expires + ";path=/";
-                document.cookie = toSet;
-            },
+                        var d = new Date();
+                        if (exp === undefined) {
+                            exp = this._defaultExp;
+                        }
+                        d.setTime(d.getTime() + (exp * 1000));
+                        var expires = "expires=" + d.toGMTString();
+                        var toSet = name + "=" + val + ";" + expires + ";path=/";
+                        document.cookie = toSet;
+                    },
             /**
              * Delete cookie
              * @param string name of cookie
@@ -238,7 +239,6 @@
         };
     });
 
-// AUTHORIZATION
     app.factory('oauthService', function (cookieService, $http, $location, $window, urlService) {
         return {
             _accessTokenId: "accessToken",
@@ -305,7 +305,6 @@
         };
     });
 
-// URL SERVICE
     app.factory('urlService', function ($location, $window) {
         return {
             basePath: function () {

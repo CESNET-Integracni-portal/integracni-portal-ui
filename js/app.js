@@ -365,7 +365,6 @@
                 var that = this;
                 var modal = null;
                 $scope.users = userService.getAll();
-                alert($scope.users);
 
                 var getModal = function () {
                     modal = $('#group.modal');
