@@ -325,7 +325,6 @@
         };
     });
 
-
     app.factory('archiveService', function (utils, $http, httpService) {
         /**
          Users parameters:
