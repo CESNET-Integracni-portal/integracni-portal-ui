@@ -9,6 +9,7 @@
             <th>Jméno a přijmení</th>
             <th>Email</th>
             <th>Prostor</th>
+            <th>Org. jednotka</th>
             <th>Na doporučení</th>
             <th></th>
         </tr>
@@ -19,7 +20,8 @@
             <td>{{external.username}} </td>
             <td>{{external.email}}</td>
             <td>{{external.size}}</td>
-            <td>{{external.onuser.email}}</td>
+            <td>{{external.orgunit}}</td>
+            <td>{{external.onuser}}</td>
             <td class="actions">
                 <a class="action" ng-click="editUser($index, external)"><i class="edit icon"></i></a>
                 <a class="action" ng-click="deleteUser($index)"><i class="trash icon"></i></a>

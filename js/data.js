@@ -110,7 +110,6 @@
         };
     });
 
-// GROUP SERVICE
     app.factory('groupService', function (utils) {
         /**
          Users parameters:
@@ -157,28 +156,26 @@
         return {
             _defaultExp: 86400, //in seconds (86400 = 1 day)
             _accessToken: null,
-            _tokenType: null,
-            _refreshToken: null,
             _accessTokenId: "accessToken",
             _refreshToken: "refreshToken",
-                    _tokenType: "tokenType",
-                    /**
-                     * Set cookie
-                     * @param name
-                     * @param val value
-                     * @param exp |null expiration in seconds, it's used _defaultExp when null
-                     */
-                    setCookie: function (name, val, exp) {
+            _tokenType: "tokenType",
+            /**
+             * Set cookie
+             * @param name
+             * @param val value
+             * @param exp |null expiration in seconds, it's used _defaultExp when null
+             */
+            setCookie: function (name, val, exp) {
 
-                        var d = new Date();
-                        if (exp === undefined) {
-                            exp = this._defaultExp;
-                        }
-                        d.setTime(d.getTime() + (exp * 1000));
-                        var expires = "expires=" + d.toGMTString();
-                        var toSet = name + "=" + val + ";" + expires + ";path=/";
-                        document.cookie = toSet;
-                    },
+                var d = new Date();
+                if (exp === undefined) {
+                    exp = this._defaultExp;
+                }
+                d.setTime(d.getTime() + (exp * 1000));
+                var expires = "expires=" + d.toGMTString();
+                var toSet = name + "=" + val + ";" + expires + ";path=/";
+                document.cookie = toSet;
+            },
             /**
              * Delete cookie
              * @param string name of cookie
@@ -195,7 +192,7 @@
                 var cookies = document.cookie.split(';');
                 for (var i = 0; i < cookies.length; i++) {
                     var c = cookies[i].trim();
-                    if (c.indexOf(name) != -1)
+                    if (c.indexOf(name) !== -1)
                         return c.substring(name.length, c.length);
                 }
                 return null;
@@ -328,7 +325,7 @@
         };
     });
 
-// ARCHIVE SERVICE
+
     app.factory('archiveService', function (utils, $http, httpService) {
         /**
          Users parameters:
@@ -404,8 +401,6 @@
                 }
                 return result;
             }
-
-
         };
     });
 
@@ -443,6 +438,7 @@
             username: "Externist",
             email: "externista@fel.cvut.cz",
             unitId: 1,
+            onuser: "haslakat@fel.cvut.cz",
             permissions: {
                 units: false,
                 externists: false,
@@ -452,7 +448,8 @@
                 id: 1,
                 email: "jan.novak@fel.cvut.cz"
             },
-            size: 6
+            size: 6,
+            orgunit: "ATG"
         },
         // student
         {id: 4,

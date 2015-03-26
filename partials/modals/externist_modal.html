@@ -13,7 +13,7 @@
                 </div>
                 <div class="field">
                     <label>Na doporučení</label>
-                    <select ng-model="externist.user" ng-options="user.email as user.email for user in externalsCtrl.users">
+                    <select ng-model="externist.onuser" ng-options="user.email as user.email for user in externalsCtrl.users">
                     </select>
                 </div>
             </div>
@@ -27,8 +27,14 @@
                     <input type="number" ng-model="externist.size">
                 </div>
             </div>
-            <div ng-click="saveExternists(externist)" class="ui button">
-                Registrovat externistu
+            <div class="two fields">
+                <div class="field">
+                    <label>Organizační jednotka</label>
+                    <input type="text" ng-model="externist.orgunit">
+                </div>
+                <div ng-click="saveExternists(externist)" class="ui button">
+                    Registrovat externistu
+                </div>
             </div>
         </form>
     </div>
