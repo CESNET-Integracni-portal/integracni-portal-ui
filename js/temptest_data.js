@@ -1,148 +1,5 @@
 
 (function () {
-
-    app.factory('userService', function (utils, labelService, groupService) {
-        /**
-         Users parameters:
-         int id - unique
-         string username
-         array permissions
-         int unitId - id of unit group in which belongs
-         int size
-         string email
-         array user - optional, user, who recomended externist
-         
-         */
-        return {
-            /*
-             join users labels
-             */
-            getById: function (userId) {
-                var user = utils.findById(users, userId);
-                user.labels = labelService.getForUser(userId);
-                user.groups = groupService.getForUser(userId);
-                return user;
-            },
-            getExternistsForUnit: function (unitId) {
-                var result = utils.getAllWhere(users, "unitId", unitId);
-                result = utils.getAllWhereNotNull(result, "user");
-                return result;
-            },
-            getWhere: function (column, value, array) {
-                if (array === null)
-                    array = users;
-                return utils.getAllWhere(array, column, value);
-            },
-            getAll: function () {
-                return users;
-            },
-            create: function (user) {
-                // create on server side
-                return user;
-            },
-            deleteUser: function (userId) {
-                // delete on server side
-            },
-            updateUser: function (user) {
-                // update on server side
-                return user;
-            }
-
-        };
-    });
-
-    app.factory('labelService', function (utils) {
-        /**
-         Users parameters:
-         int id - unique
-         string name
-         string color
-         int userId 
-         */
-        return {
-            getById: function (labelId) {
-                return utils.findById(labels, labelId);
-            },
-            getForUser: function (userId) {
-                return utils.getAllWhere(labels, "userId", userId);
-            },
-            create: function (label) {
-                // create on server side
-                return label;
-            },
-            deleteLabel: function (labelId) {
-                // delete on server side
-            },
-            updateLabel: function (label) {
-                // update on server side
-                return label;
-            }
-        };
-
-    });
-
-    app.factory('unitService', function (utils) {
-        /**
-         Users parameters:
-         int id - unique
-         string name
-         array users
-         int userId 
-         */
-        return {
-            getById: function (unitId) {
-                return utils.findById(units, unitId);
-            },
-            getAll: function () {
-                return units;
-            },
-            create: function (unit) {
-                // create on server side
-                return unit;
-            },
-            deleteUnit: function (unitId) {
-                // delete on server side
-            },
-            updateUnit: function (unit) {
-                // update on server side
-                return unit;
-            }
-        };
-    });
-
-    app.factory('groupService', function (utils) {
-        /**
-         Users parameters:
-         int id - unique
-         string name
-         array users
-         int userId 
-         */
-        return {
-            getById: function (groupId) {
-                return utils.findById(groups, groupId);
-            },
-            getForUser: function (userId) {
-                return utils.getAllWhere(groups, "userId", userId);
-            },
-            create: function (group) {
-                // create on server side
-                return group;
-            },
-            deleteGroup: function (groupId) {
-                // delete on server side
-            },
-            updateGroup: function (group) {
-                // update on server side
-                return group;
-            }
-        };
-    });
-
-//-------------------------------------------------------------
-//---------------- FOLDERS  -----------------------------------
-//-------------------------------------------------------------
-
 // url of the server, where ouath is
 // 147.32.80.219
     var baseUrlForOauth = "http://147.32.80.219:8080/integracni-portal/";
@@ -156,26 +13,28 @@
         return {
             _defaultExp: 86400, //in seconds (86400 = 1 day)
             _accessToken: null,
+            _tokenType: null,
+            _refreshToken: null,
             _accessTokenId: "accessToken",
             _refreshToken: "refreshToken",
-            _tokenType: "tokenType",
-            /**
-             * Set cookie
-             * @param name
-             * @param val value
-             * @param exp |null expiration in seconds, it's used _defaultExp when null
-             */
-            setCookie: function (name, val, exp) {
+                    _tokenType: "tokenType",
+                    /**
+                     * Set cookie
+                     * @param name
+                     * @param val value
+                     * @param exp |null expiration in seconds, it's used _defaultExp when null
+                     */
+                    setCookie: function (name, val, exp) {
 
-                var d = new Date();
-                if (exp === undefined) {
-                    exp = this._defaultExp;
-                }
-                d.setTime(d.getTime() + (exp * 1000));
-                var expires = "expires=" + d.toGMTString();
-                var toSet = name + "=" + val + ";" + expires + ";path=/";
-                document.cookie = toSet;
-            },
+                        var d = new Date();
+                        if (exp === undefined) {
+                            exp = this._defaultExp;
+                        }
+                        d.setTime(d.getTime() + (exp * 1000));
+                        var expires = "expires=" + d.toGMTString();
+                        var toSet = name + "=" + val + ";" + expires + ";path=/";
+                        document.cookie = toSet;
+                    },
             /**
              * Delete cookie
              * @param string name of cookie
@@ -192,7 +51,7 @@
                 var cookies = document.cookie.split(';');
                 for (var i = 0; i < cookies.length; i++) {
                     var c = cookies[i].trim();
-                    if (c.indexOf(name) !== -1)
+                    if (c.indexOf(name) != -1)
                         return c.substring(name.length, c.length);
                 }
                 return null;
@@ -325,53 +184,10 @@
         };
     });
 
-    app.factory('archiveService', function (utils, $http, httpService) {
-        /**
-         Users parameters:
-         int id - unique
-         string name
-         array users
-         int userId 
-         */
-        return {
-            // root
-            getAll: function () {
-                return $http.get(baseUrl + 'archive');
-            },
-            createFolderInRoot: function (name) {
-                // create on server side
-                return httpService.createRequest("POST", baseUrl + 'archive', {name: name}, "application/json");
-            },
-            // subfolder of root
-            getById: function (archiveId) {
-                return $http.get(baseUrl + 'archive/folder/' + archiveId);
-            },
-            createFolder: function (folderId, name) {
-                // create on server side
-                return httpService.createRequest("POST", baseUrl + 'archive/folder/' + folderId, {name: name}, "application/json");
-            },
-            renameFolder: function (folderId, name) {
-                // create on server side
-                return httpService.createRequest("PUT", baseUrl + 'archive/folder/' + folderId, {name: name}, "application/json");
-            },
-            deleteFolder: function (folderId) {
-                // create on server side
-                return httpService.createRequest("DELETE", baseUrl + 'archive/folder/' + folderId, {}, "application/json");
-            },
-            addFile: function (folderId, file, name) {
-                // create on server side
-                return httpService.createRequest(
-                        "POST",
-                        baseUrl + 'archive/folder/' + folderId + "/files",
-                        $.param({fileName: file, name: name}), "multipart/form-data");
-            }
-        };
-    });
-
 //-------------------------------------------------------------
 //---------------- UTILS --------------------------------------
 //-------------------------------------------------------------
-
+//dup
     app.factory('utils', function () {
         return {
             // Util for finding an object by its 'id' property among an array
