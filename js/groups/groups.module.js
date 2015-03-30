@@ -5,10 +5,13 @@
     grpmod.controller('groupsCtrl', function ($scope, groupService, userService) {
         var userId = $scope.user.id;
         var that = this;
+        var newgrp = true;
         $scope.users = userService.getAll();
 
-        $scope.showMembers = function (group) {
+        $scope.showMembers = function (index, group) {
             $scope.group = angular.copy(group);
+            $scope.index = index;
+            that.newgrp = true;
         };
 
         $scope.saveGroup = function (group) {
@@ -26,11 +29,21 @@
             }
         };
 
+        $scope.addMember = function (group) {
+            $scope.group.users.push(group.member);
+            var updatedGroup = groupService.updateGroup(group);
+            $scope.user.groups[$scope.index] = angular.copy(updatedGroup);
+        };
+
+        $scope.deleteMember = function () {
+            // TODO
+        };
+
         $scope.addUser = function (index) {
             if ($scope.group.user !== null) {
                 that.users[index].disabled = true;
                 that.users[index].originalIndex = index;
-                $scope.group.users.push(that.users[index]);
+                $scope.group.users.push($scope.users[index]);
                 $scope.group.user = null;
             }
         };
@@ -40,8 +53,7 @@
         };
 
         $scope.removeUser = function (index) {
-            that.users[$scope.group.users[index].originalIndex].disabled = true;
-            $scope.group.users.splice(index, 1);
+
         };
 
         $scope.deleteGroup = function (index) {
@@ -52,6 +64,14 @@
         $scope.editGroup = function (index, group) {
             $scope.group = angular.copy(group);
             $scope.index = index;
+            that.newgrp = false;
+        };
+
+        $scope.clear = function () {
+            if (that.newgrp) {
+                alert('clear');
+                that.reset();
+            }
         };
 
         this.reset = function () {
@@ -68,7 +88,7 @@
     grpmod.directive("setGroups", function () {
         return {
             restrict: 'E',
-            templateUrl: "./partials/set-groups.html",
+            templateUrl: "./partials/groups/set-groups.html",
             controller: 'groupsCtrl'
         };
     });

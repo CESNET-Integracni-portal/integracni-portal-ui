@@ -13,7 +13,7 @@
         <tr ng-repeat="group in user.groups">
             <td><input type="checkbox"></td>
             <td>{{group.name}}</td>
-            <td><a class="action" ng-click="showMembers(group)" mac-modal="members">Počet členů: {{group.users.length}}</a></td>
+            <td><a class="action" ng-click="showMembers($index, group)" mac-modal="members">Počet členů: {{group.users.length}}</a></td>
             <td class="actions">
                 <a class="action" ng-click="editGroup($index, group)" mac-modal="group"><i class="edit icon"></i></a>
                 <a class="action" ng-click="deleteGroup($index)"><i class="trash icon"></i></a>
@@ -22,5 +22,5 @@
     </tbody>
 </table>
 
-<div ng-include="'./partials/modals/group_members_list.html'"></div>
-<div ng-include="'./partials/modals/group_modal.html'"></div>
+<div ng-include="'./partials/groups/group_members_list.html'"></div>
+<div ng-include="'./partials/groups/group_modal.html'"></div>

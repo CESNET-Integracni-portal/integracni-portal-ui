@@ -44,7 +44,7 @@
     lblmod.directive("setLabels", function () {
         return {
             restrict: 'E',
-            templateUrl: "./partials/set-labels.html",
+            templateUrl: "./partials/labels/set-labels.html",
             controller: 'lblCtrl'
         };
     });

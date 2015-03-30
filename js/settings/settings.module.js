@@ -5,7 +5,7 @@
     stgmod.directive("adminTabs", function () {
         return {
             restrict: "E",
-            templateUrl: "./partials/settings_pages/admin-tabs.html",
+            templateUrl: "./partials/settings/admin-tabs.html",
             controller: function () {
                 this.tab = 3;
 
@@ -24,7 +24,7 @@
     stgmod.directive("settingsTabs", function () {
         return {
             restrict: "E",
-            templateUrl: "./partials/settings_pages/settings-tabs.html",
+            templateUrl: "./partials/settings/settings-tabs.html",
             controller: function () {
                 this.tab = 1;
 

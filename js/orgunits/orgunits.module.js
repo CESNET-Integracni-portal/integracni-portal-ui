@@ -42,7 +42,7 @@
     orgmod.directive("setOrgunits", function () {
         return {
             restrict: 'E',
-            templateUrl: "./partials/set-org-units.html",
+            templateUrl: "./partials/orgunits/set-org-units.html",
             controller: 'orgunitsCtrl'
         };
     });

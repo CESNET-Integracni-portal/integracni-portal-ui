@@ -45,7 +45,7 @@
     extmod.directive("setExternist", function () {
         return {
             restrict: 'E',
-            templateUrl: "./partials/set-externist.html",
+            templateUrl: "./partials/externists/set-externist.html",
             controller: 'extrCtrl'
         };
     });

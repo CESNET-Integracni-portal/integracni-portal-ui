@@ -1,0 +1,20 @@
+<mac-modal id="members" mac-autocomplete-on-close="clear()">
+    <div class="mac-modal-content">
+        <h1>Členové skupiny</h1>
+        <h4>Skupina: {{group.name}}</h4>
+        <table class="ui basic table compact">
+            <tbody>
+                <tr ng-repeat="user in group.users">
+                    <td><input type="checkbox"></td>
+                    <td>{{user}}</td>
+                    <td class="actions">
+                        <a class="action" ng-click="deleteMember(user)"><i class="trash icon"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br\>
+        <mac-autocomplete mac-autocomplete-source="users" mac-autocomplete-label="email" mac-placeholder='"e-mail uživatele"' ng-model="group.member"></mac-autocomplete>
+        <input type="submit" ng-click="addMember(group)" value="Přidat člena"\>
+    </div>
+</mac-modal>

@@ -10,7 +10,7 @@
     pswmod.directive("setChangePass", function () {
         return {
             restrict: 'E',
-            templateUrl: "./partials/set-change-pass.html",
+            templateUrl: "./partials/password/set-change-pass.html",
             controller: 'pswCtrl'
         };
     });

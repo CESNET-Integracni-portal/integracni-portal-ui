@@ -15,7 +15,7 @@
                 // index route, my space
                 .state("index", {
                     url: "/",
-                    templateUrl: "./partials/folder.html",
+                    templateUrl: "./partials/archive/folder.html",
                     controller: function ($scope, archiveService) {
                         archiveService.getAll().success(function (data) {
                             $scope.archive = {folders: data};
@@ -51,7 +51,7 @@
                 // iterates over folders
                 .state("folderIterate", {
                     url: "/folder/{folderId:[1-9][0-9]*}",
-                    templateUrl: "./partials/folder.html",
+                    templateUrl: "./partials/archive/folder.html",
                     controller: attachSidebar
                 })
 
@@ -73,7 +73,7 @@
                 // archive
                 .state("archive", {
                     url: "/archive",
-                    templateUrl: "./partials/archive.html",
+                    templateUrl: "./partials/archive/archive.html",
                     controller: function ($scope, archiveService) {
                         archiveService.getAll().success(function (data) {
                             $scope.archive = {folders: data};
@@ -126,7 +126,7 @@
                 // iterates over archive
                 .state("archiveIterate", {
                     url: "/archive/{folderId:[1-9][0-9]*}",
-                    templateUrl: "./partials/archive_detail.html",
+                    templateUrl: "./partials/archive/archive_detail.html",
                     controller: function ($scope, archiveService, $stateParams, urlService) {
                         var folderId = $stateParams.folderId;
                         archiveService.getById(folderId).success(function (data) {
@@ -211,7 +211,7 @@
 
                 .state("shared", {
                     url: "/shared",
-                    templateUrl: "./partials/shared.html",
+                    templateUrl: "./partials/shared/shared.html",
                     controller: attachSidebar
                 });
     });
