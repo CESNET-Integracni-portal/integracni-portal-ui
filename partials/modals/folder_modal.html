@@ -1,18 +1,12 @@
-<div id="folder" class="ui modal">
-    <i class="close icon"></i>
-
-    <div class="header">
-        Přidání složky
-    </div>
-    <div class="content">
+<mac-modal id="folder">
+    <div class="mac-modal-content">
+        <h1>Přidání složky</h1>
         <form class="ui small form">
             <div class="field">
                 <label>Název složky</label>
                 <input type="text" ng-model="folder.name" ng-required="true" ng-minlength="1" ng-pattern='^[a-zA-Zа-яА-Я0-9_!]+$'>
             </div>
-            <div ng-click="createFolder(folder)" class="ui button">
-                Vytvořit složku
-            </div>
+            <input type="submit" value="Vytvořit složku" mac-modal-close ng-click="createFolder(folder)" class="ui button"\>
         </form>
     </div>
-</div>
+</mac-modal>

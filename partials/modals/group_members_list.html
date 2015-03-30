@@ -1,12 +1,11 @@
-<div id="members" class="ui modal">
-    <i class="close icon"></i>
-
-    <div class="header">
-        Členové
-    </div>
-    <div class="content">
-        <div class="field">
-            {{group.users.join(", ")}}
+<mac-modal id="members">
+    <div class="mac-modal-content">
+        <h1>Členové skupiny</h1>
+        <h4>{{group.name}}</h4>
+        <div class="content">
+            <div class="field">
+                {{group.users.join(", ")}}
+            </div>
         </div>
     </div>
-</div>
+</mac-modal>

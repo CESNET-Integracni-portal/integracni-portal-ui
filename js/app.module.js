@@ -41,21 +41,21 @@
             oauthService.logout();
         };
 
-        $scope.deaultSidebar = function () {
+        //$scope.deaultSidebar = function () {
 
-            $scope.mySidebar = {tempateUrl: "./partials/archive_show.html", data: {}};
-            ;
-            $('.sidebar').sidebar('hide');
-            $scope.sidebarShow = false;
-        };
+          //  $scope.mySidebar = {tempateUrl: "./partials/archive_show.html", data: {}};
+          //  ;
+          //  $('.sidebar').sidebar('hide');
+          //  $scope.sidebarShow = false;
+        //};
 
-        $scope.defineSidebar = function (templateUrl, data) {
+        //$scope.defineSidebar = function (templateUrl, data) {
 
-            $scope.mySidebar = {tempateUrl: templateUrl, data: data};
-            $('.sidebar').sidebar('show');
-            $scope.sidebarShow = true;
-        };
-        $scope.deaultSidebar();
+        //    $scope.mySidebar = {tempateUrl: templateUrl, data: data};
+         //   $('.sidebar').sidebar('show');
+         //   $scope.sidebarShow = true;
+        //};
+        //$scope.deaultSidebar();
     });
 
     app.run(function (oauthService) {

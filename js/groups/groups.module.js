@@ -5,25 +5,10 @@
     grpmod.controller('groupsCtrl', function ($scope, groupService, userService) {
         var userId = $scope.user.id;
         var that = this;
-        var modal = null;
         $scope.users = userService.getAll();
-
-        var getModal = function () {
-            modal = $('#group.modal');
-            return modal;
-        };
-
-        $scope.addMember = function (group) {
-            $('#addmem.modal').modal('show');
-        };
 
         $scope.showMembers = function (group) {
             $scope.group = angular.copy(group);
-            $('#members.modal').modal('show');
-        };
-
-        $scope.addGroup = function () {
-            getModal().modal('show');
         };
 
         $scope.saveGroup = function (group) {
@@ -39,8 +24,6 @@
                 $scope.user.groups[$scope.index] = angular.copy(updatedGroup);
                 that.reset();
             }
-            getModal().modal('hide dimmer');
-            getModal().destroy();
         };
 
         $scope.addUser = function (index) {
@@ -69,7 +52,6 @@
         $scope.editGroup = function (index, group) {
             $scope.group = angular.copy(group);
             $scope.index = index;
-            getModal().modal('show');
         };
 
         this.reset = function () {

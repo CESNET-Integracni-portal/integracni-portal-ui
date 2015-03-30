@@ -1,41 +1,39 @@
-<div id="externist" class="ui modal">
-    <i class="close icon"></i>
-
-    <div class="header">
-        Registrace externisty
-    </div>
-    <div class="content">
+<mac-modal id="externist">
+    <div class="mac-modal-content">
+        <h1>Registrace externisty</h1>
         <form class="ui small form">
             <div class="two fields">
                 <div class="field">
                     <label>Uživatelské jméno externisty</label>
                     <input type="text" ng-model="externist.username">
                 </div>
+                <br\>
                 <div class="field">
                     <label>Na doporučení</label>
-                    <select ng-model="externist.onuser" ng-options="user.email as user.email for user in users">
-                    </select>
+                    <mac-autocomplete mac-autocomplete-source="users" mac-autocomplete-label="email" mac-placeholder='"email uživatele"' ng-model="externist.onuser"></mac-autocomplete>
                 </div>
+                <br\>
             </div>
             <div class="two fields">
                 <div class="field">
                     <label>Email</label>
                     <input type="email" ng-model="externist.email">
                 </div>
+                <br\>
                 <div class="field">
                     <label>Prostor (GB)</label>
                     <input type="number" ng-model="externist.size">
                 </div>
+                <br\>
             </div>
             <div class="two fields">
                 <div class="field">
                     <label>Organizační jednotka</label>
-                    <input type="text" ng-model="externist.orgunit">
+                    <mac-autocomplete mac-autocomplete-source="units" mac-autocomplete-label="name" mac-placeholder='"org. jednotka"' ng-model="externist.orgunit"></mac-autocomplete>
                 </div>
-                <div ng-click="saveExternists(externist)" class="ui button">
-                    Registrovat externistu
-                </div>
+                <br\>
+                <input mac-modal-close value="Registrovat externistu" ng-click="saveExternists(externist)" class="ui button">
             </div>
         </form>
     </div>
-</div>
+</mac-modal>

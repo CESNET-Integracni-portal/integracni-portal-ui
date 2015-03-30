@@ -1,31 +1,30 @@
-<div id="orgunit" class="ui modal">
-    <i class="close icon"></i>
-
-    <div class="header">
-        Organizační jednotka
-    </div>
-    <div class="content">
-        <form class="ui big form">
+<mac-modal id="orgunit">
+    <div class="mac-modal-content">
+        <h1>Přidat organizační jednotku</h1>
+        <form class="ui small form">
             <div class="two fields">
                 <div class="field">
                     <label>Název</label>
                     <input type="text" ng-model="unit.name" required>
                 </div>
+                <br\>
                 <div class="field">
                     <label>Velikost prostoru (GB)</label>
                     <input type="number" ng-model="unit.size" required>
                 </div>
+                <br\>
             </div>
             <div class="two fields">
                 <div class="field">
                     <label>Správce</label>
-                    <select ng-model="unit.admin" ng-options="user.email as user.email for user in users"></select>
+                    <mac-autocomplete mac-autocomplete-source="users" mac-autocomplete-label="email" mac-placeholder='"e-mail uživatele"' ng-model="unit.admin"></mac-autocomplete>
                 </div>
+                <br\>
                 <div class="field">
                     <label>&nbsp;</label>
-                    <div class="ui small submit button" ng-click="saveUnit(unit)">Uložit</div>
+                    <input type="submit" value="Uložit" mac-modal-close class="ui small submit button" ng-click="saveUnit(unit)"\>
                 </div>
             </div>
         </form>
     </div>
-</div>
+</mac-modal>

@@ -1,14 +1,14 @@
-<div id="label" class="ui modal">
-    <i class="close icon"></i>
-    <div class="header"> Štítek </div>
-    <div class="content">
+<mac-modal id="label">
+    <div class="mac-modal-content">
+        <h1>Přidat štítek</h1>
         <form class="ui small form">
-            <div class="three fields">
-                <div class="field">
-                    <label>Název</label>
+            <div>
+                <div>
+                    <label>Název štítku</label>
                     <input type="text" ng-model="label.name">
                 </div>
-                <div class="field">
+                <br\>
+                <div>
                     <label>Barva</label>
                     <span class="ui radio">
                         <input type="radio" value="blue" ng-model="label.color">
@@ -35,11 +35,9 @@
                         <label class="color"><i class="bookmark teal basic icon"></i></label>
                     </div>
                 </div>
-                <div class="field">
-                    <label>&nbsp;</label>
-                    <div class="ui small submit button" ng-click="saveLabel(label)">Ok</div>
-                </div>
+                <br\>
             </div>
+            <input type="submit" value="Vytvořit štítek" mac-modal-close ng-click="saveLabel(label)" class="ui button"\>
         </form>
     </div>
-</div>
+</mac-modal>

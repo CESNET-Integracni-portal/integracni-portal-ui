@@ -1,27 +1,20 @@
-<div id="group" class="ui modal">
-    <i class="close icon"></i>
-
-    <div class="header">
-        Skupina
-    </div>
-    <div class="content">
+<mac-modal id="group">
+    <div class="mac-modal-content">
+        <h1>Přidat skupinu</h1>
         <form class="ui small form">
-            <div class="two fields">
-                <div class="field">
+            <div>
+                <div>
                     <label>Název skupiny</label>
                     <input type="text" ng-model="group.name">
                 </div>
-                <div class="field">
+                <br\>
+                <div>
                     <label>Přidat člena</label>
                     <mac-autocomplete mac-autocomplete-source="users" mac-autocomplete-label="email" mac-placeholder='"e-mail uživatele"' ng-model="group.member"></mac-autocomplete>
-                    <!--  <select name="user" ng-click="addUser()">
-                          <option ng-repeat="user in groupsCtrl.users" ng-value="{{$index}}" ng-disabled="{{isDisabled(user)}}">{{user.username}}</option>
-                      </select>-->
                 </div>
+                <br\>
             </div>
-            <div ng-click="saveGroup(group)" class="ui button">
-                Vytvořit skupinu
-            </div>
+            <input type="submit" value="Vytvořit skupinu" mac-modal-close ng-click="saveGroup(group)" class="ui button"\>
         </form>
     </div>
-</div>
+</mac-modal>

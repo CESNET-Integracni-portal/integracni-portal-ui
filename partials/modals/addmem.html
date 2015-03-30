@@ -1,10 +1,7 @@
-<div id="addmem" class="ui modal">
-    <i class="close icon"></i>
-
-    <div class="header">
-        Skupina
-    </div>
-    <div class="content">
-        <mac-autocomplete mac-autocomplete-source="users" mac-autocomplete-label="email" mac-placeholder='"e-mail uživatele"' ng-model="group.member"></mac-autocomplete>
-    </div>
-</div>
+<mac-modal id="test-modal" mac-modal-keyboard>
+  <div ng-controller="modalController" class="mac-modal-content">
+    <h1>Just another modal</h1>
+    
+  </div>
+</mac-modal>
+<button mac-modal="test-modal" mac-modal-data="maGyverSeasonOne" class="btn">Show Modal</button>

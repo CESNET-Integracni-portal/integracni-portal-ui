@@ -1,4 +1,4 @@
-<p class="right"><a class="action" ng-click="addOrgunit()"> <i class="big blue add sign icon"></i> Přidat organizační jednotku </a></p>
+<p class="right"><a class="action" mac-modal="orgunit"> <i class="big blue add sign icon"></i> Přidat organizační jednotku </a></p>
 
 <table class="ui basic table compact">
     <thead>
@@ -17,7 +17,7 @@
             <td>{{unit.admin}}</td>
             <td>{{unit.size}}</td>
             <td class="actions">
-                <a class="action" ng-click="editUnit($index, unit)"><i class="edit icon"></i></a>
+                <a class="action" ng-click="editUnit($index, unit)" mac-modal="orgunit"><i class="edit icon"></i></a>
                 <a class="action" ng-click="deleteUnit($index)"><i class="trash icon"></i></a>
             </td>
         </tr>

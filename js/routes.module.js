@@ -21,16 +21,6 @@
                             $scope.archive = {folders: data};
                             $scope.archive.breadcrumbs = [];
                         });
-                        var modal = null;
-
-                        var getModal = function () {
-                            modal = $('#folder.modal');
-                            return modal;
-                        };
-
-                        $scope.add = function () {
-                            getModal().modal('show');
-                        };
 
                         $scope.createFolder = function (folder) {
                             archiveService.createFolderInRoot(folder.name).success(function (data) {

@@ -2,22 +2,12 @@
     var extmod = angular.module('externists.module', ['utils.module', 'services.module']);
 
     //CONTROLLER
-    extmod.controller('extrCtrl', function ($scope, userService) {
+    extmod.controller('extrCtrl', function ($scope, userService, unitService) {
         var unitId = $scope.user.unitId;
         $scope.externists = userService.getExternistsForUnit(unitId);
         $scope.users = userService.getAll();
+        $scope.units = unitService.getAll();
         var that = this;
-        var modal = null;
-
-        var getModal = function () {
-            modal = $('#externist.modal');
-            return modal;
-        };
-
-        $scope.addExternist = function () {
-
-            getModal().modal('show');
-        };
 
         $scope.saveExternists = function (externist) {
             // create
@@ -32,8 +22,6 @@
                 $scope.externists[$scope.index] = angular.copy(updatedUser);
                 that.reset();
             }
-            getModal().modal('hide dimmer');
-            getModal().destroy();
         };
 
         $scope.deleteUser = function (index) {
@@ -44,7 +32,6 @@
         $scope.editUser = function (index, externist) {
             $scope.externist = angular.copy(externist);
             $scope.index = index;
-            getModal().modal('show');
         };
 
         this.reset = function () {

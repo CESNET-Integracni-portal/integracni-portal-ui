@@ -6,16 +6,6 @@
         var userId = $scope.user.id;
         $scope.label = {};
         $scope.index = null;
-        var modal = null;
-
-        var getModal = function () {
-            modal = $('#label.modal');
-            return modal;
-        };
-
-        $scope.addLabel = function () {
-            getModal().modal('show');
-        };
 
         $scope.saveLabel = function (label) {
             // create
@@ -33,8 +23,6 @@
                 label.color = null;
                 $scope.index = null;
             }
-            getModal().modal('hide dimmer');
-            getModal().destroy();
         };
 
         $scope.deleteLabel = function (index) {
@@ -45,7 +33,6 @@
         $scope.editLabel = function (index, label) {
             $scope.label = angular.copy(label);
             $scope.index = index;
-            getModal().modal('show');
         };
 
         $scope.empty = function () {
