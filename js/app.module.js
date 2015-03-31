@@ -12,64 +12,64 @@
                 'services.module',
                 'Mac']);
 
-    app.controller('NavigationController', function ($scope) {
-        this.fastFolders = fastFolders;
-    });
-
-    app.controller('ViewController', function () {
-        // TODO
-    });
-
-    app.controller('MainController', function ($scope, userService, urlService, oauthService) {
-
-        $scope.user = userService.getById(2);
-        $scope.basePath = urlService.basePath();
-        $scope.table = true;
-
-        $scope.showAsTable = function () {
-
-            $scope.table = true;
-        };
-
-        $scope.showAsItems = function () {
-
-            $scope.table = false;
-        };
-
-        $scope.logout = function () {
-
-            oauthService.logout();
-        };
-
-        //$scope.deaultSidebar = function () {
-
-          //  $scope.mySidebar = {tempateUrl: "./partials/archive_show.html", data: {}};
-          //  ;
-          //  $('.sidebar').sidebar('hide');
-          //  $scope.sidebarShow = false;
-        //};
-
-        //$scope.defineSidebar = function (templateUrl, data) {
-
-        //    $scope.mySidebar = {tempateUrl: templateUrl, data: data};
-         //   $('.sidebar').sidebar('show');
-         //   $scope.sidebarShow = true;
-        //};
-        //$scope.deaultSidebar();
-    });
-
     app.run(function (oauthService) {
         oauthService.refresh();
     });
 
-// ----- fast Folders (in left navigation) -----
-    var fastFolders = [{
-            id: 1,
-            name: "work",
-            url: "/1" // id původní složky
-        }];
+    app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
-    var folders = [{
-            id: 1
-        }];
+        // route all invalid urls to index
+        $urlRouterProvider.otherwise('/');
+        $locationProvider.html5Mode(true);
+
+        $stateProvider
+                // index route, my space
+                .state("index", {
+                url: "/",
+                        templateUrl: "./partials/archive/folder.html",
+                        controller: 'indexCtrl'
+                })
+                // iterates over folders
+                .state("folderIterate", {
+                url: "/folder/{folderId:[1-9][0-9]*}",
+                        templateUrl: "./partials/archive/folder.html",
+                        controller: 'folderIterateCtrl'
+                })
+
+                .state("admin", {
+                url: "/admin",
+                        template: "<admin-tabs></admin-tabs>"
+                })
+
+                /*.state("folder.detail", {
+                 url: "/{folderId: [0-9]+}",
+                 templateUrl: "./partials/folder.html"
+                 })*/
+
+                .state("settings", {
+                url: "/settings",
+                        template: "<settings-tabs></settings-tabs>"
+                })
+
+                // archive
+                .state("archive", {
+                url: "/archive",
+                        templateUrl: "./partials/archive/archive.html",
+                        controller: 'archiveCtrl'
+                })
+
+                // iterates over archive
+                .state("archiveIterate", {
+                url: "/archive/{folderId:[1-9][0-9]*}",
+                        templateUrl: "./partials/archive/archive_detail.html",
+                        controller: 'archiveIterateCtrl'
+                })
+
+                .state("shared", {
+                url: "/shared",
+                        templateUrl: "./partials/shared/shared.html",
+                        controller: 'sharedCtrl'
+                });
+            });
+
 })();
