@@ -35,8 +35,10 @@
             $scope.user.groups[$scope.index] = angular.copy(updatedGroup);
         };
 
-        $scope.deleteMember = function () {
-            // TODO
+        $scope.deleteMember = function (user, group) {
+            $scope.group.users.splice($scope.group.users.indexOf(user), 1);
+            var updatedGroup = groupService.updateGroup(group);
+            $scope.user.groups[$scope.index] = angular.copy(updatedGroup);
         };
 
         $scope.addUser = function (index) {
