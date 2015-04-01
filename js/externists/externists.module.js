@@ -1,7 +1,7 @@
 (function () {
-    var extmod = angular.module('externists.module', ['utils.module', 'services.module']);
+    var extmod = angular.module('externists.module', ['utils.module', 'services.module', 'Mac']);
 
-    //CONTROLLER
+    // CONTROLLER
     extmod.controller('extrCtrl', function ($scope, userService, unitService) {
         var unitId = $scope.user.unitId;
         $scope.externists = userService.getExternistsForUnit(unitId);
@@ -41,7 +41,7 @@
         this.reset();
     });
 
-    //DIRECTIVE
+    // DIRECTIVES
     extmod.directive("setExternist", function () {
         return {
             restrict: 'E',

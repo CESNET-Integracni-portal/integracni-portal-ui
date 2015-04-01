@@ -1,12 +1,16 @@
 <mac-modal id="folder">
     <div class="mac-modal-content">
         <h1>Přidání složky</h1>
-        <form class="ui small form">
+        <form name="form" class="ui small form" ng-submit="createFolder(folder)">
             <div class="field">
                 <label>Název složky</label>
-                <input type="text" ng-model="folder.name" ng-required="true" ng-minlength="1" ng-pattern='^[a-zA-Zа-яА-Я0-9_!]+$'>
+                <input name="name" type="text" ng-model="folder.name" required ng-pattern='/^[a-zA-Zа-яА-Я0-9_!]+$/'/>
+                <div ng-show="form.name.$touched">
+                    <span ng-show="form.name.$error.required"><i class="warning icon"></i>Vyplňte název složky.</span>
+                    <span ng-show="form.name.$error.pattern"><i class="warning icon"></i>Název složky obsahuje nepovolené znaky.</span>
+                </div>
             </div>
-            <input type="submit" value="Vytvořit složku" mac-modal-close ng-click="createFolder(folder)" class="ui button"\>
+            <input ng-disabled="form.$invalid" type="submit" value="Vytvořit složku" mac-modal-close ng-click="form.$setUntouched()" class="ui button"\>
         </form>
     </div>
 </mac-modal>

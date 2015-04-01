@@ -1,13 +1,17 @@
 <mac-modal id="label">
     <div class="mac-modal-content">
         <h1>Přidat štítek</h1>
-        <form class="ui small form">
+        <form name="form" class="ui small form" ng-submit="saveLabel(label)">
             <div>
                 <div>
                     <label>Název štítku</label>
-                    <input type="text" ng-model="label.name">
+                    <input name="name" type="text" ng-model="label.name" maxlength="12" ng-pattern="/^[a-zA-Zа-яА-Я0-9_!]+$/" required/>
+                    <div ng-show="form.name.$touched">
+                        <span ng-show="form.name.$error.required"><i class="warning icon"></i>Vyplňte název štítku.</span>
+                        <span ng-show="form.name.$error.pattern"><i class="warning icon"></i>Název obsahuje nepovolené znaky.</span>
+                    </div>
                 </div>
-                <br\>
+                <br/>
                 <div>
                     <label>Barva</label>
                     <span class="ui radio">
@@ -35,9 +39,9 @@
                         <label class="color"><i class="bookmark teal basic icon"></i></label>
                     </div>
                 </div>
-                <br\>
+                <br/>
             </div>
-            <input type="submit" value="Vytvořit štítek" mac-modal-close ng-click="saveLabel(label)" class="ui button"\>
+            <input ng-disabled="form.$invalid" type="submit" value="Vytvořit štítek" mac-modal-close ng-click="form.$setUntouched()" class="ui button"/>
         </form>
     </div>
 </mac-modal>

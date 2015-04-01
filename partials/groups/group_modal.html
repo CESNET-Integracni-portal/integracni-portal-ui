@@ -1,15 +1,19 @@
 <mac-modal id="group" mac-modal-before-show="clear()">
     <div class="mac-modal-content">
         <h1>Přidat skupinu</h1>
-        <form class="ui small form">
+        <form name="form" ng-submit="saveGroup(group)" class="ui small form">
             <div>
                 <div>
                     <label>Název skupiny</label>
-                    <input type="text" ng-model="group.name">
+                    <input type="text" name="name" ng-model="group.name" ng-pattern="/^[a-zA-Zа-яА-Я0-9_!]+$/" required>
+                    <div ng-show="form.name.$touched">
+                        <span ng-show="form.name.$error.required"><i class="warning icon"></i>Vyplňte název skupiny.</span>
+                        <span ng-show="form.name.$error.pattern"><i class="warning icon"></i>Název obsahuje nepovolené znaky.</span>
+                    </div>
                 </div>
                 <br\>
             </div>
-            <input type="submit" value="Vytvořit skupinu" mac-modal-close ng-click="saveGroup(group)" class="ui button"\>
+            <input type="submit" ng-disabled="form.$invalid" value="Vytvořit skupinu" mac-modal-close ng-click="form.$setUntouched()" class="ui button"\>
         </form>
     </div>
 </mac-modal>

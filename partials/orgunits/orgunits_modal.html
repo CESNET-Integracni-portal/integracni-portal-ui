@@ -1,29 +1,38 @@
-<mac-modal id="orgunit">
+<mac-modal id="orgunit" mac-modal-keyboard>
     <div class="mac-modal-content">
         <h1>Přidat organizační jednotku</h1>
-        <form class="ui small form">
-            <div class="two fields">
-                <div class="field">
-                    <label>Název</label>
-                    <input type="text" ng-model="unit.name" required>
+        <form name="form" class="ui small form" ng-submit="saveUnit(unit)" novalidate>
+            <div class="field">
+                <label>Název</label>
+                <input type="text" name="name" ng-model="unit.name" ng-pattern="/^[a-zA-Zа-яА-Я0-9_!]+$/" required/>
+                <div ng-show="form.name.$touched">
+                    <span ng-show="form.name.$error.required"><i class="warning icon"></i>Vyplňte název jednotky.</span>
+                    <span ng-show="form.name.$error.pattern"><i class="warning icon"></i>Název obsahuje nepovolené znaky.</span>
                 </div>
-                <br\>
-                <div class="field">
-                    <label>Velikost prostoru (GB)</label>
-                    <input type="number" ng-model="unit.size" required>
-                </div>
-                <br\>
             </div>
-            <div class="two fields">
-                <div class="field">
-                    <label>Správce</label>
-                    <mac-autocomplete mac-autocomplete-source="users" mac-autocomplete-label="email" mac-placeholder='"e-mail uživatele"' ng-model="unit.admin"></mac-autocomplete>
+            <br/>
+            <div class="field">
+                <label>Velikost prostoru (GB)</label>
+                <input type="number" name="size" min="0.1" ng-model="unit.size" required/>
+                <div ng-show="form.size.$touched">
+                    <span ng-show="form.size.$error.required"><i class="warning icon"></i>Vyplňte velikost prostoru.</span>
+                    <span ng-show="form.size.$error.min"><i class="warning icon"></i>Velikost musí být nejméně 0.1GB.</span>
+                    <span ng-show="form.size.$error.number"><i class="warning icon"></i>Velikost musí být číslo.</span>
                 </div>
-                <br\>
-                <div class="field">
-                    <label>&nbsp;</label>
-                    <input type="submit" value="Uložit" mac-modal-close class="ui small submit button" ng-click="saveUnit(unit)"\>
+            </div>
+            <br/>
+            <div class="field">
+                <label>Správce</label>
+                <mac-autocomplete ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" autocomplete="off" name="admin" mac-autocomplete-source="users" mac-autocomplete-label="email" mac-placeholder='"e-mail uživatele"' ng-model="unit.admin" required></mac-autocomplete>
+                <div ng-show="form.admin.$touched">
+                    <span ng-show="form.admin.$error.required"><i class="warning icon"></i>Vyplňte email správce.</span>
+                    <span ng-show="form.admin.$error.pattern"><i class="warning icon"></i>Vyplňte validní email doporučitele.</span>
                 </div>
+            </div>
+            <br/>
+            <div class="field">
+                <label>&nbsp;</label>
+                <input ng-disabled="form.$invalid" type="submit" value="Uložit" mac-modal-close ng-click="form.$setUntouched()" class="ui small submit button" />
             </div>
         </form>
     </div>

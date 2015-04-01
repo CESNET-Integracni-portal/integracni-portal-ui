@@ -1,0 +1,19 @@
+<mac-modal id="login">
+    <div class="mac-modal-content">
+        <h1 class="center aligned ui header">Integrační portál FEL</h1>
+        <form name="form" class="ui small form" ng-submit="submit(username, password)">
+            <h2>Přihlásit jako</h2>
+            <div class="two fields">
+                <div class="field">
+                    <label>Username</label>
+                    <input name="username" type="text" ng-model="username" placeholder="usernam" required/>
+                </div>
+                <div class="field">
+                    <label>Password</label>
+                    <input name="password" type="password" ng-model="password"  placeholder="password" required />
+                </div>
+            </div>
+            <input type="submit" value="Přihlásit" mac-modal-close ng-click="form.$setPristine()" class="ui button"\>
+        </form>
+    </div>
+</mac-modal>

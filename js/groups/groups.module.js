@@ -30,9 +30,11 @@
         };
 
         $scope.addMember = function (group) {
-            $scope.group.users.push(group.member);
-            var updatedGroup = groupService.updateGroup(group);
-            $scope.user.groups[$scope.index] = angular.copy(updatedGroup);
+            if ($scope.group.users.indexOf(group.member) === -1) {
+                $scope.group.users.push(group.member);
+                var updatedGroup = groupService.updateGroup(group);
+                $scope.user.groups[$scope.index] = angular.copy(updatedGroup);
+            }
         };
 
         $scope.deleteMember = function (user, group) {
@@ -71,7 +73,6 @@
 
         $scope.clear = function () {
             if (that.newgrp) {
-                alert('clear');
                 that.reset();
             }
         };

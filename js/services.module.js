@@ -187,6 +187,7 @@
         };
     });
 
+    // comm with server API
     // archive service
     srvmod.factory('archiveService', function (utils, $http, httpService) {
         /**
