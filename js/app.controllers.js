@@ -1,5 +1,5 @@
 (function () {
-    angular.module('app.module').controller('NavigationController', function ($scope) {
+    angular.module('app.module').controller('NavigationController', function ($scope, $rootScope) {
         this.fastFolders = fastFolders;
     });
 
@@ -7,7 +7,7 @@
         // TODO
     });
 
-    angular.module('app.module').controller('MainController', function ($scope, userService, urlService, oauthService) {
+    angular.module('app.module').controller('MainController', function ($scope, $rootScope, userService, urlService, oauthService, loginService) {
 
         $scope.user = userService.getById(2);
         $scope.basePath = urlService.basePath();
@@ -25,7 +25,7 @@
 
         $scope.logout = function () {
 
-            oauthService.logout();
+            loginService.logout();
         };
 
         //$scope.deaultSidebar = function () {

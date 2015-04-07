@@ -13,17 +13,18 @@
                 'services.module',
                 'Mac']);
 
-    app.run(function ($rootScope, oauthService) {
-        oauthService.refresh();
+    app.run(function ($rootScope, oauthService, loginService) {
 
-//        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, loginService) {
-//            var requireLogin = toState.data.requireLogin;
-//
-//            if (requireLogin && typeof $rootScope.currentUser === 'undefined') {
-//                event.preventDefault();
-//                loginService.showLogin();
-//            }
-//        });
+        $rootScope.currentUser = null;
+
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+            var requireLogin = toState.data.requireLogin;
+
+            if (requireLogin && $rootScope.currentUser === null) {
+                event.preventDefault();
+                loginService.login();
+            }
+        });
     });
 
     app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -36,27 +37,27 @@
                 .state("index", {
                     url: "/",
                     templateUrl: "./partials/archive/folder.html",
-                    controller: 'indexCtrl'
-//                    data: {
-//                        requireLogin: true
-//                    }
+                    controller: 'indexCtrl',
+                    data: {
+                        requireLogin: true
+                    }
                 })
                 // iterates over folders
                 .state("folderIterate", {
                     url: "/folder/{folderId:[1-9][0-9]*}",
                     templateUrl: "./partials/archive/folder.html",
-                    controller: 'folderIterateCtrl'
-//                    data: {
-//                        requireLogin: true
-//                    }
+                    controller: 'folderIterateCtrl',
+                    data: {
+                        requireLogin: true
+                    }
                 })
 
                 .state("admin", {
                     url: "/admin",
-                    template: "<admin-tabs></admin-tabs>"
-//                    data: {
-//                        requireLogin: true
-//                    }
+                    template: "<admin-tabs></admin-tabs>",
+                    data: {
+                        requireLogin: true
+                    }
                 })
 
                 /*.state("folder.detail", {
@@ -66,39 +67,39 @@
 
                 .state("settings", {
                     url: "/settings",
-                    template: "<settings-tabs></settings-tabs>"
-//                    data: {
-//                        requireLogin: true
-//                    }
+                    template: "<settings-tabs></settings-tabs>",
+                    data: {
+                        requireLogin: true
+                    }
                 })
 
                 // archive
                 .state("archive", {
                     url: "/archive",
                     templateUrl: "./partials/archive/archive.html",
-                    controller: 'archiveCtrl'
-//                    data: {
-//                        requireLogin: true
-//                    }
+                    controller: 'archiveCtrl',
+                    data: {
+                        requireLogin: true
+                    }
                 })
 
                 // iterates over archive
                 .state("archiveIterate", {
                     url: "/archive/{folderId:[1-9][0-9]*}",
                     templateUrl: "./partials/archive/archive_detail.html",
-                    controller: 'archiveIterateCtrl'
-//                    data: {
-//                        requireLogin: true
-//                    }
+                    controller: 'archiveIterateCtrl',
+                    data: {
+                        requireLogin: true
+                    }
                 })
 
                 .state("shared", {
                     url: "/shared",
                     templateUrl: "./partials/shared/shared.html",
-                    controller: 'sharedCtrl'
-//                    data: {
-//                        requireLogin: true
-//                    }
+                    controller: 'sharedCtrl',
+                    data: {
+                        requireLogin: true
+                    }
                 });
     });
 })();

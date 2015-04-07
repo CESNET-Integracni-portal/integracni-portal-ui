@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
         <meta name="author" content="Kateřina Hašlarová">
-        <title ng-bind="$state.current.name + ' - Integrační portál'">Integrační portál</title>
+        <title ng-bind="currentUser + ' - Integrační portál'">Integrační portál</title>
         <link href="./css/semantic.css" ng-href="./css/semantic.css" rel="stylesheet" type="text/css">
         <link rel="shortcut icon" href="favicon.ico" >
         <link href="./css/portal.css" ng-href="./css/portal.css" rel="stylesheet" type="text/css">
@@ -14,7 +14,8 @@
 
     <body>
         <!-- top navigation -->
-        <div class="ui fixed inverted pointing menu">
+        <div>
+        <div class="ui fixed inverted pointing menu" ng-show="loggedIn">
             <a class="item project" ui-sref="index">Integrační portál</a>
             <div class="menu right">
                 <div class="ui top right pointing mobile dropdown link item">
@@ -47,11 +48,10 @@
                     </div>
                 </div>
                 <a ng-click="logout()" class="item"> <i class="icon sign out"></i></a>
-
             </div>
         </div>
 
-        <div class="ui celled grid">
+        <div class="ui celled grid" ng-show="loggedIn">
             <div class="row leftmenu">
                 <!-- left navigation -->
                 <div class="one wide column" style="">
@@ -78,65 +78,65 @@
             </div>
         </div>
 
-        <div class="ui right vertical sidebar">
-            <a href="#" class="sidebar-hide-btn" title="Close the board sidebar."> 
-                <i class="right arrow icon"></i>
-            </a>
-            <i class="massive folder icon"></i>
-
-            <h2> UML </h2>
-
-            <!--actions-->
-            <a class="action" ><i class="blue download disk icon"></i></a>
-            <a class="action"><i class="blue pin icon"></i></a>
-            <a class="action" ng-click="deleteFolder(folder.id)"><i class="blue trash icon"></i></a>
-
-            <br>
-            <br>
-            <!--labels-->
-            <form class="ui small form">
-
-                <div class="field">
-                    <label> </label>
-                    <div ng-repeat="label in user.labels">
-                        <input  type="checkbox" name="label.id" value="{{label.name}}">
-                        <label><i class="bookmark {{label.color}} basic icon"></i>{{label.name}}</label>
-                    </div>
-                </div>
-            </form>
-            <br>
-
-            <form class="ui small form">
-                <div class="field">
-                    <label>Nový název složky</label>
-                    <input type="text" ng-model="folder.name" value="UML">
-                </div>
-                <div ng-click="createFolder(folder)" class="ui button">
-                    Uložit
-                </div>
-            </form>
-            <br>
-
-            <!--share-->
-            <form class="ui small form">
-                <div class="field">
-                    <label>Sdílet s</label>
-                    <select name="user" ng-click="addUser()">
-                        <option>----</option>
-                        <option>Jan Novák</option>
-                    </select>
-                </div>
-                <div class="ui button">
-                    Sdílet
-                </div>
-            </form>
-            <!--<div ng-if="sidebarShow">
-                <div custom-sidebar="{{mySidebar}}">
-                </div>
-            </div>-->
-        </div>
-        <div ng-include="'./partials/login/login_modal.html'"></div>
+        <!--        <div class="ui right vertical sidebar">
+                    <a href="#" class="sidebar-hide-btn" title="Close the board sidebar."> 
+                        <i class="right arrow icon"></i>
+                    </a>
+                    <i class="massive folder icon"></i>
         
+                    <h2> UML </h2>
+        
+        <!--actions
+        <a class="action" ><i class="blue download disk icon"></i></a>
+        <a class="action"><i class="blue pin icon"></i></a>
+        <a class="action" ng-click="deleteFolder(folder.id)"><i class="blue trash icon"></i></a>
+
+        <br>
+        <br>
+        <!--labels
+        <form class="ui small form">
+
+            <div class="field">
+                <label> </label>
+                <div ng-repeat="label in user.labels">
+                    <input  type="checkbox" name="label.id" value="{{label.name}}">
+                    <label><i class="bookmark {{label.color}} basic icon"></i>{{label.name}}</label>
+                </div>
+            </div>
+        </form>
+        <br>
+
+        <form class="ui small form">
+            <div class="field">
+                <label>Nový název složky</label>
+                <input type="text" ng-model="folder.name" value="UML">
+            </div>
+            <div ng-click="createFolder(folder)" class="ui button">
+                Uložit
+            </div>
+        </form>
+        <br>
+
+        <!--share
+        <form class="ui small form">
+            <div class="field">
+                <label>Sdílet s</label>
+                <select name="user" ng-click="addUser()">
+                    <option>----</option>
+                    <option>Jan Novák</option>
+                </select>
+            </div>
+            <div class="ui button">
+                Sdílet
+            </div>
+        </form>
+        <div ng-if="sidebarShow">
+            <div custom-sidebar="{{mySidebar}}">
+            </div>
+        </div>
+    </div> -->
+        <div ng-include="'./partials/login/login_modal.html'"></div>
+
         <script type="text/javascript" src="./libs/jquery-1.11.2.min.js"></script>
         <script type="text/javascript" src="./libs/angular.min.js"></script>
         <script type="text/javascript" src="./libs/semantic.js"></script>

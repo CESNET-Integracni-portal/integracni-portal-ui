@@ -1,19 +1,25 @@
-<mac-modal id="login">
+<mac-modal id="login" ng-controller="loginCtrl">
     <div class="mac-modal-content">
         <h1 class="center aligned ui header">Integrační portál FEL</h1>
-        <form name="form" class="ui small form" ng-submit="submit(username, password)">
+        <form name="form" class="ui small form" ng-submit="submitLogin(username, password)">
             <h2>Přihlásit jako</h2>
-            <div class="two fields">
-                <div class="field">
-                    <label>Username</label>
-                    <input name="username" type="text" ng-model="username" placeholder="usernam" required/>
-                </div>
-                <div class="field">
-                    <label>Password</label>
-                    <input name="password" type="password" ng-model="password"  placeholder="password" required />
+            <div class="field">
+                <label>Username</label>
+                <input name="username" type="text" ng-model="username" placeholder="username" required/>
+                <div ng-show="form.username.$touched">
+                    <span ng-show="form.username.$error.required"><i class="warning icon"></i>Vyplňte uživatelské jméno.</span>
                 </div>
             </div>
-            <input type="submit" value="Přihlásit" mac-modal-close ng-click="form.$setPristine()" class="ui button"\>
+            <div class="field">
+                <label>Password</label>
+                <input name="password" type="password" ng-model="password"  placeholder="password" required />
+                <div ng-show="form.password.$touched">
+                    <span ng-show="form.password.$error.required"><i class="warning icon"></i>Vyplňte heslo.</span>
+                </div>
+            </div>
+            <center>
+                <input ng-disabled="form.$invalid" type="submit" value="Přihlásit" mac-modal-close ng-click="form.$setPristine()" class="ui button"\>
+            </center>
         </form>
     </div>
 </mac-modal>

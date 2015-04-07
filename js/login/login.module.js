@@ -1,38 +1,49 @@
 (function () {
-    var logmod = angular.module('login.module', ['utils.module', 'services.module']);
-
+    var logmod = angular.module('login.module', ['utils.module', 'services.module', 'Mac']);
 
     // TODO
-   logmod.factory('loginService', function ($rootScope) {
+    logmod.factory('loginService', function ($rootScope, modal, oauthService, urlService) {
         return {
             assignCurrentUser: function (user) {
                 $rootScope.currentUser = user;
-                return user;
+                $rootScope.loggedIn = true;
             },
-            showLogin: function () {
-                alert("howno");
+            login: function () {
+                modal.show('login');
+            },
+            logout: function () {
+                oauthService.logout();
+                $rootScope.currentUser = null;
+                $rootScope.loggedIn = false;
+                this.login();
             }
         };
     });
-    
-    // TODO
-    logmod.controller('loginCtrl', function ($scope, oauthService) {
 
-        this.cancel = $scope.$dismiss;
+    // TODO
+    logmod.controller('loginCtrl', function ($scope, oauthService, loginService) {
 
         var handleError = function (data, status, headers, config) {
             if (status === 401) {
-                $scope.errorMessage = "Špatné přihlašovací údaje";
+//                $scope.errorMessage = "Špatné přihlašovací údaje";
+                alert("Špatné přihlašovací údaje");
             } else {
-                $scope.errorMessage = "Někde se stala chyba";
+//                $scope.errorMessage = "Někde se stala chyba";
+                alert("Někde se stala chyba");
             }
         };
 
-        this.submit = function (user, psw) {
-
+        $scope.submitLogin = function (user, psw) {
             var deffered = oauthService.loginWithPass(user, psw);
+            deffered.success(function () {
+                // GET CURRENT USER FROM SERVER
+                loginService.assignCurrentUser(user);
+                oauthService.refresh();
+            });
             deffered.error(function (data, status, headers, config) {
                 handleError(data, status, headers, config);
+                oauthService.refresh();
+                loginService.login();
             });
         };
     });

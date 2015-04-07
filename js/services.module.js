@@ -87,10 +87,10 @@
                     oauthService.refresh().success(function () {
                         that.createRequest(method, url, data);
                     }).error(function () {
-                        urlService.redirectToLoginPage();
+                        oauthService.logout();
                     });
                 } else {
-                    urlService.redirectToLoginPage();
+                    oauthService.logout();
                 }
             }
         };
@@ -120,7 +120,7 @@
                     cookieService.setCookie(that._accessTokenId, response.access_token, response.expires_in);
                     cookieService.setCookie(that._tokenType, response.token_type, response.expires_in);
                     cookieService.setCookie(that._refreshToken, response.refresh_token);
-                    urlService.redirectToApp();
+
                 })/*.error(function(data, status, headers, config){
                  errorCallback(data, status, headers, config);
                  })*/;
@@ -129,12 +129,12 @@
                 cookieService.deleteCookie(this._accessTokenId);
                 cookieService.deleteCookie(this._tokenType);
                 cookieService.deleteCookie(this._refreshToken);
-                urlService.redirectToLoginPage();
+                urlService.redirect();
             },
             refresh: function () {
                 var refreshToken = cookieService.getCookie(this._refreshToken);
                 if (refreshToken === null) {
-                    urlService.redirectToLoginPage();
+                    urlService.redirect();
                 } else {
                     var that = this;
                     $http({
@@ -156,7 +156,6 @@
                         cookieService.deleteCookie(that._accessTokenId);
                         cookieService.deleteCookie(that._tokenType);
                         cookieService.deleteCookie(that._refreshToken);
-                        urlService.redirectToLoginPage();
                     });
                 }
             }
@@ -171,19 +170,19 @@
                 var absUrl = $location.absUrl();
                 return absUrl.substring(0, (absUrl.length - path.length));
             },
-            redirectToLoginPage: function () {
-                var basepath = this.basePath();
-                $window.location.href = basepath + "/login";
-            },
-            redirect: function (url) {
-                $location.path(url);
-            },
-            redirectToApp: function () {
-                //var path = $location.path();
-                var absUrl = $location.absUrl();
-                var basepath = absUrl.substring(0, (absUrl.length - 5));
-                $window.location.href = basepath;
+//            redirectToLoginPage: function () {
+//                var basepath = this.basePath();
+//                $window.location.href = basepath + "/login";
+//            },
+            redirect: function () {
+                $location.path(this.basePath());
             }
+//            redirectToApp: function () {
+//                //var path = $location.path();
+//                var absUrl = $location.absUrl();
+//                var basepath = absUrl.substring(0, (absUrl.length - 5));
+//                $window.location.href = basepath;
+//            }
         };
     });
 

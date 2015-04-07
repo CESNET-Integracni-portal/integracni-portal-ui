@@ -6,7 +6,6 @@
             <table class="ui basic table compact">
                 <tbody>
                     <tr ng-repeat="user in group.users">
-                        <td><input type="checkbox"></td>
                         <td>{{user}}</td>
                         <td class="actions">
                             <a class="action" ng-click="deleteMember(user, group)"><i class="trash icon"></i></a>
@@ -15,7 +14,7 @@
                 </tbody>
             </table>
             <br/>
-            <mac-autocomplete name="member" ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" mac-autocomplete-source="users" mac-autocomplete-label="email" mac-placeholder='"e-mail uživatele"' ng-model="group.member" required></mac-autocomplete>
+            <mac-autocomplete autocomplete="off" name="member" ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" mac-autocomplete-source="users" mac-autocomplete-label="email" mac-placeholder='"e-mail uživatele"' ng-model="group.member" required></mac-autocomplete>
             <div id="errormsg" ng-show="form.member.$touched">
                 <span ng-show="form.member.$error.required"><i class="warning icon"></i>Vyplňte email člena.</span>
                 <span ng-show="form.member.$error.pattern"><i class="warning icon"></i>Vyplňte validní email člena.</span>
