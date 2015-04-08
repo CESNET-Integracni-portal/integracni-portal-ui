@@ -2,10 +2,12 @@
     var logmod = angular.module('login.module', ['utils.module', 'services.module', 'Mac']);
 
     // TODO
-    logmod.factory('loginService', function ($rootScope, modal, oauthService) {
+    logmod.factory('loginService', function ($rootScope, modal, oauthService, userService) {
         return {
-            assignCurrentUser: function (user) {
-                $rootScope.currentUser = user;
+            assignCurrentUser: function () {
+                // GET CURRENT FROM SERVER
+                var curr = userService.getCurrent();
+                $rootScope.currentUser = curr;
                 $rootScope.loggedIn = true;
             },
             login: function () {
@@ -37,7 +39,7 @@
             var deffered = oauthService.loginWithPass(user, psw);
             deffered.success(function () {
                 // var user = userService.getCurrent();
-                loginService.assignCurrentUser(user);
+                loginService.assignCurrentUser();
                 oauthService.refresh();
             });
             deffered.error(function (data, status, headers, config) {

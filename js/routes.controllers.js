@@ -1,34 +1,30 @@
 (function () {
 
     // routes controllers
-    app.controller('indexCtrl', function ($scope, archiveService) {
-        archiveService.getAll().success(function (data) {
-            $scope.archive = {folders: data};
-            $scope.archive.breadcrumbs = [];
+    app.controller('indexCtrl', function ($scope, homeService) {
+        homeService.getAll().success(function (data) {
+            $scope.home = {folders: data};
+            $scope.home.breadcrumbs = [];
         });
 
         $scope.createFolder = function (folder) {
-            archiveService.createFolderInRoot(folder.name).success(function (data) {
-                $scope.archive.folders.push(data);
+            homeService.createFolderInRoot(folder.name).success(function (data) {
+                $scope.home.folders.push(data);
             });
             folder.name = "";
         };
 
         $scope.deleteFolder = function (folderId) {
-            archiveService.deleteFolder(folderId).success(function (data) {
-                archiveService.getAll().success(function (data) {
-                    $scope.archive = {folders: data};
-                    $scope.archive.breadcrumbs = [];
+            homeService.deleteFolder(folderId).success(function (data) {
+                homeService.getAll().success(function (data) {
+                    $scope.home = {folders: data};
+                    $scope.home.breadcrumbs = [];
                 });
             });
         };
 
-        $scope.rename = function () {
-
-        };
-
         $scope.empty = function () {
-            return (typeof $scope.archive === 'undefined' || (typeof $scope.archive.folders === 'undefined' || $scope.archive.folders.length === 0) && (typeof $scope.archive.files === 'undefined' || $scope.archive.files.length === 0));
+            return (typeof $scope.home === 'undefined' || (typeof $scope.home.folders === 'undefined' || $scope.home.folders.length === 0) && (typeof $scope.home.files === 'undefined' || $scope.home.files.length === 0));
         };
     });
 
@@ -37,13 +33,24 @@
             $scope.archive = {folders: data};
             $scope.archive.breadcrumbs = [];
         });
+        var that = this;
+        var newfolder = true;
+        $scope.folderId = null;
 
-        $scope.createFolder = function (folder) {
+        $scope.saveFolder = function (folder) {
 
-            archiveService.createFolderInRoot(folder.name).success(function (data) {
-                $scope.archive.folders.push(data);
-            });
-            folder.name = "";
+            if ($scope.folderId === null) {
+                archiveService.createFolderInRoot(folder.name).success(function (data) {
+                    $scope.archive.folders.push(data);
+                });
+                folder.name = "";
+            } else {
+                archiveService.renameFolder($scope.folderId, folder.name).success(function (data) {
+                    archiveService.getById($scope.folderId).success(function (data) {
+                        $scope.archive = data;
+                    });
+                });
+            }
         };
 
         $scope.deleteFolder = function (folderId) {
@@ -55,9 +62,10 @@
                 });
             });
         };
-
-        $scope.rename = function () {
-            // TODO
+        
+        $scope.editFolder = function (folderId) {
+            that.newfolder = false;
+            $scope.folderId = folderId;
         };
 
         $scope.empty = function () {
@@ -72,7 +80,7 @@
             $scope.archive = data;
         });
 
-        $scope.createFolder = function (folder) {
+        $scope.saveFolder = function (folder) {
 
             archiveService.createFolder(folderId, folder.name).success(function (data) {
                 $scope.archive.folders.push(data);
@@ -108,11 +116,6 @@
                     });
                 }
             });
-        };
-
-        $scope.setName = function () {
-
-            file.name = file.file;
         };
 
         $scope.uploadFile = function (file) {

@@ -56,10 +56,6 @@
             return (typeof user.disabled !== 'undefined' && user.disabled);
         };
 
-        $scope.removeUser = function (index) {
-
-        };
-
         $scope.deleteGroup = function (index) {
             $scope.user.groups.splice(index, 1);
             groupService.deleteGroup(index);

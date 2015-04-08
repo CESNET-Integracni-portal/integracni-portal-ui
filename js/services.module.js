@@ -228,6 +228,50 @@
             }
         };
     });
+    
+    // home space service
+    srvmod.factory('homeService', function (httpService) {
+        /**
+         Users parameters:
+         int id - unique
+         string name
+         array users
+         int userId 
+         */
+        return {
+            // root
+            getAll: function () {
+                return httpService.createRequest("GET", baseUrl + 'home', {}, "application/json");
+            },
+            createFolderInRoot: function (name) {
+                // create on server side
+                return httpService.createRequest("POST", baseUrl + 'home', {name: name}, "application/json");
+            },
+            // subfolder of root
+            getById: function (archiveId) {
+                return httpService.createRequest("GET", baseUrl + 'home/folder/' + archiveId, {}, "application/json");
+            },
+            createFolder: function (folderId, name) {
+                // create on server side
+                return httpService.createRequest("POST", baseUrl + 'home/folder/' + folderId, {name: name}, "application/json");
+            },
+            renameFolder: function (folderId, name) {
+                // create on server side
+                return httpService.createRequest("PUT", baseUrl + 'home/folder/' + folderId, {name: name}, "application/json");
+            },
+            deleteFolder: function (folderId) {
+                // create on server side
+                return httpService.createRequest("DELETE", baseUrl + 'home/folder/' + folderId, {}, "application/json");
+            },
+            addFile: function (folderId, file, name) {
+                // create on server side
+                return httpService.createRequest(
+                        "POST",
+                        baseUrl + 'home/folder/' + folderId + "/files",
+                        $.param({fileName: file, name: name}), "multipart/form-data");
+            }
+        };
+    });
 
     // groups service
     srvmod.factory('groupService', function (utils, httpService) {
@@ -276,7 +320,9 @@
              join users labels
              */
             getCurrent: function () {
-                // TODO
+                // mocup data
+                return user = utils.findById(users, 2);
+                //return httpService.createRequest("GET", baseUrl + 'user/current', {}, "application/json");
             },
             getById: function (userId) {
                 // přihlášený uživatel se bude do budoucna tahat přes api!!!

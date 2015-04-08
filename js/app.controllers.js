@@ -7,7 +7,7 @@
         // TODO
     });
 
-    angular.module('app.module').controller('MainController', function ($scope, $rootScope, userService, urlService, oauthService, loginService) {
+    angular.module('app.module').controller('MainController', function ($scope, userService, urlService, oauthService, loginService) {
 
         $scope.user = userService.getById(2);
         $scope.basePath = urlService.basePath();
