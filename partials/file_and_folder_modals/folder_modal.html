@@ -1,7 +1,7 @@
 <mac-modal id="folder">
     <div class="mac-modal-content">
         <h1>Přidání složky</h1>
-        <form name="form" class="ui small form" ng-submit="createFolder(folder)">
+        <form name="form" class="ui small form" ng-submit="saveFolder(folder)">
             <div class="field">
                 <label>Název složky</label>
                 <input name="name" type="text" ng-model="folder.name" required ng-pattern='/^[a-zA-Zа-яА-Я0-9_!]+$/'/>

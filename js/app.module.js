@@ -24,7 +24,7 @@
             }
         });
     });
-    
+
     app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
         // route all invalid urls to index
@@ -34,7 +34,7 @@
                 // index route, my space
                 .state("index", {
                     url: "/",
-                    templateUrl: "./partials/archive/folder.html",
+                    templateUrl: "./partials/home/folder.html",
                     controller: 'indexCtrl',
                     data: {
                         requireLogin: true
@@ -43,7 +43,7 @@
                 // iterates over folders
                 .state("folderIterate", {
                     url: "/folder/{folderId:[1-9][0-9]*}",
-                    templateUrl: "./partials/archive/folder.html",
+                    templateUrl: "./partials/home/folder.html",
                     controller: 'folderIterateCtrl',
                     data: {
                         requireLogin: true

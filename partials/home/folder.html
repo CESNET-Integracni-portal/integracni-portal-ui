@@ -18,7 +18,6 @@
         <table class="ui basic table compact">
             <thead>
                 <tr>
-                    <th><input type="checkbox"></th>
                     <th>Název</th>
                     <th>Sdílím s</th>
                     <th>Velikost</th>
@@ -27,7 +26,6 @@
             </thead>
             <tbody>
                 <tr ng-repeat="folder in archive.folders">
-                    <td><input type="checkbox"></td>
                     <td><a ui-sref="archiveIterate({folderId:folder.id})"><i class="folder outline icon"></i> <span>{{folder.name}}</span></a>
                         <a class="item" ng-repeat="label in folder.labels" ui-sref="label/{{label.id}}"><i class="bookmark red basic icon"></i></a>
                     </td>
