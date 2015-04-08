@@ -2,7 +2,7 @@
     var logmod = angular.module('login.module', ['utils.module', 'services.module', 'Mac']);
 
     // TODO
-    logmod.factory('loginService', function ($rootScope, modal, oauthService, urlService) {
+    logmod.factory('loginService', function ($rootScope, modal, oauthService) {
         return {
             assignCurrentUser: function (user) {
                 $rootScope.currentUser = user;
@@ -21,7 +21,7 @@
     });
 
     // TODO
-    logmod.controller('loginCtrl', function ($scope, oauthService, loginService) {
+    logmod.controller('loginCtrl', function ($scope, oauthService, loginService, userService) {
 
         var handleError = function (data, status, headers, config) {
             if (status === 401) {
@@ -36,7 +36,7 @@
         $scope.submitLogin = function (user, psw) {
             var deffered = oauthService.loginWithPass(user, psw);
             deffered.success(function () {
-                // GET CURRENT USER FROM SERVER
+                // var user = userService.getCurrent();
                 loginService.assignCurrentUser(user);
                 oauthService.refresh();
             });

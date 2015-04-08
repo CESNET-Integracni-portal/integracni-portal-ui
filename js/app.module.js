@@ -16,17 +16,15 @@
     app.run(function ($rootScope, oauthService, loginService) {
 
         $rootScope.currentUser = null;
-
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
             var requireLogin = toState.data.requireLogin;
-
             if (requireLogin && $rootScope.currentUser === null) {
                 event.preventDefault();
                 loginService.login();
             }
         });
     });
-
+    
     app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
         // route all invalid urls to index
@@ -52,6 +50,7 @@
                     }
                 })
 
+                // admin settings
                 .state("admin", {
                     url: "/admin",
                     template: "<admin-tabs></admin-tabs>",
@@ -65,6 +64,7 @@
                  templateUrl: "./partials/folder.html"
                  })*/
 
+                // personal settings
                 .state("settings", {
                     url: "/settings",
                     template: "<settings-tabs></settings-tabs>",
@@ -93,6 +93,7 @@
                     }
                 })
 
+                // shared settings
                 .state("shared", {
                     url: "/shared",
                     templateUrl: "./partials/shared/shared.html",

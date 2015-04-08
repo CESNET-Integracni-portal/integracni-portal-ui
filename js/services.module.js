@@ -1,6 +1,6 @@
 (function () {
 
-    var srvmod = angular.module('services.module', ['utils.module']);
+    var srvmod = angular.module('services.module', ['utils.module', 'ui.router']);
     // url of the server, where api is
     var baseUrl = "http://147.32.80.219:8080/integracni-portal/rest/v0.1/";
     // url of the server, where ouath is
@@ -13,28 +13,26 @@
         return {
             _defaultExp: 86400, //in seconds (86400 = 1 day)
             _accessToken: null,
-            _tokenType: null,
-            _refreshToken: null,
             _accessTokenId: "accessToken",
             _refreshToken: "refreshToken",
-                    _tokenType: "tokenType",
-                    /**
-                     * Set cookie
-                     * @param name
-                     * @param val value
-                     * @param exp |null expiration in seconds, it's used _defaultExp when null
-                     */
-                    setCookie: function (name, val, exp) {
+            _tokenType: "tokenType",
+            /**
+             * Set cookie
+             * @param name
+             * @param val value
+             * @param exp |null expiration in seconds, it's used _defaultExp when null
+             */
+            setCookie: function (name, val, exp) {
 
-                        var d = new Date();
-                        if (exp === undefined) {
-                            exp = this._defaultExp;
-                        }
-                        d.setTime(d.getTime() + (exp * 1000));
-                        var expires = "expires=" + d.toGMTString();
-                        var toSet = name + "=" + val + ";" + expires + ";path=/";
-                        document.cookie = toSet;
-                    },
+                var d = new Date();
+                if (exp === undefined) {
+                    exp = this._defaultExp;
+                }
+                d.setTime(d.getTime() + (exp * 1000));
+                var expires = "expires=" + d.toGMTString();
+                var toSet = name + "=" + val + ";" + expires + ";path=/";
+                document.cookie = toSet;
+            },
             /**
              * Delete cookie
              * @param string name of cookie
@@ -51,7 +49,7 @@
                 var cookies = document.cookie.split(';');
                 for (var i = 0; i < cookies.length; i++) {
                     var c = cookies[i].trim();
-                    if (c.indexOf(name) != -1)
+                    if (c.indexOf(name) !== -1)
                         return c.substring(name.length, c.length);
                 }
                 return null;
@@ -186,9 +184,9 @@
         };
     });
 
-    // comm with server API
+    // communication with server API
     // archive service
-    srvmod.factory('archiveService', function (utils, $http, httpService) {
+    srvmod.factory('archiveService', function (httpService) {
         /**
          Users parameters:
          int id - unique
@@ -199,7 +197,7 @@
         return {
             // root
             getAll: function () {
-                return $http.get(baseUrl + 'archive');
+                return httpService.createRequest("GET", baseUrl + 'archive', {}, "application/json");
             },
             createFolderInRoot: function (name) {
                 // create on server side
@@ -207,7 +205,7 @@
             },
             // subfolder of root
             getById: function (archiveId) {
-                return $http.get(baseUrl + 'archive/folder/' + archiveId);
+                return httpService.createRequest("GET", baseUrl + 'archive/folder/' + archiveId, {}, "application/json");
             },
             createFolder: function (folderId, name) {
                 // create on server side
@@ -232,7 +230,7 @@
     });
 
     // groups service
-    srvmod.factory('groupService', function (utils) {
+    srvmod.factory('groupService', function (utils, httpService) {
         /**
          Users parameters:
          int id - unique
@@ -262,7 +260,7 @@
     });
 
     // users service
-    srvmod.factory('userService', function (utils, labelService, groupService) {
+    srvmod.factory('userService', function (utils, labelService, groupService, httpService) {
         /**
          Users parameters:
          int id - unique
@@ -277,6 +275,9 @@
             /*
              join users labels
              */
+            getCurrent: function () {
+                // TODO
+            },
             getById: function (userId) {
                 // přihlášený uživatel se bude do budoucna tahat přes api!!!
                 var user = utils.findById(users, userId);
@@ -312,7 +313,7 @@
     });
 
     // labels service
-    srvmod.factory('labelService', function (utils) {
+    srvmod.factory('labelService', function (utils, httpService) {
         /**
          Users parameters:
          int id - unique
@@ -342,7 +343,7 @@
     });
 
     // unit service
-    srvmod.factory('unitService', function (utils) {
+    srvmod.factory('unitService', function (utils, httpService) {
         /**
          Users parameters:
          int id - unique
