@@ -1,29 +1,8 @@
 (function () {
-    var logmod = angular.module('login.module', ['utils.module', 'services.module', 'Mac']);
+    var logmod = angular.module('login.module', ['utils.module', 'services.module']);
 
     // TODO
-    logmod.factory('loginService', function ($rootScope, modal, oauthService, userService) {
-        return {
-            assignCurrentUser: function () {
-                // GET CURRENT FROM SERVER
-                var curr = userService.getCurrent();
-                $rootScope.currentUser = curr;
-                $rootScope.loggedIn = true;
-            },
-            login: function () {
-                modal.show('login');
-            },
-            logout: function () {
-                oauthService.logout();
-                $rootScope.currentUser = null;
-                $rootScope.loggedIn = false;
-                this.login();
-            }
-        };
-    });
-
-    // TODO
-    logmod.controller('loginCtrl', function ($scope, oauthService, loginService, userService) {
+    logmod.controller('loginCtrl', function ($scope, $rootScope, oauthService, userService) {
 
         var handleError = function (data, status, headers, config) {
             if (status === 401) {
@@ -35,17 +14,23 @@
             }
         };
 
+        var assignCurrentUser = function () {
+            // GET CURRENT FROM SERVER
+            var curr = userService.getCurrent();
+            localStorage.setItem("user", JSON.stringify(curr));
+            localStorage.setItem("loggedIn", "true");
+            $rootScope.currentUser = curr;
+            $rootScope.loggedIn = true;
+        };
+
         $scope.submitLogin = function (user, psw) {
             var deffered = oauthService.loginWithPass(user, psw);
             deffered.success(function () {
-                // var user = userService.getCurrent();
-                loginService.assignCurrentUser();
-                oauthService.refresh();
+                assignCurrentUser();
             });
             deffered.error(function (data, status, headers, config) {
                 handleError(data, status, headers, config);
-                oauthService.refresh();
-                loginService.login();
+                oauthService.login();
             });
         };
     });

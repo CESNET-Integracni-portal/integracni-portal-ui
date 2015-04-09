@@ -1,6 +1,6 @@
 (function () {
 
-    var srvmod = angular.module('services.module', ['utils.module', 'ui.router']);
+    var srvmod = angular.module('services.module', ['utils.module', 'ui.router', 'Mac']);
     // url of the server, where api is
     var baseUrl = "http://147.32.80.219:8080/integracni-portal/rest/v0.1/";
     // url of the server, where ouath is
@@ -58,7 +58,7 @@
     });
 
     // http service
-    srvmod.factory('httpService', function (cookieService, $http, oauthService, urlService) {
+    srvmod.factory('httpService', function (cookieService, $http, oauthService) {
         return {
             _accessTokenId: "accessToken",
             _refreshToken: "refreshToken",
@@ -95,7 +95,7 @@
     });
 
     // oauth service
-    srvmod.factory('oauthService', function (cookieService, $http, $location, $window, urlService) {
+    srvmod.factory('oauthService', function ($rootScope, cookieService, modal, $http, $location, $window) {
         return {
             _accessTokenId: "accessToken",
             _refreshToken: "refreshToken",
@@ -118,21 +118,44 @@
                     cookieService.setCookie(that._accessTokenId, response.access_token, response.expires_in);
                     cookieService.setCookie(that._tokenType, response.token_type, response.expires_in);
                     cookieService.setCookie(that._refreshToken, response.refresh_token);
-
                 })/*.error(function(data, status, headers, config){
                  errorCallback(data, status, headers, config);
                  })*/;
+            },
+            login: function () {
+                modal.show('login');
             },
             logout: function () {
                 cookieService.deleteCookie(this._accessTokenId);
                 cookieService.deleteCookie(this._tokenType);
                 cookieService.deleteCookie(this._refreshToken);
-                urlService.redirect();
+                $rootScope.currentUser = null;
+                $rootScope.loggedIn = false;
+                localStorage.clear();
+                this.login();
             },
             refresh: function () {
+                var that = this;
+                
+                if(localStorage.getItem("loggedIn") !== "true"){
+                    $rootScope.currentUser = null;
+                } else {
+                    $rootScope.loggedIn = true;
+                    $rootScope.currentUser = JSON.parse(localStorage.getItem("user"));
+                }
+
+                $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+                    var requireLogin = toState.data.requireLogin;
+                    if (requireLogin && $rootScope.currentUser === null) {
+                        event.preventDefault();
+                        that.login();
+                    }
+                });
+
                 var refreshToken = cookieService.getCookie(this._refreshToken);
                 if (refreshToken === null) {
-                    urlService.redirect();
+                    this.logout();
+                    alert("refresh token === null");
                 } else {
                     var that = this;
                     $http({
@@ -147,13 +170,13 @@
                             "Content-Type": 'application/x-www-form-urlencoded'
                         }
                     }).success(function (response) {
+                        alert("success");
                         cookieService.setCookie(that._accessTokenId, response.access_token, response.expires_in);
                         cookieService.setCookie(that._tokenType, response.token_type, response.expires_in);
                         cookieService.setCookie(that._refreshToken, response.refresh_token);
                     }).error(function () {
-                        cookieService.deleteCookie(that._accessTokenId);
-                        cookieService.deleteCookie(that._tokenType);
-                        cookieService.deleteCookie(that._refreshToken);
+                        alert("error");
+                        this.logout();
                     });
                 }
             }
@@ -168,19 +191,10 @@
                 var absUrl = $location.absUrl();
                 return absUrl.substring(0, (absUrl.length - path.length));
             },
-//            redirectToLoginPage: function () {
-//                var basepath = this.basePath();
-//                $window.location.href = basepath + "/login";
-//            },
             redirect: function () {
+                alert(this.basePath());
                 $location.path(this.basePath());
             }
-//            redirectToApp: function () {
-//                //var path = $location.path();
-//                var absUrl = $location.absUrl();
-//                var basepath = absUrl.substring(0, (absUrl.length - 5));
-//                $window.location.href = basepath;
-//            }
         };
     });
 
@@ -228,7 +242,7 @@
             }
         };
     });
-    
+
     // home space service
     srvmod.factory('homeService', function (httpService) {
         /**

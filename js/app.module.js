@@ -13,16 +13,9 @@
                 'services.module',
                 'Mac']);
 
-    app.run(function ($rootScope, oauthService, loginService) {
+    app.run(function ($rootScope, oauthService) {
 
-        $rootScope.currentUser = null;
-        $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-            var requireLogin = toState.data.requireLogin;
-            if (requireLogin && $rootScope.currentUser === null) {
-                event.preventDefault();
-                loginService.login();
-            }
-        });
+        oauthService.refresh();
     });
 
     app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {

@@ -1,13 +1,13 @@
 (function () {
-    angular.module('app.module').controller('NavigationController', function ($scope, $rootScope) {
+    app.controller('NavigationController', function ($scope, $rootScope) {
         this.fastFolders = fastFolders;
     });
 
-    angular.module('app.module').controller('ViewController', function () {
+    app.controller('ViewController', function () {
         // TODO
     });
 
-    angular.module('app.module').controller('MainController', function ($scope, userService, urlService, oauthService, loginService) {
+    app.controller('MainController', function ($scope, userService, urlService, oauthService) {
 
         $scope.user = userService.getById(2);
         $scope.basePath = urlService.basePath();
@@ -25,7 +25,7 @@
 
         $scope.logout = function () {
 
-            loginService.logout();
+            oauthService.logout();
         };
 
         //$scope.deaultSidebar = function () {
