@@ -1,0 +1,13 @@
+<div class="ui breadcrumb">
+    <a ui-sref="index" class="section"><i class="home icon"></i> </a>
+    <span ng-repeat="breadcrumb in home.breadcrumbs">
+        <a ui-sref="homeIterate({folderId:breadcrumb.id})" class="margin-right-xs">{{breadcrumb.name}}</a> / 
+    </span>
+    <h2 class="section">{{home.name}}</h2>
+    <a class="action" mac-modal="folder"><i class="blue add sign icon"></i></a>
+    <a class="action" mac-modal="folder" ng-click="editFolder(home.folderId)"><i class="edit icon"></i></a>
+    <a class="action"><i class="blue download disk icon"></i></a>
+    <a class="action" ng-click="deleteFolder()"><i class="trash icon"></i></a>
+</div>
+
+<div ng-include="'./partials/home/home_show.html'"> </div>

@@ -28,6 +28,64 @@
         };
     });
 
+    app.controller('homeIterateCtrl', function ($scope, homeService, $stateParams, urlService) {
+        var folderId = $stateParams.folderId;
+        homeService.getById(folderId).success(function (data) {
+            $scope.home = data;
+        });
+
+        $scope.saveFolder = function (folder) {
+
+            homeService.createFolder(folderId, folder.name).success(function (data) {
+                $scope.home.folders.push(data);
+            });
+            folder.name = "";
+        };
+
+        $scope.rename = function () {
+
+            homeService.renameFolder(folderId, "NewNamedFolder").success(function (data) {
+                homeService.getById(folderId).success(function (data) {
+                    $scope.home = data;
+                });
+            });
+        };
+
+        $scope.deleteFolder = function (delFolderId) {
+
+            var folderToDelete = (typeof delFolderId === 'undefined' ? folderId : delFolderId);
+            homeService.deleteFolder(folderToDelete).success(function (data) {
+
+                if (typeof delFolderId === 'undefined') {
+                    if ($scope.home.breadcrumbs.length > 0) {
+                        var last = $scope.home.breadcrumbs[$scope.home.breadcrumbs.length - 1];
+                        urlService.redirect("home/" + last.id);
+                    } else {
+                        urlService.redirect("home");
+                    }
+                } else {
+                    homeService.getById(folderId).success(function (data) {
+
+                        $scope.home = data;
+                    });
+                }
+            });
+        };
+
+        $scope.uploadFile = function (file) {
+
+            homeService.addFile(folderId, file.filename, file.name).success(function (data) {
+                $scope.home.files.push(data);
+            });
+            file = {};
+        };
+
+        $scope.empty = function () {
+
+            return (typeof $scope.home === 'undefined' || (typeof $scope.home.folders === 'undefined' || $scope.home.folders.length === 0) && (typeof $scope.home.files === 'undefined' || $scope.home.files.length === 0));
+        };
+    });
+
     app.controller('archiveCtrl', function ($scope, archiveService) {
         archiveService.getAll().success(function (data) {
             $scope.archive = {folders: data};
@@ -62,7 +120,7 @@
                 });
             });
         };
-        
+
         $scope.editFolder = function (folderId) {
             that.newfolder = false;
             $scope.folderId = folderId;
@@ -130,10 +188,6 @@
 
             return (typeof $scope.archive === 'undefined' || (typeof $scope.archive.folders === 'undefined' || $scope.archive.folders.length === 0) && (typeof $scope.archive.files === 'undefined' || $scope.archive.files.length === 0));
         };
-    });
-
-    app.controller('folderIterateCtrl', function () {
-        $('.sidebar').sidebar('attach events', 'span');
     });
 
     app.controller('sharedCtrl', function () {

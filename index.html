@@ -15,146 +15,147 @@
     <body>
         <!-- top navigation -->
         <div>
-        <div class="ui fixed inverted pointing menu" ng-show="loggedIn">
-            <a class="item project" ui-sref="index">Integrační portál</a>
-            <div class="menu right">
-                <div class="ui top right pointing mobile dropdown link item">
-                    <i class="reorder icon"></i>
-                    <i class="dropdown icon"></i>
-                    <div class="menu">
-                        <div class="item">{{user.username}}</div>
-                        <div class="item">Využití: 1,76GB (12%) z 13GB</div>
-                        <a class="item" ui-sref="admin">Admin</a>
-                        <a class="item" ui-sref="settings">Osobní astavení</a>
-                        <a class="item" ui-sref="tutorials">Nápověda</a>
-                        <a class="item" ng-click="logout()"> <i class="icon sign out"></i>Odhlásit</a>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="ui icon input">
-                        <input type="text" placeholder="Search...">
-                        <i class="search link icon"></i>
-                    </div>
-                </div>
-                <a ui-sref="admin" class="item" ng-show="user.permissions.externists || user.permissions.units"><i class="setting icon"></i></a>
-                <a ui-sref="settings" class="item"> <i class="settings icon"></i></a>
-                <div class="ui dropdown link item" href="#">
-                    {{user.username}} <i class="dropdown icon"></i>
-                    <div class="menu ui transition hidden">
-                        <div class="item">Využití: 1,76GB (12%) z 13GB</div>
-                        <a class="item" ui-sref="tutorials"> Nápověda </a>
-                        <a class="item" ng-click="logout()"> <i class="icon sign out"></i> Odhlásit </a>
-                    </div>
-                </div>
-                <a ng-click="logout()" class="item"> <i class="icon sign out"></i></a>
-            </div>
-        </div>
-
-        <div class="ui celled grid" ng-show="loggedIn">
-            <div class="row leftmenu">
-                <!-- left navigation -->
-                <div class="one wide column" style="">
-                    <div class="ui secondary vertical menu" ng-controller="NavigationController as navigation">
-                        <a class="item" ui-sref-active="active" ui-sref="index"> <i class="home icon"></i> Můj prostor </a>
-                        <a class="item" ui-sref-active="active" ui-sref="shared"> <i class="users icon"></i> Sdílené </a>
-                        <a class="item" ui-sref-active="active" ui-sref="archive"> <i class="archive icon"> </i>Archiv </a>
-                        <!-- labels -->
-                        <a class="item" ng-repeat="label in user.labels" ui-sref="label/{{label.id}}"><i class="bookmark {{label.color}} basic icon"></i>{{label.name}}</a>
-                        <div class="divider"></div>
-                        <!-- fast folders -->
-                        <a class="item" ng-repeat="fast in navigation.fastFolders" ui-sref="fast.url"> <i class="pin icon"></i> {{fast.name}} </a>
+            <div class="ui fixed inverted pointing menu" ng-show="loggedIn">
+                <a class="item project" ui-sref="index">Integrační portál</a>
+                <div class="menu right">
+                    <div class="ui top right pointing mobile dropdown link item">
+                        <i class="reorder icon"></i>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div class="item">{{user.username}}</div>
+                            <div class="item">Využití: 1,76GB (12%) z 13GB</div>
+                            <a class="item" ui-sref="admin">Admin</a>
+                            <a class="item" ui-sref="settings">Osobní astavení</a>
+                            <a class="item" ui-sref="tutorials">Nápověda</a>
+                            <a class="item" ng-click="logout()"> <i class="icon sign out"></i>Odhlásit</a>
+                        </div>
                     </div>
 
-                    <div class="ui fixed bottom small borderless vertical menu">
-                        <div class="item">Využití: </div>
-                        <div class="item">1,76GB (12%) z 13GB</div>
-                        <a class="item blue" ui-sref="tutorials"> Nápověda </a>
+                    <div class="item">
+                        <div class="ui icon input">
+                            <input type="text" placeholder="Search...">
+                            <i class="search link icon"></i>
+                        </div>
+                    </div>
+                    <a ui-sref="admin" class="item" ng-show="user.permissions.externists || user.permissions.units"><i class="setting icon"></i></a>
+                    <a ui-sref="settings" class="item"> <i class="settings icon"></i></a>
+                    <div class="ui dropdown link item" href="#">
+                        {{user.username}} <i class="dropdown icon"></i>
+                        <div class="menu ui transition hidden">
+                            <div class="item">Využití: 1,76GB (12%) z 13GB</div>
+                            <a class="item" ui-sref="tutorials"> Nápověda </a>
+                            <a class="item" ng-click="logout()"> <i class="icon sign out"></i> Odhlásit </a>
+                        </div>
+                    </div>
+                    <a ng-click="logout()" class="item"> <i class="icon sign out"></i></a>
+                </div>
+            </div>
+
+            <div class="ui celled grid" ng-show="loggedIn">
+                <div class="row leftmenu">
+                    <!-- left navigation -->
+                    <div class="one wide column" style="">
+                        <div class="ui secondary vertical menu" ng-controller="NavigationController as navigation">
+                            <a class="item" ui-sref-active="active" ui-sref="index"> <i class="home icon"></i> Můj prostor </a>
+                            <a class="item" ui-sref-active="active" ui-sref="shared"> <i class="users icon"></i> Sdílené </a>
+                            <a class="item" ui-sref-active="active" ui-sref="archive"> <i class="archive icon"> </i>Archiv </a>
+                            <!-- labels -->
+                            <a class="item" ng-repeat="label in user.labels" ui-sref="label/{{label.id}}"><i class="bookmark {{label.color}} basic icon"></i>{{label.name}}</a>
+                            <div class="divider"></div>
+                            <!-- fast folders -->
+                            <a class="item" ng-repeat="fast in navigation.fastFolders" ui-sref="fast.url"> <i class="pin icon"></i> {{fast.name}} </a>
+                        </div>
+
+                        <div class="ui fixed bottom small borderless vertical menu">
+                            <div class="item">Využití: </div>
+                            <div class="item">1,76GB (12%) z 13GB</div>
+                            <a class="item blue" ui-sref="tutorials"> Nápověda </a>
+                        </div>
+                    </div>
+                    <!-- content -->
+                    <div ui-view class="ten wide column" style="" ng-controller="ViewController as viewCtrl" >
                     </div>
                 </div>
-                <!-- content -->
-                <div ui-view class="ten wide column" style="" ng-controller="ViewController as viewCtrl" >
+            </div>
+
+            <!--        <div class="ui right vertical sidebar">
+                        <a href="#" class="sidebar-hide-btn" title="Close the board sidebar."> 
+                            <i class="right arrow icon"></i>
+                        </a>
+                        <i class="massive folder icon"></i>
+            
+                        <h2> UML </h2>
+            
+            <!--actions
+            <a class="action" ><i class="blue download disk icon"></i></a>
+            <a class="action"><i class="blue pin icon"></i></a>
+            <a class="action" ng-click="deleteFolder(folder.id)"><i class="blue trash icon"></i></a>
+    
+            <br>
+            <br>
+            <!--labels
+            <form class="ui small form">
+    
+                <div class="field">
+                    <label> </label>
+                    <div ng-repeat="label in user.labels">
+                        <input  type="checkbox" name="label.id" value="{{label.name}}">
+                        <label><i class="bookmark {{label.color}} basic icon"></i>{{label.name}}</label>
+                    </div>
+                </div>
+            </form>
+            <br>
+    
+            <form class="ui small form">
+                <div class="field">
+                    <label>Nový název složky</label>
+                    <input type="text" ng-model="folder.name" value="UML">
+                </div>
+                <div ng-click="createFolder(folder)" class="ui button">
+                    Uložit
+                </div>
+            </form>
+            <br>
+    
+            <!--share
+            <form class="ui small form">
+                <div class="field">
+                    <label>Sdílet s</label>
+                    <select name="user" ng-click="addUser()">
+                        <option>----</option>
+                        <option>Jan Novák</option>
+                    </select>
+                </div>
+                <div class="ui button">
+                    Sdílet
+                </div>
+            </form>
+            <div ng-if="sidebarShow">
+                <div custom-sidebar="{{mySidebar}}">
                 </div>
             </div>
-        </div>
+        </div> -->
+            <div ng-include="'./partials/login/login_modal.html'"></div>
 
-        <!--        <div class="ui right vertical sidebar">
-                    <a href="#" class="sidebar-hide-btn" title="Close the board sidebar."> 
-                        <i class="right arrow icon"></i>
-                    </a>
-                    <i class="massive folder icon"></i>
-        
-                    <h2> UML </h2>
-        
-        <!--actions
-        <a class="action" ><i class="blue download disk icon"></i></a>
-        <a class="action"><i class="blue pin icon"></i></a>
-        <a class="action" ng-click="deleteFolder(folder.id)"><i class="blue trash icon"></i></a>
-
-        <br>
-        <br>
-        <!--labels
-        <form class="ui small form">
-
-            <div class="field">
-                <label> </label>
-                <div ng-repeat="label in user.labels">
-                    <input  type="checkbox" name="label.id" value="{{label.name}}">
-                    <label><i class="bookmark {{label.color}} basic icon"></i>{{label.name}}</label>
-                </div>
-            </div>
-        </form>
-        <br>
-
-        <form class="ui small form">
-            <div class="field">
-                <label>Nový název složky</label>
-                <input type="text" ng-model="folder.name" value="UML">
-            </div>
-            <div ng-click="createFolder(folder)" class="ui button">
-                Uložit
-            </div>
-        </form>
-        <br>
-
-        <!--share
-        <form class="ui small form">
-            <div class="field">
-                <label>Sdílet s</label>
-                <select name="user" ng-click="addUser()">
-                    <option>----</option>
-                    <option>Jan Novák</option>
-                </select>
-            </div>
-            <div class="ui button">
-                Sdílet
-            </div>
-        </form>
-        <div ng-if="sidebarShow">
-            <div custom-sidebar="{{mySidebar}}">
-            </div>
-        </div>
-    </div> -->
-        <div ng-include="'./partials/login/login_modal.html'"></div>
-
-        <script type="text/javascript" src="./libs/jquery-1.11.2.min.js"></script>
-        <script type="text/javascript" src="./libs/angular.min.js"></script>
-        <script type="text/javascript" src="./libs/semantic.js"></script>
-        <script type="text/javascript" src="./libs/angular-ui-router.min.js"></script>
-        <script type="text/javascript" src="./libs/macgyver.js"></script>
-        <script type="text/javascript" src="./js/app.module.js"></script>
-        <script type="text/javascript" src="./js/app.controllers.js"></script>
-        <script type="text/javascript" src="./js/utils.module.js"></script>
-        <script type="text/javascript" src="./js/routes.controllers.js"></script>
-        <script type="text/javascript" src="./js/services.module.js"></script>
-        <!--<script type="text/javascript" src="./js/archive/archive.module.js"></script>-->
-        <script type="text/javascript" src="./js/externists/externists.module.js"></script>
-        <script type="text/javascript" src="./js/groups/groups.module.js"></script>
-        <script type="text/javascript" src="./js/labels/labels.module.js"></script>
-        <script type="text/javascript" src="./js/login/login.module.js"></script>
-        <script type="text/javascript" src="./js/orgunits/orgunits.module.js"></script>
-        <script type="text/javascript" src="./js/password/password.module.js"></script>
-        <script type="text/javascript" src="./js/settings/settings.module.js"></script>
-        <script type="text/javascript" src="./js/portal.js"></script>
+            <script type="text/javascript" src="./libs/jquery-1.11.2.min.js"></script>
+            <script type="text/javascript" src="./libs/angular.min.js"></script>
+            <script type="text/javascript" src="./libs/semantic.js"></script>
+            <script type="text/javascript" src="./libs/angular-ui-router.min.js"></script>
+            <script type="text/javascript" src="./libs/macgyver.js"></script>
+            <script type="text/javascript" src="./js/app.module.js"></script>
+            <script type="text/javascript" src="./js/app.controllers.js"></script>
+            <script type="text/javascript" src="./js/utils.module.js"></script>
+            <script type="text/javascript" src="./js/routes.controllers.js"></script>
+            <script type="text/javascript" src="./js/routes.js"></script>
+            <script type="text/javascript" src="./js/services.module.js"></script>
+            <!--<script type="text/javascript" src="./js/archive/archive.module.js"></script>-->
+            <script type="text/javascript" src="./js/externists/externists.module.js"></script>
+            <script type="text/javascript" src="./js/groups/groups.module.js"></script>
+            <script type="text/javascript" src="./js/labels/labels.module.js"></script>
+            <script type="text/javascript" src="./js/login/login.module.js"></script>
+            <script type="text/javascript" src="./js/orgunits/orgunits.module.js"></script>
+            <script type="text/javascript" src="./js/password/password.module.js"></script>
+            <script type="text/javascript" src="./js/settings/settings.module.js"></script>
+            <script type="text/javascript" src="./js/portal.js"></script>
     </body>
 </html>

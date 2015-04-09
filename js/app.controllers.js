@@ -13,7 +13,7 @@
         $scope.basePath = urlService.basePath();
         $scope.table = true;
 
-        $rootScope.$watch('currentUser', function() {
+        $rootScope.$watch('currentUser', function () {
             $scope.user = $rootScope.currentUser;
             $scope.user.groups = groupService.getForUser($scope.user.id);
             $scope.user.labels = labelService.getForUser($scope.user.id);

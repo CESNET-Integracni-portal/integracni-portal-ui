@@ -27,17 +27,17 @@
                 // index route, my space
                 .state("index", {
                     url: "/",
-                    templateUrl: "./partials/home/folder.html",
+                    templateUrl: "./partials/home/home.html",
                     controller: 'indexCtrl',
                     data: {
                         requireLogin: true
                     }
                 })
                 // iterates over folders
-                .state("folderIterate", {
-                    url: "/folder/{folderId:[1-9][0-9]*}",
-                    templateUrl: "./partials/home/folder.html",
-                    controller: 'folderIterateCtrl',
+                .state("homeIterate", {
+                    url: "/home/{folderId:[1-9][0-9]*}",
+                    templateUrl: "./partials/home/home_detail.html",
+                    controller: 'homeIterateCtrl',
                     data: {
                         requireLogin: true
                     }

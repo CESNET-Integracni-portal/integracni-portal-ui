@@ -136,8 +136,8 @@
             },
             refresh: function () {
                 var that = this;
-                
-                if(localStorage.getItem("loggedIn") !== "true"){
+
+                if (localStorage.getItem("loggedIn") !== "true") {
                     $rootScope.currentUser = null;
                 } else {
                     $rootScope.loggedIn = true;
@@ -155,7 +155,6 @@
                 var refreshToken = cookieService.getCookie(this._refreshToken);
                 if (refreshToken === null) {
                     this.logout();
-                    alert("refresh token === null");
                 } else {
                     var that = this;
                     $http({
@@ -170,12 +169,10 @@
                             "Content-Type": 'application/x-www-form-urlencoded'
                         }
                     }).success(function (response) {
-                        alert("success");
                         cookieService.setCookie(that._accessTokenId, response.access_token, response.expires_in);
                         cookieService.setCookie(that._tokenType, response.token_type, response.expires_in);
                         cookieService.setCookie(that._refreshToken, response.refresh_token);
                     }).error(function () {
-                        alert("error");
                         this.logout();
                     });
                 }
@@ -255,27 +252,33 @@
         return {
             // root
             getAll: function () {
-                return httpService.createRequest("GET", baseUrl + 'home', {}, "application/json");
+                return httpService.createRequest("GET", baseUrl + 'archive', {}, "application/json");
+                //return httpService.createRequest("GET", baseUrl + 'home', {}, "application/json");
             },
             createFolderInRoot: function (name) {
                 // create on server side
-                return httpService.createRequest("POST", baseUrl + 'home', {name: name}, "application/json");
+                return httpService.createRequest("POST", baseUrl + 'archive', {name: name}, "application/json");
+                //return httpService.createRequest("POST", baseUrl + 'home', {name: name}, "application/json");
             },
             // subfolder of root
             getById: function (archiveId) {
-                return httpService.createRequest("GET", baseUrl + 'home/folder/' + archiveId, {}, "application/json");
+                return httpService.createRequest("GET", baseUrl + 'archive/folder/' + archiveId, {}, "application/json");
+                //return httpService.createRequest("GET", baseUrl + 'home/folder/' + archiveId, {}, "application/json");
             },
             createFolder: function (folderId, name) {
                 // create on server side
-                return httpService.createRequest("POST", baseUrl + 'home/folder/' + folderId, {name: name}, "application/json");
+                return httpService.createRequest("POST", baseUrl + 'archive/folder/' + folderId, {name: name}, "application/json");
+                //return httpService.createRequest("POST", baseUrl + 'home/folder/' + folderId, {name: name}, "application/json");
             },
             renameFolder: function (folderId, name) {
                 // create on server side
-                return httpService.createRequest("PUT", baseUrl + 'home/folder/' + folderId, {name: name}, "application/json");
+                return httpService.createRequest("PUT", baseUrl + 'archive/folder/' + folderId, {name: name}, "application/json");
+                //return httpService.createRequest("PUT", baseUrl + 'home/folder/' + folderId, {name: name}, "application/json");
             },
             deleteFolder: function (folderId) {
                 // create on server side
-                return httpService.createRequest("DELETE", baseUrl + 'home/folder/' + folderId, {}, "application/json");
+                return httpService.createRequest("DELETE", baseUrl + 'archive/folder/' + folderId, {}, "application/json");
+                // return httpService.createRequest("DELETE", baseUrl + 'home/folder/' + folderId, {}, "application/json");
             },
             addFile: function (folderId, file, name) {
                 // create on server side
