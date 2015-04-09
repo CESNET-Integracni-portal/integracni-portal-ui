@@ -7,11 +7,17 @@
         // TODO
     });
 
-    app.controller('MainController', function ($scope, userService, urlService, oauthService) {
+    app.controller('MainController', function ($scope, $rootScope, groupService, userService, urlService, oauthService, labelService) {
 
-        $scope.user = userService.getById(2);
+        //$scope.user = userService.getById(2);
         $scope.basePath = urlService.basePath();
         $scope.table = true;
+
+        $rootScope.$watch('currentUser', function() {
+            $scope.user = $rootScope.currentUser;
+            $scope.user.groups = groupService.getForUser($scope.user.id);
+            $scope.user.labels = labelService.getForUser($scope.user.id);
+        });
 
         $scope.showAsTable = function () {
 
