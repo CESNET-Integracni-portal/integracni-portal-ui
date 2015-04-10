@@ -132,6 +132,7 @@
                 $rootScope.currentUser = null;
                 $rootScope.loggedIn = false;
                 localStorage.clear();
+                urlService.redirectToHome();
                 this.login();
             },
             refresh: function () {

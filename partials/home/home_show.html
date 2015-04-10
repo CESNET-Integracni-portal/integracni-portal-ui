@@ -19,11 +19,11 @@
                 <td><a ui-sref="homeIterate({folderId:folder.id})"><i class="folder outline icon"></i> <span>{{folder.name}}</span></a>
                     <a class="item" ng-repeat="label in folder.labels" ui-sref="label/{{label.id}}"><i class="bookmark red basic icon"></i></a>
                 </td>
-                <td>Jan Novák</td>
+                <td>-</td>
                 <td>--</td>
                 <td class="actions">
-                    <a class="action" ><i class="download disk icon"></i></a>
-                    <a href="#"><i class="edit icon"></i></a>
+                    <a class="action"><i class="download disk icon"></i></a>
+                    <a class="action" mac-modal="folder" ng-click="editFolder(folder.id)"><i class="edit icon"></i></a>
                     <a class="action"><i class="blue pin icon"></i></a>
                     <a href="#"><i class="trash icon"></i></a>
                 </td>
