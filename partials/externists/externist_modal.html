@@ -32,11 +32,11 @@
             <br/>
             <div class="field">
                 <label>Prostor (GB)</label>
-                <input name="size" type="number" min="0.1" ng-model="externist.size" required />
-                <div ng-show="form.size.$touched">
-                    <span ng-show="form.size.$error.required"><i class="warning icon"></i>Vyplňte velikost prostoru.</span>
-                    <span ng-show="form.size.$error.number"><i class="warning icon"></i>Velikost musí být číslo.</span>
-                    <span ng-show="form.size.$error.min"><i class="warning icon"></i>Velikost musí být nejméně 0.1GB.</span>
+                <input name="quota" type="number" min="0.1" ng-model="externist.quota" required />
+                <div ng-show="form.quota.$touched">
+                    <span ng-show="form.quota.$error.required"><i class="warning icon"></i>Vyplňte velikost prostoru.</span>
+                    <span ng-show="form.quota.$error.number"><i class="warning icon"></i>Velikost musí být číslo.</span>
+                    <span ng-show="form.quota.$error.min"><i class="warning icon"></i>Velikost musí být nejméně 0.1GB.</span>
                 </div>
             </div>
             <br/>

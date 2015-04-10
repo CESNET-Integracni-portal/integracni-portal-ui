@@ -56,7 +56,6 @@
             }
         };
     });
-
     // http service
     srvmod.factory('httpService', function (cookieService, $http, oauthService) {
         return {
@@ -93,7 +92,6 @@
             }
         };
     });
-
     // oauth service
     srvmod.factory('oauthService', function ($rootScope, cookieService, urlService, modal, $http, $location, $window) {
         return {
@@ -138,7 +136,6 @@
             refresh: function () {
                 var that = this;
                 urlService.redirectToHome();
-
                 if (localStorage.getItem("loggedIn") !== "true") {
                     $rootScope.currentUser = null;
                 } else {
@@ -153,7 +150,6 @@
                         that.login();
                     }
                 });
-
                 var refreshToken = cookieService.getCookie(this._refreshToken);
                 if (refreshToken === null) {
                     this.logout();
@@ -181,7 +177,6 @@
             }
         };
     });
-
     // url service
     srvmod.factory('urlService', function ($location, $window) {
         return {
@@ -244,7 +239,6 @@
             }
         };
     });
-
     // home space service
     srvmod.factory('homeService', function (httpService) {
         /**
@@ -289,12 +283,15 @@
                 // create on server side
                 return httpService.createRequest(
                         "POST",
-                        baseUrl + 'home/folder/' + folderId + "/files",
+                        baseUrl + 'archive/folder/' + folderId + "/files",
                         $.param({fileName: file, name: name}), "multipart/form-data");
+//                return httpService.createRequest(
+//                        "POST",
+//                        baseUrl + 'home/folder/' + folderId + "/files",
+//                        $.param({fileName: file, name: name}), "multipart/form-data");
             }
         };
     });
-
     // groups service
     srvmod.factory('groupService', function (utils, httpService) {
         /**
@@ -306,53 +303,97 @@
          */
         return {
             getById: function (groupId) {
+                //return httpService.createRequest("GET", baseUrl + 'group/' + groupId, {}, "application/json");
                 return utils.findById(groups, groupId);
             },
+//            getAll: function (){
+//                return httpService.createRequest("GET", baseUrl + 'group', {}, "application/json");
+//            },
             getForUser: function (userId) {
                 return utils.getAllWhere(groups, "userId", userId);
             },
             create: function (group) {
                 // create on server side
+                //return httpService.createRequest("POST", baseUrl + 'group', {group: group}, "application/json");
                 return group;
             },
             deleteGroup: function (groupId) {
                 // delete on server side
+                //return httpService.createRequest("DELETE", baseUrl + 'group/' + groupId, {}, "application/json");
             },
-            updateGroup: function (group) {
+            updateGroup: function (groupId, group) {
                 // update on server side
+                //return httpService.createRequest("PUT", baseUrl + 'group/' + groupId, {group: group}, "application/json");
                 return group;
             }
         };
     });
-
     // users service
+
+    ///////// READY FOR API v.2 ///////////////
     srvmod.factory('userService', function (utils, labelService, groupService, httpService) {
         /**
          Users parameters:
          int id - unique
          string username
-         array permissions
-         int unitId - id of unit group in which belongs
-         int size
          string email
-         array user - optional, user, who recomended externist
+         array permissions
+         array roles
+         int unitId - id of unit group in which belongs
+         int quota
+         string onuser - optional
          */
         return {
-            /*
-             join users labels
-             */
-            getCurrent: function () {
-                // mocup data
-                return user = utils.findById(users, 2);
-                //return httpService.createRequest("GET", baseUrl + 'user/current', {}, "application/json");
+            getAll: function () {
+                // Ready for API v.2
+                //return httpService.createRequest("GET", baseUrl + 'user', {}, "application/json");
+                return users;
+            },
+            createUser: function (user) {
+                // Ready for API v.2
+                //return httpService.createRequest("POST", baseUrl + 'user', {user: user}, "application/json");
+                return user;
             },
             getById: function (userId) {
-                // přihlášený uživatel se bude do budoucna tahat přes api!!!
+                // Ready for API v.2
+                //return httpService.createRequest("GET", baseUrl + 'user/' + userId, {}, "application/json");
+
                 var user = utils.findById(users, userId);
                 user.labels = labelService.getForUser(userId);
                 user.groups = groupService.getForUser(userId);
                 return user;
             },
+            changePassword: function (userId, password) {
+                // Ready for API v.2
+                return httpService.createRequest("POST", baseUrl + 'user/' + userId, {'password': password}, "application/json");
+            },
+            assignUnit: function (userId, unitId) {
+                // Ready for API v.2
+                return httpService.createRequest("POST", baseUrl + 'user/' + userId, {'unitId': unitId}, "application/json");
+            },
+            assignRoles: function (userId, roles) {
+                // Ready for API v.2
+                return httpService.createRequest("POST", baseUrl + 'user/' + userId, {roles: roles}, "application/json");
+            },
+            grantPermissions: function (userId, permissions) {
+                // Ready for API v.2
+                return httpService.createRequest("POST", baseUrl + 'user/' + userId, {permission: permissions}, "application/json");
+            },
+            getCurrent: function () {
+                // Ready for API v.2
+                //return httpService.createRequest("GET", baseUrl + 'user/current', {}, "application/json");
+                return utils.findById(users, 2);
+            },
+            deleteUser: function (userId) {
+                // Ready for API v.2
+                //return httpService.createRequest("DELETE", baseUrl + 'user/' + userId, {}, "application/json");
+            },
+            updateUser: function (userId, user) {
+                // Ready for API v.2
+                //return httpService.createRequest("PUT", baseUrl + 'user/' + userId, {user: user}, "application/json");
+                return user;
+            },
+            // Helper methods
             getExternistsForUnit: function (unitId) {
                 var result = utils.getAllWhere(users, "unitId", unitId);
                 result = utils.getAllWhereNotNull(result, "user");
@@ -362,85 +403,80 @@
                 if (array === null)
                     array = users;
                 return utils.getAllWhere(array, column, value);
-            },
-            getAll: function () {
-                return users;
-            },
-            create: function (user) {
-                // create on server side
-                return user;
-            },
-            deleteUser: function (userId) {
-                // delete on server side
-            },
-            updateUser: function (user) {
-                // update on server side
-                return user;
             }
         };
     });
-
     // labels service
     srvmod.factory('labelService', function (utils, httpService) {
         /**
-         Users parameters:
+         Labels parameters:
          int id - unique
          string name
          string color
-         int userId 
          */
         return {
-            getById: function (labelId) {
-                return utils.findById(labels, labelId);
+            getAll: function () {
+                // Ready for API v.2
+                //return httpService.createRequest("GET", baseUrl + 'label', {}, "application/json");
+                return labels;
             },
-            getForUser: function (userId) {
-                return utils.getAllWhere(labels, "userId", userId);
+            createLabel: function (label) {
+                // Ready for API v.2
+                //return httpService.createRequest("POST", baseUrl + 'label', {label: label}, "application/json");
+                return label;
             },
-            create: function (label) {
-                // create on server side
+            updateLabel: function (labelId, label) {
+                // Ready for API v.2
+                //return httpService.createRequest("PUT", baseUrl + 'label/' + labelId, {label: label}, "application/json");
                 return label;
             },
             deleteLabel: function (labelId) {
-                // delete on server side
+                // Ready for API v.2
+                //return httpService.createRequest("DELETE", baseUrl + 'label/' + labelId, {}, "application/json");
             },
-            updateLabel: function (label) {
-                // update on server side
-                return label;
+            //  Help methods for testing without completed backend
+            getById: function (labelId) {
+                return utils.findById(labels, labelId);
             }
         };
     });
-
     // unit service
     srvmod.factory('unitService', function (utils, httpService) {
         /**
-         Users parameters:
+         Units parameters:
          int id - unique
          string name
-         array users
-         int userId 
+         int quota
+         admins
          */
         return {
-            getById: function (unitId) {
-                return utils.findById(units, unitId);
-            },
             getAll: function () {
+                // Ready for API v.2
+                //return httpService.createRequest("GET", baseUrl + 'unit/', {}, "application/json");
                 return units;
             },
-            create: function (unit) {
-                // create on server side
+            createUnit: function (unit) {
+                // Ready for API v.2
+                //return httpService.createRequest("POST", baseUrl + 'unit/', {unit: unit}, "application/json");
                 return unit;
             },
             deleteUnit: function (unitId) {
-                // delete on server side
+                // Ready for API v.2
+                //return httpService.createRequest("DELETE", baseUrl + 'unit/' + unitId, {}, "application/json");
             },
-            updateUnit: function (unit) {
-                // update on server side
+            updateUnit: function (unitId, unit) {
+                // Ready for API v.2
+                //return httpService.createRequest("PUT", baseUrl + 'unit/' + unitId, {unit: unit}, "application/json");
                 return unit;
+            },
+            //  Help method for testing without completed backend
+            getById: function (unitId) {
+                return utils.findById(units, unitId);
             }
         };
     });
 
-    //-------------------------------------------------------------
+//-------------------------------------------------------------
 // ---------------- DATA --------------------------------------
 //-------------------------------------------------------------
 
@@ -455,7 +491,7 @@
                 externists: false,
                 password: false
             },
-            size: 0
+            quota: 0
         },
         // manager of units
         {id: 2,
@@ -467,7 +503,7 @@
                 externists: true,
                 password: true
             },
-            size: 4
+            quota: 4
         },
         // externist
         {id: 3,
@@ -484,7 +520,7 @@
                 id: 1,
                 email: "jan.novak@fel.cvut.cz"
             },
-            size: 6,
+            quota: 6,
             orgunit: "ATG"
         },
         // student
@@ -497,23 +533,19 @@
                 externists: false,
                 password: false
             },
-            size: 8
+            quota: 8
         }];
-
     // ----- labels -----
     var labels = [{
             id: 1,
             name: "Důležité",
-            color: "red",
-            userId: 2
+            color: "red"
         },
         {
             id: 2,
             name: "TODO",
-            color: "blue",
-            userId: 2
+            color: "blue"
         }];
-
     // ----- groups -----
     var groups = [{
             id: 1,
@@ -526,18 +558,17 @@
             users: ["novakpet@fel.cvut.cz", "karnovot@fel.cvut.cz"],
             userId: 2
         }];
-
     // ----- units -----
     var units = [{
             id: 1,
             name: "SEN",
-            admin: "novakj@fel.cvut.cz",
-            size: 12345
+            admins: "novakj@fel.cvut.cz",
+            quota: 12345
         }, {
             id: 2,
             name: "ATG",
-            admin: "karnovot@fel.cvut.cz",
-            size: 6543
+            admins: "karnovot@fel.cvut.cz",
+            quota: 6543
         }];
 })();
 

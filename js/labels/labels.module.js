@@ -2,6 +2,8 @@
     var lblmod = angular.module('labels.module', ['utils.module', 'services.module']);
 
     // CONTROLLER
+    // All labelService methods return promise, so code will have to be modified
+    
     lblmod.controller('lblCtrl', function ($scope, labelService) {
         var userId = $scope.user.id;
         $scope.label = {};
@@ -11,12 +13,15 @@
             // create
             if ($scope.index === null) {
                 label.userId = userId;
-                var createdLabel = labelService.create(label);
+                // needs to be modified for API v.2 in the future
+                var createdLabel = labelService.createLabel(label);
                 $scope.user.labels.push(angular.copy(createdLabel));
                 label.name = "";
                 label.color = null;
                 //update
             } else {
+                // needs to be modified for API v.2 in the future
+                // update label will have labelId parameter
                 var updatedLabel = labelService.updateLabel(label);
                 $scope.user.labels[$scope.index] = angular.copy(updatedLabel);
                 label.name = "";
@@ -27,6 +32,7 @@
 
         $scope.deleteLabel = function (index) {
             $scope.user.labels.splice(index, 1);
+            // needs to be modified for API v.2 in the future
             labelService.deleteLabel(index);
         };
 

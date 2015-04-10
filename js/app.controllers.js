@@ -3,10 +3,6 @@
         this.fastFolders = fastFolders;
     });
 
-    app.controller('ViewController', function () {
-        // TODO
-    });
-
     app.controller('MainController', function ($scope, $rootScope, groupService, userService, urlService, oauthService, labelService) {
 
         //$scope.user = userService.getById(2);
@@ -15,6 +11,7 @@
 
         $rootScope.$watch('currentUser', function () {
             $scope.user = $rootScope.currentUser;
+            // needs to be modified for API v.2 in the future
             $scope.user.groups = groupService.getForUser($scope.user.id);
             $scope.user.labels = labelService.getForUser($scope.user.id);
         });
@@ -61,6 +58,4 @@
     var folders = [{
             id: 1
         }];
-
-    // routes controllers
 })();
