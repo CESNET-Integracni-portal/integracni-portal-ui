@@ -95,7 +95,7 @@
     });
 
     // oauth service
-    srvmod.factory('oauthService', function ($rootScope, cookieService, modal, $http, $location, $window) {
+    srvmod.factory('oauthService', function ($rootScope, cookieService, urlService, modal, $http, $location, $window) {
         return {
             _accessTokenId: "accessToken",
             _refreshToken: "refreshToken",
@@ -136,6 +136,7 @@
             },
             refresh: function () {
                 var that = this;
+                urlService.redirectToHome();
 
                 if (localStorage.getItem("loggedIn") !== "true") {
                     $rootScope.currentUser = null;
@@ -187,6 +188,9 @@
                 var path = $location.path();
                 var absUrl = $location.absUrl();
                 return absUrl.substring(0, (absUrl.length - path.length));
+            },
+            redirectToHome: function () {
+                $location.path("");
             },
             redirect: function () {
                 alert(this.basePath());
