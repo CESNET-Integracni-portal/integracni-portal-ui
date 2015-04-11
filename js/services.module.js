@@ -328,9 +328,41 @@
             }
         };
     });
-    // users service
+
 
     ///////// READY FOR API v.2 ///////////////
+    // roles service
+    srvmod.factory('roleService', function (httpService) {
+        /**
+         int id - unique
+         string name
+         string description
+         array permissions
+         */
+        return {
+            getAll: function () {
+                // Ready for API v.2
+                return httpService.createRequest("GET", baseUrl + 'role', {}, "application/json");
+            },
+            getById: function (roleId) {
+                // Ready for API v.2
+                return httpService.createRequest("GET", baseUrl + 'role/' + roleId, {}, "application/json");
+            },
+            createRole: function (role) {
+                // Ready for API v.2
+                return httpService.createRequest("POST", baseUrl + 'role', {role: role}, "application/json");
+            },
+            updateRole: function (roleId, role) {
+                // Ready for API v.2
+                return httpService.createRequest("PUT", baseUrl + 'role/' + roleId, {role: role}, "application/json");
+            },
+            deleteRole: function (roleId) {
+                // Ready for API v.2
+                return httpService.createRequest("DELETE", baseUrl + 'role' + roleId, {}, "application/json");
+            }
+        };
+    });
+    // users service
     srvmod.factory('userService', function (utils, labelService, groupService, httpService) {
         /**
          Users parameters:
