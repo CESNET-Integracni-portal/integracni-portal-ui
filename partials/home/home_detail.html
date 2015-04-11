@@ -1,6 +1,7 @@
 <div class="ui breadcrumb">
     <a ui-sref="index" class="section"><i class="home icon"></i> </a>
-    <span ng-repeat="breadcrumb in home.breadcrumbs">
+    <a ng-show="home.breadcrumbs.length >= 8" ui-sref="homeIterate({folderId:home.breadcrumbs[home.breadcrumbs.length - 1].id})" class="margin-right-xs">/ . . . </a>/
+    <span ng-repeat="breadcrumb in home.breadcrumbs" ng-if="home.breadcrumbs.length < 8">
         <a ui-sref="homeIterate({folderId:breadcrumb.id})" class="margin-right-xs">{{breadcrumb.name}}</a> / 
     </span>
     <h2 class="section">{{home.name}}</h2>

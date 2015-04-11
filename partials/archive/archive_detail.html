@@ -1,5 +1,6 @@
 <div class="ui breadcrumb">
     <a ui-sref="archive" class="section"><i class="archive icon"></i></a>
+    <a ng-show="archive.breadcrumbs.length >= 8" ui-sref="archiveIterate({folderId:archive.breadcrumbs[archive.breadcrumbs.length - 1].id})" class="margin-right-xs">/ . . . </a>/
     <span ng-repeat="breadcrumb in archive.breadcrumbs">
         <a ui-sref="archiveIterate({folderId:breadcrumb.id})" class="margin-right-xs">{{breadcrumb.name}}</a> / 
     </span>
