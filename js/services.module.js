@@ -189,7 +189,6 @@
                 $location.path("");
             },
             redirect: function () {
-                alert(this.basePath());
                 $location.path(this.basePath());
             }
         };
@@ -289,6 +288,16 @@
 //                        "POST",
 //                        baseUrl + 'home/folder/' + folderId + "/files",
 //                        $.param({fileName: file, name: name}), "multipart/form-data");
+            },
+            getFavorites: function () {
+                // ??? TODO
+                return [];
+            },
+            favoriteFolder: function () {
+                // TODO   
+            },
+            unfavoriteFolder: function () {
+                // TODO
             }
         };
     });
@@ -469,6 +478,9 @@
             //  Help methods for testing without completed backend
             getById: function (labelId) {
                 return utils.findById(labels, labelId);
+            },
+            getForUser: function (userId) {
+                return utils.getAllWhere(labels, "userId", userId);
             }
         };
     });

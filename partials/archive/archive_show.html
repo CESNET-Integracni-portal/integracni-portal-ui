@@ -16,7 +16,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="folder in archive.folders">
-                <td> <a ui-sref="archiveIterate({folderId:folder.id})"><i class="folder outline icon"></i> <span>{{folder.name}}</span></a></td>
+                <td><a ui-sref="archiveIterate({folderId:folder.id})"><i class="folder outline icon"></i> <span>{{folder.name}}</span></a></td>
                 <td>--</td>
                 <td>{{folder.owner.username}}</td>
                 <td class="actions">

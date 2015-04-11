@@ -4,6 +4,7 @@
     app.controller('indexCtrl', function ($scope, homeService) {
         var edit = false;
         var that = this;
+        $scope.favids = new Array;
 
         homeService.getAll().success(function (data) {
             $scope.home = {folders: data};
@@ -44,6 +45,26 @@
             });
         };
 
+        $scope.favoriteFolder = function (folder) {
+            var index = -1;
+            for (i = 0; i < $scope.user.fasts.length; i++) {
+                if ($scope.user.fasts[i].id === folder.id) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index !== -1) {
+                $scope.user.fasts.splice(index, 1);
+            } else {
+                var fast = {
+                    id: folder.id,
+                    name: folder.name,
+                    url: "home\/" + folder.id
+                };
+                $scope.user.fasts.push(fast);
+            }
+        };
+
         $scope.empty = function () {
             return (typeof $scope.home === 'undefined' || (typeof $scope.home.folders === 'undefined' || $scope.home.folders.length === 0) && (typeof $scope.home.files === 'undefined' || $scope.home.files.length === 0));
         };
@@ -60,7 +81,7 @@
         var that = this;
         var edit = false;
 
-        homeService.getById(that.folderId).success(function (data) {
+        homeService.getById(folderId).success(function (data) {
             $scope.home = data;
         });
 
@@ -75,7 +96,7 @@
                 that.edit = false;
                 that.reset();
             } else {
-                homeService.createFolder(that.folderId, newFolder.name).success(function (data) {
+                homeService.createFolder(folderId, newFolder.name).success(function (data) {
                     $scope.home.folders.push(data);
                 });
                 that.reset();
@@ -91,7 +112,7 @@
 
         $scope.deleteFolder = function (delFolderId) {
 
-            var folderToDelete = (typeof delFolderId === 'undefined' ? that.folderId : delFolderId);
+            var folderToDelete = (typeof delFolderId === 'undefined' ? folderId : delFolderId);
             homeService.deleteFolder(folderToDelete).success(function (data) {
 
                 if (typeof delFolderId === 'undefined') {
@@ -102,11 +123,31 @@
                         urlService.redirect("home");
                     }
                 } else {
-                    homeService.getById(that.folderId).success(function (data) {
+                    homeService.getById(folderId).success(function (data) {
                         $scope.folder = data;
                     });
                 }
             });
+        };
+
+        $scope.favoriteFolder = function (folder) {
+            var index = -1;
+            for (i = 0; i < $scope.user.fasts.length; i++) {
+                if ($scope.user.fasts[i].id === folder.id) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index !== -1) {
+                $scope.user.fasts.splice(index, 1);
+            } else {
+                var fast = {
+                    id: folder.id,
+                    name: folder.name,
+                    url: "home\/" + folder.id
+                };
+                $scope.user.fasts.push(fast);
+            }
         };
 
         $scope.uploadFile = function (file) {
@@ -189,9 +230,9 @@
         var folderId = $stateParams.folderId;
         var that = this;
         var edit = false;
-        
-        archiveService.getById(that.folderId).success(function (data) {
-            $scope.archifve = data;
+
+        archiveService.getById(folderId).success(function (data) {
+            $scope.archive = data;
         });
 
         $scope.saveFolder = function (newFolder) {
@@ -205,7 +246,7 @@
                 that.edit = false;
                 that.reset();
             } else {
-                archiveService.createFolder(that.folderId, newFolder.name).success(function (data) {
+                archiveService.createFolder(folderId, newFolder.name).success(function (data) {
                     $scope.archive.folders.push(data);
                 });
                 that.reset();
@@ -214,7 +255,7 @@
 
         $scope.deleteFolder = function (delFolderId) {
 
-            var folderToDelete = (typeof delFolderId === 'undefined' ? that.folderId : delFolderId);
+            var folderToDelete = (typeof delFolderId === 'undefined' ? folderId : delFolderId);
             archiveService.deleteFolder(folderToDelete).success(function (data) {
 
                 if (typeof delFolderId === 'undefined') {
@@ -225,7 +266,7 @@
                         urlService.redirect("archive");
                     }
                 } else {
-                    archiveService.getById(that.folderId).success(function (data) {
+                    archiveService.getById(folderId).success(function (data) {
 
                         $scope.archive = data;
                     });

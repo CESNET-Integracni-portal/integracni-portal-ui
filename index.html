@@ -63,7 +63,7 @@
                             <a class="item" ng-repeat="label in user.labels" ui-sref="label/{{label.id}}"><i class="bookmark {{label.color}} basic icon"></i>{{label.name}}</a>
                             <div class="divider"></div>
                             <!-- fast folders -->
-                            <a class="item" ng-repeat="fast in navigation.fastFolders" ui-sref="fast.url"> <i class="pin icon"></i> {{fast.name}} </a>
+                            <a class="item" ng-repeat="fast in user.fasts" href="{{fast.url}}"> <i class="pin icon"></i> {{fast.name}} </a>
                         </div>
 
                         <div class="ui fixed bottom small borderless vertical menu">

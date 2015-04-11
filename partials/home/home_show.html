@@ -22,9 +22,9 @@
                 <td>-</td>
                 <td>--</td>
                 <td class="actions">
-                    <a class="action"><i class="download disk icon"></i></a>
+                    <a class="action" ng-click="favoriteFolder(folder)"><i class="blue pin icon"></i></a>
                     <a class="action" mac-modal="folder" ng-click="editFolder(folder.id)"><i class="edit icon"></i></a>
-                    <a class="action"><i class="blue pin icon"></i></a>
+                    <a class="action"><i class="download disk icon"></i></a>
                     <a href="#"><i class="trash icon"></i></a>
                 </td>
             </tr>
@@ -55,6 +55,9 @@
     </a>
     přidání štítku, přidání do archivu
 </div>
+<p ng-show="empty()" class="animate-if">
+    Složka je prázdná.
+</p>
 
 <div ng-include="'./partials/file_and_folder_modals/folder_modal.html'"></div>
 <div ng-include="'./partials/file_and_folder_modals/file_modal.html'"></div>

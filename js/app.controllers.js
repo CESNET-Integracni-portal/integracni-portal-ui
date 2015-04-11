@@ -1,9 +1,11 @@
 (function () {
     app.controller('NavigationController', function ($scope, $rootScope) {
-        this.fastFolders = fastFolders;
     });
 
-    app.controller('MainController', function ($scope, $rootScope, groupService, userService, urlService, oauthService, labelService) {
+    app.controller('ViewController', function ($scope, $rootScope) {
+    });
+
+    app.controller('MainController', function ($scope, $rootScope, groupService, userService, urlService, oauthService, labelService, homeService) {
 
         //$scope.user = userService.getById(2);
         $scope.basePath = urlService.basePath();
@@ -13,7 +15,8 @@
             $scope.user = $rootScope.currentUser;
             // needs to be modified for API v.2 in the future
             $scope.user.groups = groupService.getForUser($scope.user.id);
-            $scope.user.labels = labelService.getForUser($scope.user.id);
+            $scope.user.labels = labelService.getAll();
+            $scope.user.fasts = homeService.getFavorites();
         });
 
         $scope.showAsTable = function () {
@@ -47,13 +50,6 @@
         //};
         //$scope.deaultSidebar();
     });
-
-    // ----- fast Folders (in left navigation) -----
-    var fastFolders = [{
-            id: 1,
-            name: "work",
-            url: "/1" // id původní složky
-        }];
 
     var folders = [{
             id: 1
