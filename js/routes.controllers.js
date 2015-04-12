@@ -1,14 +1,25 @@
 (function () {
 
     // routes controllers
-    app.controller('indexCtrl', function ($scope, homeService) {
+    app.controller('indexCtrl', function ($scope, $log, homeService, uiUploader) {
         var edit = false;
         var that = this;
+//        $scope.files = [];
 
         homeService.getAll().success(function (data) {
             $scope.home = {folders: data};
             $scope.home.breadcrumbs = [];
         });
+
+//        $scope.setUpload = function () {
+//            var element = document.getElementById('file1');
+//            element.addEventListener('change', function (e) {
+//                var files = e.target.files;
+//                uiUploader.addFiles(files);
+//                $scope.files = uiUploader.getFiles();
+//                $scope.$apply();
+//            });
+//        };
 
         $scope.saveFolder = function (newFolder) {
             if (that.edit) {
@@ -67,6 +78,26 @@
         $scope.empty = function () {
             return (typeof $scope.home === 'undefined' || (typeof $scope.home.folders === 'undefined' || $scope.home.folders.length === 0) && (typeof $scope.home.files === 'undefined' || $scope.home.files.length === 0));
         };
+
+//        $scope.uploadFile = function (file) {
+//            $log.info('uploading...');
+////            alert(JSON.stringify($scope.files[0]));
+////            homeService.addFileToRoot($scope.files[0]).success(function(data){
+////                alert("uploaded");
+////            });
+//            $log.info("file: " + file);
+//            uiUploader.startUpload({
+//                url: 'http://147.32.80.219:8080/integracni-portal/rest/v0.1/archive',
+//                concurrency: 2,
+//                onProgress: function (file) {
+//                    $log.info(file.name + '=' + file.humanSize);
+//                    $scope.$apply();
+//                },
+//                onCompleted: function (file, response) {
+//                    $log.info(file + 'response' + response);
+//                }
+//            });
+//        };
 
         this.reset = function () {
             $scope.folder = {};

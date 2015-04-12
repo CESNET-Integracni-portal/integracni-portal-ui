@@ -1,23 +1,13 @@
-<div id="file" class="ui modal">
-    <i class="close icon"></i>
-
-    <div class="header">
-        Nahrát soubor
-    </div>
-    <div class="content">
-        <form class="ui small form">
-
-            <div class="field">
-                <label>Pojmenovat jako</label>
-                <input type="text" ng-model="newfile.name">
-            </div>
+<mac-modal id="file">
+    <div class="mac-modal-content">
+        <form name="form" class="ui small form" ng-submit="uploadFile(file)"> 
+            <h1>Nahrát soubor</h1>
             <div class="field">
                 <label>Vyberte soubor</label>
-                <input type="file" ng-model="newfile.filename">
+                <input id="file1" name="file" type="file">
             </div>
-            <div ng-click="uploadFile(newfile)" class="ui button">
-                Nahrát soubor
-            </div>
+            <br/>
+            <input class="ui button" mac-modal-close type="submit" value="Nahrát soubor"/>
         </form>
     </div>
-</div>
+</mac-modal>

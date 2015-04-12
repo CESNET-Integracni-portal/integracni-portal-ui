@@ -11,6 +11,7 @@
                 'settings.module',
                 'ui.router',
                 'services.module',
+                'ui.uploader',
                 'Mac']);
 
     app.run(function ($rootScope, oauthService) {

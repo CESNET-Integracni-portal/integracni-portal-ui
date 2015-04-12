@@ -279,12 +279,21 @@
                 return httpService.createRequest("DELETE", baseUrl + 'archive/folder/' + folderId, {}, "application/json");
                 // return httpService.createRequest("DELETE", baseUrl + 'home/folder/' + folderId, {}, "application/json");
             },
-            addFile: function (folderId, file, name) {
+            addFileToRoot: function (file) {
                 // create on server side
                 return httpService.createRequest(
                         "POST",
-                        baseUrl + 'archive/folder/' + folderId + "/files",
-                        $.param({fileName: file, name: name}), "multipart/form-data");
+                        baseUrl + 'archive', {file: file}, "multipart/form-data");
+//                return httpService.createRequest(
+//                        "POST",
+//                        baseUrl + 'home/folder/' + folderId + "/files",
+//                        $.param({fileName: file, name: name}), "multipart/form-data");
+            },
+            addFile: function (folderId, file) {
+                // create on server side
+                return httpService.createRequest(
+                        "POST",
+                        baseUrl + 'archive/folder/' + folderId, {file: file}, "multipart/form-data");
 //                return httpService.createRequest(
 //                        "POST",
 //                        baseUrl + 'home/folder/' + folderId + "/files",
