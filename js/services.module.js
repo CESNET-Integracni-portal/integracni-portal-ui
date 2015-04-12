@@ -143,13 +143,6 @@
                     $rootScope.currentUser = JSON.parse(localStorage.getItem("user"));
                 }
 
-                $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-                    var requireLogin = toState.data.requireLogin;
-                    if (requireLogin && $rootScope.currentUser === null) {
-                        event.preventDefault();
-                        that.login();
-                    }
-                });
                 var refreshToken = cookieService.getCookie(this._refreshToken);
                 if (refreshToken === null) {
                     this.logout();
@@ -170,6 +163,14 @@
                         cookieService.setCookie(that._accessTokenId, response.access_token, response.expires_in);
                         cookieService.setCookie(that._tokenType, response.token_type, response.expires_in);
                         cookieService.setCookie(that._refreshToken, response.refresh_token);
+
+                        $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+                            var requireLogin = toState.data.requireLogin;
+                            if (requireLogin && $rootScope.currentUser === null) {
+                                event.preventDefault();
+                                that.login();
+                            }
+                        });
                     }).error(function () {
                         this.logout();
                     });

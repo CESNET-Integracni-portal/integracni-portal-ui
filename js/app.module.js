@@ -94,6 +94,15 @@
                     data: {
                         requireLogin: true
                     }
+                })
+
+                // tutorials
+                .state("tutorials", {
+                    url: "/tutorials",
+                    templateUrl: "./partials/tutorial.html",
+                    data: {
+                        requireLogin: true
+                    }
                 });
     });
 })();

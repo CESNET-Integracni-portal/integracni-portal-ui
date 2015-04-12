@@ -4,7 +4,6 @@
     app.controller('indexCtrl', function ($scope, homeService) {
         var edit = false;
         var that = this;
-        $scope.favids = new Array;
 
         homeService.getAll().success(function (data) {
             $scope.home = {folders: data};

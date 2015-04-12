@@ -3,7 +3,7 @@
 <table class="ui basic table compact">
     <thead>
         <tr>
-            <th><input type="checkbox"></th>
+            <th>&nbsp;</th>
             <th>Název</th>
             <th>Správce</th>
             <th>Velikost prostoru (GB)</th>
@@ -14,7 +14,7 @@
         <tr ng-repeat="unit in units">
             <td><input type="checkbox"></td>
             <td>{{unit.name}}</td>
-            <td>{{unit.admin}}</td>
+            <td>{{unit.admins}}</td>
             <td>{{unit.quota}}</td>
             <td class="actions">
                 <a class="action" ng-click="editUnit($index, unit)" mac-modal="orgunit"><i class="edit icon"></i></a>
