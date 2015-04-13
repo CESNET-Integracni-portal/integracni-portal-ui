@@ -1,6 +1,6 @@
 (function () {
 
-    var srvmod = angular.module('services.module', ['utils.module', 'ui.router', 'Mac']);
+    var srvmod = angular.module('services.module', ['utils.module', 'Mac']);
     // url of the server, where api is
     var baseUrl = "http://147.32.80.219:8080/integracni-portal/rest/v0.1/";
     // url of the server, where ouath is
@@ -242,11 +242,14 @@
     // home space service
     srvmod.factory('homeService', function (httpService) {
         /**
-         Users parameters:
-         int id - unique
-         string name
-         array users
-         int userId 
+        Folder parameters:
+        int id - unique
+        string name
+        array breadcrumbs
+        array folders
+        array files
+        int createdOn
+        int changedOn
          */
         return {
             // root
