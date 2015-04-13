@@ -2,6 +2,9 @@
 (function () {
     app = angular.module('app.module',
             ['utils.module',
+                'home.module',
+                'archive.module',
+                'shared.module',
                 'login.module',
                 'externists.module',
                 'groups.module',
@@ -11,7 +14,6 @@
                 'settings.module',
                 'ui.router',
                 'services.module',
-                'ui.uploader',
                 'Mac']);
 
     app.run(function ($rootScope, oauthService) {
@@ -101,6 +103,16 @@
                 .state("tutorials", {
                     url: "/tutorials",
                     templateUrl: "./partials/tutorial.html",
+                    data: {
+                        requireLogin: true
+                    }
+                })
+
+                // labels
+                .state("labels", {
+                    url: "/label/{labelId:[1-9][0-9]*}",
+                    templateUrl: "./partials/labels/labels.html",
+                    controller: 'labelSearchController',
                     data: {
                         requireLogin: true
                     }

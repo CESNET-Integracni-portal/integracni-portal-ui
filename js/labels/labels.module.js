@@ -46,6 +46,10 @@
         };
     });
 
+    lblmod.controller('labelSearchController', function ($scope, homeService, archiveService){
+        // TODO
+    });
+
     // DIRECTIVE
     lblmod.directive("setLabels", function () {
         return {
