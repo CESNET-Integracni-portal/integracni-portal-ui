@@ -13,24 +13,9 @@
         });
 
         $scope.download = function (folder) {
-            var zipper = new JSZip();
-            var root = zipper.folder(folder.name);
-            var that = this;
-
-            zipFolders(zipper, folder, root);
-        };
-
-        var zipFolders = function (zipper, folder, root) {
-            var subfolders;
-            homeService.getById(folder.id).success(function (data) {
-                var rt = {folders: data};
-                subfolders = rt.folders.folders;
-                for (i = 0; i < subfolders.length; i++) {
-                    root.folder(subfolders[i].name);
-                }
-                var content = zipper.generate({type: "blob"});
-                //FileSaver.js
-                saveAs(content, folder.name + ".zip");
+            
+            homeService.downloadFolder(folder.id).success(function(data){
+                saveAs(data, folder.name + ".zip");
             });
         };
 

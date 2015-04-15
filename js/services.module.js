@@ -277,6 +277,9 @@
                 return httpService.createRequest("PUT", baseUrl + 'archive/folder/' + folderId, {name: name}, "application/json");
                 //return httpService.createRequest("PUT", baseUrl + 'home/folder/' + folderId, {name: name}, "application/json");
             },
+            downloadFolder: function (folderId) {
+                // download request
+            },
             deleteFolder: function (folderId) {
                 // create on server side
                 return httpService.createRequest("DELETE", baseUrl + 'archive/folder/' + folderId, {}, "application/json");
@@ -350,7 +353,6 @@
             }
         };
     });
-
 
     ///////// READY FOR API v.2 ///////////////
     // roles service
