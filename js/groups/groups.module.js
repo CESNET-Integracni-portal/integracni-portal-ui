@@ -18,7 +18,7 @@
             // create
             if ($scope.index === null) {
                 group.userId = userId;
-                var createdGroup = groupService.create(group);
+                var createdGroup = groupService.createGroup(group);
                 $scope.user.groups.push(angular.copy(createdGroup));
                 that.reset();
                 //update

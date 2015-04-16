@@ -7,7 +7,6 @@
     var baseUrlForOauth = "http://147.32.80.219:8080/integracni-portal/";
     // token for authorization this application on the server
     var authorization_token = 'Basic ODU5NWM4Mjg0YTUyNDc1ZTUxNGQ2NjdlNDMxM2U4NmE6MjI2ZDI0NjE3ZTY1NTRkNzFhNjg2MTRjMzQ0MzZkNjc=';
-
     // cookie service
     srvmod.factory('cookieService', function ($http) {
         return {
@@ -163,7 +162,6 @@
                         cookieService.setCookie(that._accessTokenId, response.access_token, response.expires_in);
                         cookieService.setCookie(that._tokenType, response.token_type, response.expires_in);
                         cookieService.setCookie(that._refreshToken, response.refresh_token);
-
                         $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
                             var requireLogin = toState.data.requireLogin;
                             if (requireLogin && $rootScope.currentUser === null) {
@@ -194,7 +192,6 @@
             }
         };
     });
-
     // communication with server API
     // archive service
     srvmod.factory('archiveService', function (httpService) {
@@ -242,14 +239,14 @@
     // home space service
     srvmod.factory('homeService', function (httpService) {
         /**
-        Folder parameters:
-        int id - unique
-        string name
-        array breadcrumbs
-        array folders
-        array files
-        int createdOn
-        int changedOn
+         Folder parameters:
+         int id - unique
+         string name
+         array breadcrumbs
+         array folders
+         array files
+         int createdOn
+         int changedOn
          */
         return {
             // root
@@ -317,44 +314,427 @@
             }
         };
     });
+
+    ///////// READY FOR API v.2 ///////////////
+    // spaces service
+    srvmod.factory('spaceService', function (httpService) {
+        /**
+         Spaces parameters:
+         
+         */
+        return {
+            // SPACES
+            /**
+             * Retrieve all Spaces
+             * 
+             * @returns {promise}
+             */
+            getSpaces: function () {
+                // Ready for API v0.2
+                return httpService.createRequest("GET", baseUrl + 'space', {}, "application/json");
+            },
+            /**
+             * Retrieve all shared files and folders in a Space
+             * 
+             * List all the files and folders that are shared to the current 
+             * user in a Space. Optionally use labels query parameter to list 
+             * all the files and folders with the given label assigned.
+             * 
+             * @param {id} spaceId - unique ID of the space
+             * @param {array} labels - array of labels names as string
+             * @returns {promise}
+             */
+            getShared: function (spaceId, labels) {
+                // Ready for API v0.2
+                if (typeof labels === 'undefined') {
+                    return httpService.createRequest("GET", baseUrl + 'space/' + spaceId + '/shared', {}, "application/json");
+                } else {
+                    var lbls = labels[0];
+                    for (i = 1; i < labels.length; i++) {
+                        lbls.concat(",", labels[i]);
+                    }
+                    return httpService.createRequest("GET", baseUrl + 'space/' + spaceId + '/shared?labels=' + lbls, {}, "application/json");
+                }
+            },
+            /**
+             * Retrive all files and folders in a Space Root
+             * 
+             * List all files and folders in root folder of a Space. Optionally 
+             * use labels query parameter to list all the files and folders 
+             * with the given label assigned.
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {array} labels - labels to filter by
+             * @returns {promise}
+             */
+            getAll: function (spaceId, labels) {
+                // Ready for API v0.2
+                if (typeof labels === 'undefined') {
+                    return httpService.createRequest("GET", baseUrl + 'space/' + spaceId, {}, "application/json");
+                } else {
+                    var lbls = labels[0];
+                    for (i = 1; i < labels.length; i++) {
+                        lbls.concat(",", labels[i]);
+                    }
+                    return httpService.createRequest("GET", baseUrl + 'space/' + spaceId + '?labels=' + lbls, {}, "application/json");
+                }
+            },
+            // FOLDERS
+            /**
+             * Create a Folder in a Space Root
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {array} folder - folder params
+             * @returns {promise}
+             */
+            createFolderInRoot: function (spaceId, folder) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder', {folder: folder}, "application/json");
+            },
+            /**
+             * Retrieve a Folder metadata
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} folderId - folder identifier
+             * @returns {promise}
+             */
+            getFolder: function (spaceId, folderId) {
+                // Ready for API v0.2
+                return httpService.createRequest("GET", baseUrl + 'space/' + spaceId + '/folder/' + folderId, {}, "application/json");
+            },
+            /**
+             * Create a child Folder
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} folderId - parent folder identifier
+             * @param {array} folder - folder parameters
+             * @returns {promise}
+             */
+            createFolder: function (spaceId, folderId, folder) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/folder', {folder: folder}, "application/json");
+            },
+            /**
+             * Change the name of a Folder
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} folderId - folder indentifier
+             * @param {string} folderName - new name of folder
+             * @returns {promise}
+             */
+            renameFolder: function (spaceId, folderId, folderName) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/nameChange', {name: folderName}, "application/json");
+            },
+            /**
+             * Move a Folder to a different Folder
+             * 
+             * To move a Folder to a Space Root, the field parent in JSON body
+             *  must be empty string.
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} folderId - folder identifier
+             * @param {int} parentId - parent folder identifier
+             * @returns {promise}
+             */
+            moveFolder: function (spaceId, folderId, parentId) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/parentChange', {parentId: parentId}, "application/json");
+            },
+            /**
+             * Put Folder to bin
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} folderId - fodler identifier
+             * @returns {promise}
+             */
+            deleteFolder: function (spaceId, folderId) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/trash', {}, "application/json");
+            },
+            /**
+             * Make Folder online
+             * 
+             * Change the state of the folder (and all child files and folders)
+             *  in CESNET storage to online.
+             * 
+             * @param {int} spaceId
+             * @param {int} folderId
+             * @returns {promise}
+             */
+            setFolderOnline: function (spaceId, folderId) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/online', {}, "application/json");
+            },
+            /**
+             * Make Folder offline
+             * 
+             * Change the state of the folder (and all child files and folders)
+             *  in CESNET storage to offline.
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {type} folderId - folder identifier
+             * @returns {promise}
+             */
+            setFolderOffline: function (spaceId, folderId) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/offline', {}, "application/json");
+            },
+            /**
+             * Add label to a Folder
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} folderId - folder identifier
+             * @param {int} labelId - label identifier
+             * @returns {promise}
+             */
+            setFolderLabel: function (spaceId, folderId, labelId) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/addLabel', {id: labelId}, "application/json");
+            },
+            /**
+             * Remove label from a Folder
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} folderId - folder identifier
+             * @param {int} labelId - label identifier
+             * @returns {promise}
+             */
+            removeFolderLabel: function (spaceId, folderId, labelId) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/removeLabel', {id: labelId}, "application/json");
+            },
+            /**
+             * Pin a Folder to Favorite list.
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} folderId - folder identifier
+             * @returns {promise}
+             */
+            favoriteFolder: function (spaceId, folderId) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/favorite', {}, "application/json");
+            },
+            /**
+             * Unpin a Folder from Favorite list.
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} folderId - folder identifier
+             * @returns {promise}
+             */
+            unfavoriteFolder: function (spaceId, folderId) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/unfavorite', {}, "application/json");
+            },
+            /**
+             * Share a Folder with Users
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} folderId - folder identifier
+             * @param {array} users - array of user IDs
+             * @returns {promise}
+             */
+            shareFolder: function (spaceId, folderId, users) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/share', {shareWith: users}, "application/json");
+            },
+            // FILES
+            /**
+             * Upload a file to Space Root
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {type} file
+             * @returns {promise}
+             */
+            uploadFileToRoot: function (spaceId, file) {
+                //TODO
+            },
+            /**
+             * Upload a file to a Folder
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} folderId - folder identifier
+             * @param {type} file
+             * @returns {promise}
+             */
+            uploadFile: function (spaceId, folderId, file) {
+                // TODO
+            },
+            /**
+             * Retrieve a File metadata
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} fileId - file identifier
+             * @returns {promise}
+             */
+            getFile: function (spaceId, fileId) {
+                // Ready for API v0.2
+                return httpService.createRequest("GET", baseUrl + 'space/' + spaceId + '/file/' + fileId, {}, "application/json");
+            },
+            /**
+             * Change the name of a File
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} fileId - file identifier
+             * @param {string} fileName - new name of a file
+             * @returns {promise}
+             */
+            renameFile: function (spaceId, fileId, fileName) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/file/' + fileId + '/nameChange', {name: fileName}, "application/json");
+            },
+            /**
+             * Move a File to a different Folder
+             * 
+             * To move a file to a Space Root, the field parent in JSON body 
+             * must be empty string.
+             * 
+             * @param {int} spaceId
+             * @param {int} fileId
+             * @param {int} folderId
+             * @returns {promise}
+             */
+            moveFile: function (spaceId, fileId, folderId) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/file/' + fileId + '/parentChange', {parentId: folderId}, "application/json");
+
+            },
+            /**
+             * Put File to bin
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} fileId - file identifier
+             * @returns {promise}
+             */
+            deleteFile: function (spaceId, fileId) {
+                // Ready for API v0.2   
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/file/' + fileId + '/trash', {}, "application/json");
+            },
+            /**
+             * Make File online
+             * 
+             * Change the state of the file in CESNET storage to online.
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} fileId - file identifier
+             * @returns {promise}
+             */
+            setFileOnline: function (spaceId, fileId) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/file/' + fileId + '/online', {}, "application/json");
+            },
+            /**
+             * Make File offline
+             * 
+             * Change the state of the file in CESNET storage to offline.
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} fileId - file identifier
+             * @returns {promise}
+             */
+            setFileOffline: function (spaceId, fileId) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/file/' + fileId + '/offline', {}, "application/json");
+            },
+            /**
+             * Add label to a File
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} fileId - file identifier
+             * @param {int} labelId - label identifier
+             * @returns {promise}
+             */
+            setFileLabel: function (spaceId, fileId, labelId) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/file/' + fileId + '/addLabel', {id: labelId}, "application/json");
+            },
+            /**
+             * Remove label from a File
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} fileId - file identifier
+             * @param {int} labelId - label identifier
+             * @returns {promise}
+             */
+            removeFileLabel: function (spaceId, fileId, labelId) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/file/' + fileId + '/removeLabel', {id: labelId}, "application/json");
+            },
+            /**
+             * Share a File with Users
+             * 
+             * @param {int} spaceId
+             * @param {int} fileId
+             * @param {array} users - array of user's IDs
+             * @returns {promise}
+             */
+            shareFile: function (spaceId, fileId, users) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/file/' + fileId + '/share', {shareWith: users}, "application/json");
+            },
+            /**
+             * Retrieve the file contents
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} fileId - file identifier
+             * @returns {promise}
+             */
+            getFileContent: function (spaceId, fileId) {
+                // Ready for API v0.2
+                return httpService.createRequest("GET", baseUrl + 'space/' + spaceId + '/file/' + fileId + '/content', {}, "application/json");
+            },
+            /**
+             * Upload file contents
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} fileId - file identifier
+             * @param {type} file
+             * @returns {promise}
+             */
+            uploadFileContent: function (spaceId, fileId, file) {
+                // Ready for API v0.2
+                // TODO
+                return httpService.createRequest("PUT", baseUrl + 'space/' + spaceId + '/file/' + fileId + '/content', {file: file}, "application/json");
+            }
+        };
+    });
     // groups service
     srvmod.factory('groupService', function (utils, httpService) {
         /**
-         Users parameters:
+         Groups parameters:
          int id - unique
          string name
-         array users
-         int userId 
+         array members
          */
         return {
-            getById: function (groupId) {
-                //return httpService.createRequest("GET", baseUrl + 'group/' + groupId, {}, "application/json");
-                return utils.findById(groups, groupId);
+            getAll: function () {
+                // Ready for API v0.2
+                return httpService.createRequest("GET", baseUrl + 'group', {}, "application/json");
             },
-//            getAll: function (){
-//                return httpService.createRequest("GET", baseUrl + 'group', {}, "application/json");
-//            },
-            getForUser: function (userId) {
-                return utils.getAllWhere(groups, "userId", userId);
-            },
-            create: function (group) {
-                // create on server side
+            createGroup: function (group) {
+                // Ready for API v0.2
                 //return httpService.createRequest("POST", baseUrl + 'group', {group: group}, "application/json");
                 return group;
             },
             deleteGroup: function (groupId) {
-                // delete on server side
+                // Ready for API v0.2
                 //return httpService.createRequest("DELETE", baseUrl + 'group/' + groupId, {}, "application/json");
             },
             updateGroup: function (groupId, group) {
-                // update on server side
+                // Ready for API v0.2
                 //return httpService.createRequest("PUT", baseUrl + 'group/' + groupId, {group: group}, "application/json");
                 return group;
+            },
+            // helper methods
+            getById: function (groupId) {
+                //return httpService.createRequest("GET", baseUrl + 'group/' + groupId, {}, "application/json");
+                return utils.findById(groups, groupId);
+            },
+            getForUser: function (userId) {
+                return utils.getAllWhere(groups, "userId", userId);
             }
         };
     });
-
-    ///////// READY FOR API v.2 ///////////////
     // roles service
     srvmod.factory('roleService', function (httpService) {
         /**
@@ -534,7 +914,6 @@
             }
         };
     });
-
 //-------------------------------------------------------------
 // ---------------- DATA --------------------------------------
 //-------------------------------------------------------------
