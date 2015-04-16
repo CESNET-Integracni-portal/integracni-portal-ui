@@ -537,6 +537,17 @@
                 // Ready for API v0.2
                 return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/share', {shareWith: users}, "application/json");
             },
+            /**
+             * Download folder as .zip file
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} folderId - folder identifier
+             * @returns {promise}
+             */
+            downloadFolder: function (spaceId, folderId) {
+                // Ready for API v0.2
+                return httpService.createRequest("GET", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/download', {}, "application/json");
+            },
             // FILES
             /**
              * Upload a file to Space Root
@@ -693,6 +704,17 @@
                 // Ready for API v0.2
                 // TODO
                 return httpService.createRequest("PUT", baseUrl + 'space/' + spaceId + '/file/' + fileId + '/content', {file: file}, "application/json");
+            },
+            /**
+             * Download file as .zip file
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} fileId - file identifier
+             * @returns {promise}
+             */
+            downloadFile: function (spaceId, fileId) {
+                // Ready for API v0.2
+                return httpService.createRequest("GET", baseUrl + 'space/' + spaceId + '/file/' + fileId + '/download', {}, "application/json");
             }
         };
     });
