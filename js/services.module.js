@@ -314,7 +314,6 @@
             }
         };
     });
-
     ///////// READY FOR API v.2 ///////////////
     // spaces service
     srvmod.factory('spaceService', function (httpService) {
@@ -597,7 +596,6 @@
             moveFile: function (spaceId, fileId, folderId) {
                 // Ready for API v0.2
                 return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/file/' + fileId + '/parentChange', {parentId: folderId}, "application/json");
-
             },
             /**
              * Put File to bin
@@ -738,31 +736,52 @@
     // roles service
     srvmod.factory('roleService', function (httpService) {
         /**
+         User roles parameters:
          int id - unique
          string name
          string description
          array permissions
          */
         return {
+            /**
+             * Retrieve all User Roles
+             * 
+             * @returns {promise}
+             */
             getAll: function () {
                 // Ready for API v.2
                 return httpService.createRequest("GET", baseUrl + 'role', {}, "application/json");
             },
-            getById: function (roleId) {
-                // Ready for API v.2
-                return httpService.createRequest("GET", baseUrl + 'role/' + roleId, {}, "application/json");
-            },
+            /**
+             * Create a User Role
+             * 
+             * @param {array} role - role parameters
+             * @returns {promise}
+             */
             createRole: function (role) {
                 // Ready for API v.2
                 return httpService.createRequest("POST", baseUrl + 'role', {role: role}, "application/json");
             },
+            /**
+             * Retrieve a User Role
+             * 
+             * @param {int} roleId - role identifier
+             * @returns {promise}
+             */
+            getRole: function (roleId) {
+                // Ready for API v.2
+                return httpService.createRequest("GET", baseUrl + 'role/' + roleId, {}, "application/json");
+            },
+            /**
+             * Update a User Role
+             * 
+             * @param {int} roleId - role identifier
+             * @param {array} role - role parameters
+             * @returns {promise}
+             */
             updateRole: function (roleId, role) {
                 // Ready for API v.2
                 return httpService.createRequest("PUT", baseUrl + 'role/' + roleId, {role: role}, "application/json");
-            },
-            deleteRole: function (roleId) {
-                // Ready for API v.2
-                return httpService.createRequest("DELETE", baseUrl + 'role' + roleId, {}, "application/json");
             }
         };
     });
@@ -780,53 +799,97 @@
          string onuser - optional
          */
         return {
+            /**
+             * Retrieve all Users
+             * 
+             * @returns {promise}
+             */
             getAll: function () {
                 // Ready for API v.2
                 //return httpService.createRequest("GET", baseUrl + 'user', {}, "application/json");
                 return users;
             },
+            /**
+             * Create a User
+             * 
+             * @param {array} user - user parameters
+             * @returns {promise}
+             */
             createUser: function (user) {
                 // Ready for API v.2
                 //return httpService.createRequest("POST", baseUrl + 'user', {user: user}, "application/json");
                 return user;
             },
-            getById: function (userId) {
+            /**
+             * Retrieve a User
+             * 
+             * @param {int} userId - user identifier
+             * @returns {promise}
+             */
+            getUser: function (userId) {
                 // Ready for API v.2
                 //return httpService.createRequest("GET", baseUrl + 'user/' + userId, {}, "application/json");
-
                 var user = utils.findById(users, userId);
-                user.labels = labelService.getForUser(userId);
-                user.groups = groupService.getForUser(userId);
                 return user;
             },
+            /**
+             * Change User's password
+             * 
+             * @param {int} userId - user identifier
+             * @param {string} password - new user's password
+             * @returns {unresolved}
+             */
             changePassword: function (userId, password) {
                 // Ready for API v.2
-                return httpService.createRequest("POST", baseUrl + 'user/' + userId, {'password': password}, "application/json");
+                return httpService.createRequest("POST", baseUrl + 'user/' + userId + '/passwordChange', {password: password}, "application/json");
             },
+            /**
+             * Assign an Organization Unit to a User
+             * 
+             * @param {int} userId - user identifier
+             * @param {int} unitId - unit identifier
+             * @returns {promise}
+             */
             assignUnit: function (userId, unitId) {
                 // Ready for API v.2
-                return httpService.createRequest("POST", baseUrl + 'user/' + userId, {'unitId': unitId}, "application/json");
+                return httpService.createRequest("POST", baseUrl + 'user/' + userId + '/unitAssignment', {unitId: unitId}, "application/json");
             },
+            /**
+             * Assign User Roles to a User
+             * 
+             * @param {int} userId - user identifier
+             * @param {array} roles - array of roles names
+             * @returns {promise}
+             */
             assignRoles: function (userId, roles) {
                 // Ready for API v.2
-                return httpService.createRequest("POST", baseUrl + 'user/' + userId, {roles: roles}, "application/json");
+                return httpService.createRequest("POST", baseUrl + 'user/' + userId + '/rolesAssignment', {roles: roles}, "application/json");
             },
+            /**
+             * Grant permission to a User
+             * 
+             * @param {int} userId - user identifier
+             * @param {array} permissions - array of permissions names
+             * @returns {promise}
+             */
             grantPermissions: function (userId, permissions) {
                 // Ready for API v.2
-                return httpService.createRequest("POST", baseUrl + 'user/' + userId, {permission: permissions}, "application/json");
+                return httpService.createRequest("POST", baseUrl + 'user/' + userId + '/permissionsGrant', {permissions: permissions}, "application/json");
             },
+            /**
+             * Retrieve current logged-in User
+             * 
+             * @returns {promise}
+             */
             getCurrent: function () {
                 // Ready for API v.2
                 //return httpService.createRequest("GET", baseUrl + 'user/current', {}, "application/json");
                 return utils.findById(users, 2);
             },
+            // Other methods - not defined by API v0.2
             deleteUser: function (userId) {
-                // Ready for API v.2
-                //return httpService.createRequest("DELETE", baseUrl + 'user/' + userId, {}, "application/json");
             },
             updateUser: function (userId, user) {
-                // Ready for API v.2
-                //return httpService.createRequest("PUT", baseUrl + 'user/' + userId, {user: user}, "application/json");
                 return user;
             },
             // Helper methods
@@ -851,21 +914,45 @@
          string color
          */
         return {
+            /**
+             * Retrive all Labels
+             * 
+             * @returns {promise}
+             */
             getAll: function () {
                 // Ready for API v.2
                 //return httpService.createRequest("GET", baseUrl + 'label', {}, "application/json");
                 return labels;
             },
+            /**
+             * Create a new Label
+             * 
+             * @param {array} label - label parameters
+             * @returns {promise}
+             */
             createLabel: function (label) {
                 // Ready for API v.2
                 //return httpService.createRequest("POST", baseUrl + 'label', {label: label}, "application/json");
                 return label;
             },
+            /**
+             * Update Label
+             * 
+             * @param {int} labelId - label identifier
+             * @param {array} label - label parameters
+             * @returns {promise}
+             */
             updateLabel: function (labelId, label) {
                 // Ready for API v.2
                 //return httpService.createRequest("PUT", baseUrl + 'label/' + labelId, {label: label}, "application/json");
                 return label;
             },
+            /**
+             * Delete Label
+             * 
+             * @param {int} labelId - label identifier
+             * @returns {promise}
+             */
             deleteLabel: function (labelId) {
                 // Ready for API v.2
                 //return httpService.createRequest("DELETE", baseUrl + 'label/' + labelId, {}, "application/json");
@@ -889,14 +976,64 @@
          admins
          */
         return {
+            /**
+             * Retrieve all Organizational Units
+             * 
+             * @returns {promise}
+             */
             getAll: function () {
                 // Ready for API v.2
                 //return httpService.createRequest("GET", baseUrl + 'unit/', {}, "application/json");
                 return units;
             },
+            /**
+             * Retrieve an Organizational Unit
+             * 
+             * @param {int} unitId - unit identifier
+             * @returns {promise}
+             */
+            getUnit: function (unitId) {
+                // Ready for API v0.2
+                return httpService.createRequest("GET", baseUrl + 'unit/' + unitId, {}, "application/json");
+            },
+            /**
+             * Change name of an Organizational Unit
+             * 
+             * @param {int} unitId - unit identifier
+             * @param {string} unitName - new name of org unit
+             * @returns {promise}
+             */
+            renameUnit: function (unitId, unitName) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'unit/' + unitId + '/nameChange', {name: unitName}, "application/json");
+            },
+            /**
+             * Change quota of an Organizational Unit
+             * 
+             * @param {int} unitId - unit identifier
+             * @param {type} quota - size of quota
+             * @returns {promise}
+             */
+            changeQuota: function (unitId, quota) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'unit/' + unitId + '/quotaChange', {quota: quota}, "application/json");
+            },
+            /**
+             * Assign administrators to an Organizational Unit
+             * 
+             * @param {int} unitId - unit identifier
+             * @param {array} admins - array of admin users IDs
+             * @returns {promise}
+             */
+            assignAdmins: function (unitId, admins) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'unit/' + unitId + '/adminsAssignment', {admins: admins}, "application/json");
+            },
+            //  Help method for testing without completed backend
+            getById: function (unitId) {
+                return utils.findById(units, unitId);
+            },
             createUnit: function (unit) {
-                // Ready for API v.2
-                //return httpService.createRequest("POST", baseUrl + 'unit/', {unit: unit}, "application/json");
                 return unit;
             },
             deleteUnit: function (unitId) {
@@ -907,10 +1044,6 @@
                 // Ready for API v.2
                 //return httpService.createRequest("PUT", baseUrl + 'unit/' + unitId, {unit: unit}, "application/json");
                 return unit;
-            },
-            //  Help method for testing without completed backend
-            getById: function (unitId) {
-                return utils.findById(units, unitId);
             }
         };
     });
