@@ -9,49 +9,51 @@
         <thead>
             <tr>
                 <th>Název</th>
-                <th>Sdílím s</th>
+                <th>Vlastník</th>
                 <th>Velikost</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="folder in home.folders">
-                <td><a ui-sref="homeIterate({folderId:folder.id})"><i class="folder outline icon"></i> <span>{{folder.name}}</span></a>
+            <tr ng-repeat="folder in shared.folders">
+                <td><a ui-sref="sharedIterate({folderId:folder.id})"><i class="folder outline icon"></i> <span>{{folder.name}}</span></a>
                     <a class="item" ng-repeat="label in folder.labels" ui-sref="labels({labelId:label.id})"><i class="bookmark red basic icon"></i></a>
                 </td>
+                <td>{{folder.owner}}</td>
                 <td>-</td>
-                <td>--</td>
                 <td class="actions">
                     <a class="action" ng-click="favoriteFolder(folder)"><i class="blue pin icon"></i></a>
                     <a class="action" mac-modal="folder" ng-click="editFolder(folder.id)"><i class="edit icon"></i></a>
-                    <a class="action" ng-click="downloadFolder(folder.id)"><i class="download disk icon"></i></a>
-                    <a class="action" ng-click="deleteFolder(folder.id)"><i class="trash icon"></i></a>
+                    <a class="action" ng-click="downloadFolder(folder)"><i class="download disk icon"></i></a>
+                    <a ng-show="folder.owner === user.email" class="action" ng-click="deleteFolder(folder.id)"><i class="trash icon"></i></a>
                 </td>
             </tr>
-            <tr ng-repeat="file in home.files" attach-sidebar>
+            <tr ng-repeat="file in shared.files" attach-sidebar>
                 <td><i class="file outline icon"></i>
                     <span>{{file.filename}}</span>
                 </td>
-                <td>-</td>
+                <td>{{folder.owner}}</td>
                 <td>{{file.filesize}} MB</td>
                 <td class="actions">
                     <a class="action" ng-click="downloadFile(file.id)"><i class="download disk icon"></i></a>
-                    <a class="action" ng-click="deleteFile(file.id)"><i class="trash icon"></i></a>
+                    <a class="action"  ng-show="folder.owner === user.email" ng-click="deleteFile(file.id)"><i class="trash icon"></i></a>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
 <div ng-hide="table">
-    <div class="ui-items">
-
+    <div class="ui items">
+        <!-- TODO -->
     </div>
 </div>
 <div class="ui right vertical sidebar">
     <a href="#" class="sidebar-hide-btn" title="Close the board sidebar."> 
         <i class="right arrow icon"></i>
     </a>
-    přidání štítku, přidání do archivu
+    <div class="ui small form">
+        Detailní informace o souboru či složce.
+    </div>
 </div>
 <p ng-show="empty()" class="animate-if">
     Složka je prázdná.
@@ -59,4 +61,3 @@
 
 <div ng-include="'./partials/file_and_folder_modals/folder_modal.html'"></div>
 <div ng-include="'./partials/file_and_folder_modals/file_modal.html'"></div>
-

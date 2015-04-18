@@ -1,21 +1,26 @@
 (function () {
     var hmmod = angular.module('home.module', ['services.module', 'utils.module', 'ui.uploader']);
-    
+
     // route controller
     hmmod.controller('indexCtrl', function ($scope, $log, homeService, uiUploader) {
         var edit = false;
         var that = this;
-//        $scope.files = [];
 
         homeService.getAll().success(function (data) {
             $scope.home = {folders: data};
             $scope.home.breadcrumbs = [];
         });
 
-        $scope.download = function (folder) {
-            
-            homeService.downloadFolder(folder.id).success(function(data){
-                saveAs(data, folder.name + ".zip");
+        $scope.downloadFolder = function (folderId) {
+
+            homeService.downloadFolder(folderId).success(function (data) {
+                saveAs(data, folderId + ".zip");
+            });
+        };
+
+        $scope.downloadFile = function (fileId) {
+            homeService.downloadFile(fileId).success(function (data) {
+                saveAs(data, fileId + ".zip");
             });
         };
 
@@ -62,6 +67,15 @@
                 });
             });
         };
+        
+        $scope.deleteFile = function (fileId) {
+            homeService.deleteFile(fileId).success(function(data){
+                homeService.getAll().success(function (data){
+                   $scope.home = {folders: data};
+                   $scope.home.breadcrumbs = [];
+                });
+            });
+        };
 
         $scope.favoriteFolder = function (folder) {
             var index = -1;
@@ -77,7 +91,7 @@
                 var fast = {
                     id: folder.id,
                     name: folder.name,
-                    uisref: "homeIterate({folderId:" + folder.id +"})"
+                    uisref: "homeIterate({folderId:" + folder.id + "})"
                 };
                 $scope.user.fasts.push(fast);
             }

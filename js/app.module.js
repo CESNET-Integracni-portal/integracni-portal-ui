@@ -89,11 +89,18 @@
                     }
                 })
 
-                // shared settings
-                .state("shared", {
-                    url: "/shared",
-                    templateUrl: "./partials/shared/shared.html",
-                    controller: 'sharedCtrl',
+                // shared
+                .state('shared', {
+                    url: '/shared',
+                    template: '<shared></shared>',
+                    data: {
+                        requireLogin: true
+                    }
+                })
+
+                .state('sharedIterate', {
+                    url: '/shared/{folderId:[1-9][0-9]*}',
+                    template: '<shared-iterate></shared-iterate>',
                     data: {
                         requireLogin: true
                     }
