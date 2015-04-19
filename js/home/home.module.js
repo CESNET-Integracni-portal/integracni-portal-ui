@@ -18,7 +18,6 @@
         }
 
         $scope.downloadFolder = function (folderId) {
-
             homeService.downloadFolder(folderId).success(function (data) {
                 saveAs(data, folderId + ".zip");
             });
@@ -31,6 +30,8 @@
         };
 
         $scope.saveFolder = function (newFolder) {
+            $scope.favoriteFolder(newFolder);
+            $scope.favoriteFolder(newFolder);
             if (that.edit) {
                 homeService.renameFolder(newFolder.id, newFolder.name).success(function (data) {
                     if (typeof folderId === 'undefined') {
@@ -68,42 +69,51 @@
         };
 
         $scope.deleteFolder = function (delFolderId) {
+
             if (typeof folderId === 'undefined') {
-                alert("v indexu");
-                homeService.deleteFolder(delFolderId).success(function (data) {
-                    homeService.getAll().success(function (data) {
-                        $scope.home = {folders: data};
-                        $scope.home.breadcrumbs = [];
+                homeService.getById(delFolderId).success(function (data) {
+                    var folder = data;
+                    $scope.favoriteFolder(folder);
+                    homeService.deleteFolder(delFolderId).success(function (data) {
+                        homeService.getAll().success(function (data) {
+                            $scope.home = {folders: data};
+                            $scope.home.breadcrumbs = [];
+                        });
                     });
                 });
             } else {
-                alert("iterated");
                 var folderToDelete = (typeof delFolderId === 'undefined' ? folderId : delFolderId);
-                homeService.deleteFolder(folderToDelete).success(function (data) {
+                homeService.getById(folderToDelete).success(function (data) {
+                    var folder = data;
+                    $scope.favoriteFolder(folder);
 
-                    if (typeof delFolderId === 'undefined') {
-                        if ($scope.home.breadcrumbs.length > 0) {
-                            var last = $scope.home.breadcrumbs[$scope.home.breadcrumbs.length - 1];
-                            homeService.getById(last.id).success(function (data) {
+                    homeService.deleteFolder(folderToDelete).success(function (data) {
+
+                        if (typeof delFolderId === 'undefined') {
+
+                            if ($scope.home.breadcrumbs.length > 0) {
+                                var last = $scope.home.breadcrumbs[$scope.home.breadcrumbs.length - 1];
+                                homeService.getById(last.id).success(function (data) {
+                                    $scope.home = data;
+                                });
+                            } else {
+                                homeService.getAll().success(function (data) {
+                                    $scope.home = {folders: data};
+                                    $scope.home.breadcrumbs = [];
+                                });
+                            }
+                        } else {
+                            homeService.getById(folderId).success(function (data) {
                                 $scope.home = data;
                             });
-                        } else {
-                            homeService.getAll().success(function (data) {
-                                $scope.home = {folders: data};
-                                $scope.home.breadcrumbs = [];
-                            });
                         }
-                    } else {
-                        homeService.getById(folderId).success(function (data) {
-                            $scope.home = data;
-                        });
-                    }
+                    });
                 });
             }
         };
 
-        $scope.deleteFile = function (fileId) {
-            homeService.deleteFile(fileId).success(function (data) {
+        $scope.deleteFile = function (file) {
+            homeService.deleteFile(file.fileId).success(function (data) {
                 homeService.getAll().success(function (data) {
                     $scope.home = {folders: data};
                     $scope.home.breadcrumbs = [];

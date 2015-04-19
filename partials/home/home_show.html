@@ -25,7 +25,7 @@
                     <a class="action" ng-click="favoriteFolder(folder)"><i class="blue pin icon"></i></a>
                     <a class="action" mac-modal="folder" ng-click="editFolder(folder.id)"><i class="edit icon"></i></a>
                     <a class="action" ng-click="downloadFolder(folder.id)"><i class="download disk icon"></i></a>
-                    <a class="action" ng-click="deleteFolder(folder.id)"><i class="trash icon"></i></a>
+                    <a class="action" ng-click="deleteFolder(folder)"><i class="trash icon"></i></a>
                 </td>
             </tr>
             <tr ng-repeat="file in home.files" attach-sidebar>
@@ -36,7 +36,7 @@
                 <td>{{file.filesize}} MB</td>
                 <td class="actions">
                     <a class="action" ng-click="downloadFile(file.id)"><i class="download disk icon"></i></a>
-                    <a class="action" ng-click="deleteFile(file.id)"><i class="trash icon"></i></a>
+                    <a class="action" ng-click="deleteFile(file)"><i class="trash icon"></i></a>
                 </td>
             </tr>
         </tbody>
