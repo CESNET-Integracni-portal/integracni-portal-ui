@@ -17,7 +17,7 @@
         <tbody>
             <tr ng-repeat="folder in home.folders">
                 <td><a ui-sref="homeIterate({folderId:folder.id})"><i class="folder outline icon"></i> <span>{{folder.name}}</span></a>
-                    <a class="item" ng-repeat="label in folder.labels" ui-sref="labels({labelId:label.id})"><i class="bookmark red basic icon"></i></a>
+                    <a class="item" ng-repeat="label in folder.labels"><i class="bookmark {{label.color}} basic icon"></i></a>
                 </td>
                 <td>-</td>
                 <td>--</td>

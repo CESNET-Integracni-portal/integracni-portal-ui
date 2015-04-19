@@ -1,8 +1,8 @@
 (function () {
-    var hmmod = angular.module('home.module', ['services.module', 'utils.module', 'ui.uploader']);
+    var hmmod = angular.module('home.module', ['services.module', 'utils.module', 'ui.uploader', 'checklist-model']);
 
     // route controller
-    hmmod.controller('indexCtrl', function ($scope, $log, $stateParams, urlService, homeService, uiUploader) {
+    hmmod.controller('indexCtrl', function ($scope, $filter, $stateParams, urlService, homeService, uiUploader) {
         var edit = false;
         var that = this;
         var folderId = $stateParams.folderId;
@@ -30,6 +30,8 @@
         };
 
         $scope.saveFolder = function (newFolder) {
+            // save labels for folder also - needed in API v0.2
+            // in async call spaceService.setFolderLabel(spaceId, folderId, labelId)
             $scope.favoriteFolder(newFolder);
             $scope.favoriteFolder(newFolder);
             if (that.edit) {

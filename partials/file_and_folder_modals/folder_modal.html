@@ -10,6 +10,14 @@
                     <span ng-show="form.name.$error.pattern"><i class="warning icon"></i>Název složky obsahuje nepovolené znaky.</span>
                 </div>
             </div>
+            <div class="field">
+                <h3>Štítky</h3>
+                <table>
+                    <tr ng-repeat="label in user.labels">
+                        <td><input name="{{label.name}}" value="{{label.name}}" type="checkbox" checklist-model="folder.labels" checklist-value="label"/></td><td>{{label.name}}</td><td><i class="bookmark {{label.color}} basic icon"></i></td>
+                    </tr>
+                </table>
+            </div>
             <input ng-disabled="form.$invalid" type="submit" value="Uložit složku" mac-modal-close ng-click="form.$setUntouched()" class="ui button"\>
         </form>
     </div>

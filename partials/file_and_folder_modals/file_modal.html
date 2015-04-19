@@ -6,7 +6,14 @@
                 <label>Vyberte soubor</label>
                 <input id="file1" name="file" type="file">
             </div>
-            <br/>
+            <div class="field">
+                <h3>Štítky</h3>
+                <table>
+                    <tr ng-repeat="label in user.labels">
+                        <td><input name="{{label.name}}" value="{{label.name}}" type="checkbox" checklist-model="file.labels" checklist-value="label"/></td><td>{{label.name}}</td><td><i class="bookmark {{label.color}} basic icon"></i></td>
+                    </tr>
+                </table>
+            </div>
             <input class="ui button" mac-modal-close type="submit" value="Nahrát soubor"/>
         </form>
     </div>
