@@ -2,9 +2,10 @@
     var hmmod = angular.module('home.module', ['services.module', 'utils.module', 'ui.uploader', 'checklist-model']);
 
     // route controller
-    hmmod.controller('indexCtrl', function ($scope, $filter, $stateParams, urlService, homeService, uiUploader) {
+    hmmod.controller('indexCtrl', function ($scope, $filter, $stateParams, userService, spaceService, urlService, homeService, uiUploader) {
         var edit = false;
         var that = this;
+        var spaceId = 'cesnet';
         var folderId = $stateParams.folderId;
         if (typeof folderId === 'undefined') {
             homeService.getAll().success(function (data) {
@@ -16,6 +17,32 @@
                 $scope.home = data;
             });
         }
+
+        $scope.setSharedWith = function () {
+            $scope.shareWith = angular.copy($scope.folder.shareWith);
+            //following code will not be neccessary in API v0.2
+            $scope.shareWith = new Array();
+        };
+
+        $scope.showSharedWith = function (folder) {
+            $scope.folder = angular.copy(folder);
+            $scope.users = userService.getAll();
+        };
+
+        $scope.deleteSharer = function (user) {
+            $scope.shareWith.splice($scope.shareWith.indexOf(user), 1);
+        };
+
+        $scope.addSharer = function (user) {
+            if ($scope.shareWith.indexOf(user) === -1) {
+                $scope.shareWith.push(user);
+            }
+        };
+
+        $scope.shareWithSend = function () {
+            spaceService.shareFolder(spaceId, $scope.folder.id, $scope.shareWith);
+            that.reset();
+        };
 
         $scope.downloadFolder = function (folderId) {
             homeService.downloadFolder(folderId).success(function (data) {
@@ -180,6 +207,7 @@
         this.reset = function () {
             $scope.folder = {};
             that.edit = false;
+            $scope.shareWith = null;
         };
         this.reset();
     });

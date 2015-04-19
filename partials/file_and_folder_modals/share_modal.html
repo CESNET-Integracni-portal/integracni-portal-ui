@@ -1,0 +1,29 @@
+<mac-modal id="share" mac-modal-after-show="setSharedWith()">
+    <div class="mac-modal-content">
+        <form name="form" class="ui small form" ng-submit="shareWithSend()"> 
+            <h1>{{folder.name}}</h1>
+            <h4>Sdíleno s uživateli</h4>
+            <table class="ui basic table compact">
+                <tbody>
+                    <tr ng-repeat="user in shareWith">
+                        <td>{{user}}</td>
+                        <td class="actions">
+                            <a class="action" ng-click="deleteSharer(user)"><i class="trash icon"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/>
+            <mac-autocomplete autocomplete="off" name="member" ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" mac-autocomplete-source="users" mac-autocomplete-label="email" mac-placeholder='"e-mail uživatele"' ng-model="sharer" required></mac-autocomplete>
+            <br/>
+            <div id="errormsg" ng-show="form.member.$touched">
+                <span ng-show="form.member.$error.required"><i class="warning icon"></i>Vyplňte email uživatele.</span>
+                <span ng-show="form.member.$error.pattern"><i class="warning icon"></i>Vyplňte validní email uživatele.</span>
+            </div>
+            <br/>
+            <div class="ui button" ng-disabled="form.$invalid" ng-click="addSharer(sharer)">Přidat ke sdílení</div>
+            <br/>
+            <input ng-disabled="form.$invalid" type="submit" ng-click="form.$setPristine()" mac-modal-close value="Sdílet" class="ui button"/>
+        </form>
+    </div>
+</mac-modal>
