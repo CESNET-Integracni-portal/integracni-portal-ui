@@ -2,44 +2,54 @@
     var shrmod = angular.module('shared.module', ['services.module', 'utils.module']);
 
     // CONTROLLERS
-    shrmod.controller('sharedCtrl', function ($scope, $rootScope, spaceService) {
+    shrmod.controller('sharedCtrl', function ($scope, $rootScope, $stateParams, userService, spaceService) {
         $('.sidebar').sidebar('attach events', 'span');
         var space = 'cesnet';
         var that = this;
         var edit = false;
+        var folderId = $stateParams.folderId;
 
-        spaceService.getShared(space).success(function (data) {
-            $scope.shared = data;
-            $scope.shared.breadcrumbs = [];
-        });
+        // TODO - make unify controller for all spaces and folders, shared, labels etc. together
+        // switch (jakejprostor){
+        //  case "home": loadni home; break; etc
 
-        $scope.saveFolder = function (newFolder) {
-            if (that.edit) {
-                spaceService.renameFolder(space, newFolder.id, newFolder.name).success(function (data) {
-                    spaceService.getAll().success(function (data) {
-                        $scope.shared = {folders: data};
-                        $scope.shared.breadcrumbs = [];
-                    });
-                });
-                that.edit = false;
-                that.reset();
-            } else {
-                spaceService.createFolderInRoot(space, newFolder.name).success(function (data) {
-                    $scope.shared.folders.push(data);
-                });
-                that.reset();
+        if (typeof folderId === 'undefined') {
+            spaceService.getShared(space).success(function (data) {
+                $scope.shared = data;
+                $scope.shared.breadcrumbs = [];
+            });
+        } else {
+            spaceService.getById(folderId).success(function (data) {
+                $scope.shared = data;
+            });
+        }
+
+        $scope.setSharedWith = function () {
+            $scope.shareWith = angular.copy($scope.folder.shareWith);
+        };
+
+        $scope.showSharedWith = function (folder) {
+            $scope.folder = angular.copy(folder);
+            $scope.users = userService.getAll();
+        };
+
+        $scope.deleteSharer = function (user) {
+            $scope.shareWith.splice($scope.shareWith.indexOf(user), 1);
+        };
+
+        $scope.addSharer = function (user) {
+            if ($scope.shareWith.indexOf(user) === -1) {
+                $scope.shareWith.push(user);
             }
         };
 
-        $scope.editFolder = function (folderId) {
-            $scope.folder = spaceService.getFolder(space, folderId).success(function (data) {
-                $scope.folder = data;
-            });
-            that.edit = true;
+        $scope.shareWithSend = function () {
+            spaceService.shareFolder(space, $scope.folder.id, $scope.shareWith);
+            that.reset();
         };
 
-        $scope.downloadFolder = function (folderId) {
 
+        $scope.downloadFolder = function (folderId) {
             spaceService.downloadFolder(space, folderId).success(function (data) {
                 saveAs(data, folderId + ".zip");
             });
@@ -51,80 +61,36 @@
             });
         };
 
-        $scope.deleteFolder = function (folderId) {
-            spaceService.deleteFolder(space, folderId).success(function (data) {
-                spaceService.getAll().success(function (data) {
-                    $scope.shared = data;
-                    $scope.shared.breadcrumbs = [];
-                });
-            });
-        };
-
-        $scope.deleteFile = function (fileId) {
-            spaceService.deleteFile(space, fileId).success(function (data) {
-                spaceService.getAll().success(function (data) {
-                    $scope.shared = data;
-                    $scope.shared.breadcrumbs = [];
-                });
-            });
-        };
-
-        $scope.favoriteFolder = function (folder) {
-            var index = -1;
-            for (i = 0; i < $scope.user.fasts.length; i++) {
-                if ($scope.user.fasts[i].id === folder.id) {
-                    index = i;
-                    break;
-                }
-            }
-            if (index !== -1) {
-                $scope.user.fasts.splice(index, 1);
-            } else {
-                var fast = {
-                    id: folder.id,
-                    name: folder.name,
-                    uisref: "sharedIterate({folderId:" + folder.id + "})"
-                };
-                $scope.user.fasts.push(fast);
-            }
-        };
-
-        $scope.empty = function () {
-            return (typeof $scope.shared === 'undefined' || (typeof $scope.shared.folders === 'undefined' || $scope.shared.folders.length === 0) && (typeof $scope.shared.files === 'undefined' || $scope.shared.files.length === 0));
-        };
-
-        this.reset = function () {
-            $scope.folder = {};
-            that.edit = false;
-        };
-        this.reset();
-    });
-
-    shrmod.controller('sharedIterateCtrl', function ($scope, $rootScope, $stateParams, urlService, spaceService) {
-        $('.sidebar').sidebar('attach events', 'span');
-        var folderId = $stateParams.folderId;
-        var space = 'cesnet';
-        var that = this;
-        var edit = false;
-
-        spaceService.getFolder(space, folderId).success(function (data) {
-            $scope.shared = data;
-        });
-
         $scope.saveFolder = function (newFolder) {
+            // save labels for folder also - needed in API v0.2
+            // in async call spaceService.setFolderLabel(spaceId, folderId, labelId)
+            $scope.favoriteFolder(newFolder);
+            $scope.favoriteFolder(newFolder);
             if (that.edit) {
                 spaceService.renameFolder(space, newFolder.id, newFolder.name).success(function (data) {
-                    spaceService.getAll().success(function (data) {
-                        $scope.shared = {folders: data};
-                        $scope.shared.breadcrumbs = [];
-                    });
+                    if (typeof folderId === 'undefined') {
+                        spaceService.getShared(space).success(function (data) {
+                            $scope.shared = {folders: data};
+                            $scope.shared.breadcrumbs = [];
+                        });
+                    } else {
+                        spaceService.getFolder(space, folderId).success(function (data) {
+                            $scope.shared = data;
+                        });
+                    }
                 });
                 that.edit = false;
                 that.reset();
             } else {
-                spaceService.createFolderInRoot(space, newFolder.name).success(function (data) {
-                    $scope.shared.folders.push(data);
-                });
+                if (typeof folderId === 'undefined') {
+                    spaceService.createFolderInRoot(space, newFolder.name).success(function (data) {
+                        $scope.shared.folders.push(data);
+                    });
+                } else {
+                    spaceService.createFolder(space, newFolder.name).success(function (data) {
+                        $scope.shared.folders.push(data);
+                    });
+                }
                 that.reset();
             }
         };
@@ -137,44 +103,54 @@
         };
 
         $scope.deleteFolder = function (delFolderId) {
-
-            var folderToDelete = (typeof delFolderId === 'undefined' ? folderId : delFolderId);
-            spaceService.deleteFolder(space, folderToDelete).success(function (data) {
-
-                if (typeof delFolderId === 'undefined') {
-                    if ($scope.shared.breadcrumbs.length > 0) {
-                        var last = $scope.shared.breadcrumbs[$scope.shared.breadcrumbs.length - 1];
-                        urlService.redirect("shared/" + last.id);
-                    } else {
-                        urlService.redirect("shared");
-                    }
-                } else {
-                    spaceService.getFolder(space, folderId).success(function (data) {
-                        $scope.folder = data;
+            if (typeof folderId === 'undefined') {
+                spaceService.getFolder(delFolderId).success(function (data) {
+                    var folder = data;
+                    $scope.favoriteFolder(folder);
+                    spaceService.deleteFolder(delFolderId).success(function (data) {
+                        spaceService.getShared(space).success(function (data) {
+                            $scope.shared = {folders: data};
+                            $scope.shared.breadcrumbs = [];
+                        });
                     });
-                }
-            });
+                });
+            } else {
+                var folderToDelete = (typeof delFolderId === 'undefined' ? folderId : delFolderId);
+                spaceService.getFolder(space, folderToDelete).success(function (data) {
+                    var folder = data;
+                    $scope.favoriteFolder(folder);
+
+                    spaceService.deleteFolder(space, folderToDelete).success(function (data) {
+
+                        if (typeof delFolderId === 'undefined') {
+
+                            if ($scope.home.breadcrumbs.length > 0) {
+                                var last = $scope.home.breadcrumbs[$scope.home.breadcrumbs.length - 1];
+                                spaceService.getFolder(space, last.id).success(function (data) {
+                                    $scope.home = data;
+                                });
+                            } else {
+                                spaceService.getShared(space).success(function (data) {
+                                    $scope.home = {folders: data};
+                                    $scope.home.breadcrumbs = [];
+                                });
+                            }
+                        } else {
+                            spaceService.getFolder(space, folderId).success(function (data) {
+                                $scope.home = data;
+                            });
+                        }
+                    });
+                });
+            }
         };
 
         $scope.deleteFile = function (fileId) {
             spaceService.deleteFile(space, fileId).success(function (data) {
-                spaceService.getAll().success(function (data) {
+                spaceService.getShared(space).success(function (data) {
                     $scope.shared = data;
                     $scope.shared.breadcrumbs = [];
                 });
-            });
-        };
-
-        $scope.downloadFolder = function (folderId) {
-
-            spaceService.downloadFolder(space, folderId).success(function (data) {
-                saveAs(data, folderId + ".zip");
-            });
-        };
-
-        $scope.downloadFile = function (space, fileId) {
-            spaceService.downloadFile(fileId).success(function (data) {
-                saveAs(data, fileId + ".zip");
             });
         };
 

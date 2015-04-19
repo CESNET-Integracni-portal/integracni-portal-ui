@@ -5,7 +5,7 @@
     hmmod.controller('indexCtrl', function ($scope, $filter, $stateParams, userService, spaceService, urlService, homeService, uiUploader) {
         var edit = false;
         var that = this;
-        var spaceId = 'cesnet';
+        var space = 'cesnet';
         var folderId = $stateParams.folderId;
         if (typeof folderId === 'undefined') {
             homeService.getAll().success(function (data) {
@@ -40,7 +40,7 @@
         };
 
         $scope.shareWithSend = function () {
-            spaceService.shareFolder(spaceId, $scope.folder.id, $scope.shareWith);
+            spaceService.shareFolder(space, $scope.folder.id, $scope.shareWith);
             that.reset();
         };
 
