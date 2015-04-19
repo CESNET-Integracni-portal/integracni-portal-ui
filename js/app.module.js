@@ -40,7 +40,7 @@
                 .state("homeIterate", {
                     url: "/home/{folderId:[1-9][0-9]*}",
                     templateUrl: "./partials/home/home_detail.html",
-                    controller: 'homeIterateCtrl',
+                    controller: 'indexCtrl',
                     data: {
                         requireLogin: true
                     }

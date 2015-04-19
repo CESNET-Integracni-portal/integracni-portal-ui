@@ -178,24 +178,6 @@
             });
         };
 
-        $scope.deleteFolder = function (folderId) {
-            spaceService.deleteFolder(space, folderId).success(function (data) {
-                spaceService.getAll().success(function (data) {
-                    $scope.shared = data;
-                    $scope.shared.breadcrumbs = [];
-                });
-            });
-        };
-
-        $scope.deleteFile = function (fileId) {
-            spaceService.deleteFile(space, fileId).success(function (data) {
-                spaceService.getAll().success(function (data) {
-                    $scope.shared = data;
-                    $scope.shared.breadcrumbs = [];
-                });
-            });
-        };
-
         $scope.favoriteFolder = function (folder) {
             var index = -1;
             for (i = 0; i < $scope.user.fasts.length; i++) {
