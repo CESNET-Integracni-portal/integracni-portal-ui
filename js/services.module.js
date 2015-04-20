@@ -80,11 +80,7 @@
                     });
                 } else if (this._first) {
                     this._first = false;
-                    oauthService.refresh().success(function () {
-                        that.createRequest(method, url, data);
-                    }).error(function () {
-                        oauthService.logout();
-                    });
+                    that.createRequest(method, url, data);
                 } else {
                     oauthService.logout();
                 }

@@ -17,7 +17,7 @@
                 'Mac']);
 
     app.run(function ($rootScope, oauthService) {
-
+        
         oauthService.refresh();
     });
 

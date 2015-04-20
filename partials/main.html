@@ -1,0 +1,26 @@
+<!-- lazy loading - after user logs in-->
+
+<div class="row leftmenu">
+    <!-- left navigation -->
+    <div class="one wide column" style="">
+        <div class="ui secondary vertical menu">
+            <a class="item" ui-sref-active="active" ui-sref="index"> <i class="home icon"></i> Můj prostor </a>
+            <a class="item" ui-sref-active="active" ui-sref="shared"> <i class="users icon"></i> Sdílené </a>
+            <a class="item" ui-sref-active="active" ui-sref="archive"> <i class="archive icon"> </i> Archiv </a>
+            <!-- labels -->
+            <a class="item" ui-sref-active="active" ng-repeat="label in user.labels" ui-sref="labels({labelId:label.id})"><i class="bookmark {{label.color}} basic icon"></i>{{label.name}}</a>
+            <div class="divider"></div>
+            <!-- fast folders -->
+            <a class="item" ng-repeat="fast in user.fasts" ui-sref="{{fast.uisref}}"><i class="pin icon"></i><span ng-hide="fast.name.length > 10">{{fast.name}}</span><span ng-show="fast.name.length > 10">{{fast.name.substring(0, 9)}}...</span></a>
+        </div>
+
+        <div class="ui fixed bottom small borderless vertical menu">
+            <div class="item">Využití: </div>
+            <div class="item">1,76GB (12%) z 13GB</div>
+            <a class="item blue" ui-sref="tutorials"> Nápověda </a>
+        </div>
+    </div>
+    <!-- content -->
+    <div ui-view class="ten wide column" style="">
+    </div>
+</div>
