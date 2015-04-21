@@ -526,12 +526,12 @@
              * 
              * @param {int} spaceId - space identifier
              * @param {int} folderId - folder identifier
-             * @param {array} users - array of user IDs
+             * @param {array} sharer - array with sharer info
              * @returns {promise}
              */
-            shareFolder: function (spaceId, folderId, users) {
+            shareFolder: function (spaceId, folderId, sharer) {
                 // Ready for API v0.2
-                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/share', {shareWith: users}, "application/json");
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/share', {sharer: sharer}, "application/json");
             },
             /**
              * Download folder as .zip file
@@ -700,17 +700,6 @@
                 // Ready for API v0.2
                 // TODO
                 return httpService.createRequest("PUT", baseUrl + 'space/' + spaceId + '/file/' + fileId + '/content', {file: file}, "application/json");
-            },
-            /**
-             * Download file as .zip file
-             * 
-             * @param {int} spaceId - space identifier
-             * @param {int} fileId - file identifier
-             * @returns {promise}
-             */
-            downloadFile: function (spaceId, fileId) {
-                // Ready for API v0.2
-                return httpService.createRequest("GET", baseUrl + 'space/' + spaceId + '/file/' + fileId + '/download', {}, "application/json");
             }
         };
     });

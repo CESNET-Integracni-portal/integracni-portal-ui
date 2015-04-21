@@ -56,7 +56,7 @@
         };
 
         $scope.downloadFile = function (fileId) {
-            spaceService.downloadFile(space, fileId).success(function (data) {
+            spaceService.getFileContent(space, fileId).success(function (data) {
                 saveAs(data, fileId + ".zip");
             });
         };

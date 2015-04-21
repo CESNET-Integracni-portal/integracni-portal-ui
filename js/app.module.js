@@ -55,11 +55,6 @@
                     }
                 })
 
-                /*.state("folder.detail", {
-                 url: "/{folderId: [0-9]+}",
-                 templateUrl: "./partials/folder.html"
-                 })*/
-
                 // personal settings
                 .state("settings", {
                     url: "/settings",

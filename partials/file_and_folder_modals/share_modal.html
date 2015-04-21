@@ -3,6 +3,8 @@
         <form name="form" class="ui small form" ng-submit="shareWithSend()"> 
             <h1>{{folder.name}}</h1>
             <h4>Sdíleno s uživateli</h4>
+            <mac-autocomplete autocomplete="off" name="member" ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" mac-autocomplete-source="users" mac-autocomplete-label="email" mac-placeholder='"e-mail uživatele"' ng-model="sharer" required></mac-autocomplete>
+            <br/>
             <table class="ui basic table compact">
                 <tbody>
                     <tr ng-repeat="user in shareWith">
@@ -13,8 +15,6 @@
                     </tr>
                 </tbody>
             </table>
-            <br/>
-            <mac-autocomplete autocomplete="off" name="member" ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" mac-autocomplete-source="users" mac-autocomplete-label="email" mac-placeholder='"e-mail uživatele"' ng-model="sharer" required></mac-autocomplete>
             <br/>
             <div id="errormsg" ng-show="form.member.$touched">
                 <span ng-show="form.member.$error.required"><i class="warning icon"></i>Vyplňte email uživatele.</span>
