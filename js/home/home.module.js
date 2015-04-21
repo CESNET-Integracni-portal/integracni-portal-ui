@@ -29,19 +29,18 @@
             $scope.users = userService.getAll();
         };
 
-        $scope.deleteSharer = function (user) {
-            $scope.shareWith.splice($scope.shareWith.indexOf(user), 1);
+        $scope.deleteSharer = function (sharer) {
+          //  spaceService.unshareFolder(space, $scope.folder.id, sharer).success(function (data) {
+                $scope.shareWith.splice($scope.shareWith.indexOf(sharer), 1);
+           // });
         };
 
-        $scope.addSharer = function (user) {
-            if ($scope.shareWith.indexOf(user) === -1) {
-                $scope.shareWith.push(user);
+        $scope.addSharer = function (sharer) {
+            if ($scope.shareWith.indexOf(sharer) === -1) {
+                //spaceService.shareFolder(space, $scope.folder.id, sharer).success(function (data) {
+                $scope.shareWith.push(angular.copy(sharer));
+                //});
             }
-        };
-
-        $scope.shareWithSend = function () {
-            spaceService.shareFolder(space, $scope.folder.id, $scope.shareWith);
-            that.reset();
         };
 
         $scope.downloadFolder = function (folderId) {
@@ -204,10 +203,16 @@
 //            });
 //        };
 
+        $scope.clear = function () {
+            that.reset();
+        };
+
         this.reset = function () {
             $scope.folder = {};
+            $scope.folder.name = null;
             that.edit = false;
             $scope.shareWith = null;
+            $scope.sharer = {};
         };
         this.reset();
     });

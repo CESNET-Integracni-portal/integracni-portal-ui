@@ -24,7 +24,7 @@
                 //update
             } else {
                 // needs to be modified for API v.2 in the future
-                var updatedUser = userService.updateUser(externist);
+                var updatedUser = userService.updateUser(externist.id, externist);
                 $scope.externists[$scope.index] = angular.copy(updatedUser);
                 that.reset();
             }

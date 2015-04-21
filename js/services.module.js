@@ -534,6 +534,18 @@
                 return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/share', {sharer: sharer}, "application/json");
             },
             /**
+             * Unshare a Folder
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} folderId - folder identifier
+             * @param {int} unsharer - unsharer
+             * @returns {promise}
+             */
+            unshareFolder: function (spaceId, folderId, unsharer) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/unshare', {unsharer: unsharer}, "application/json");
+            },
+            /**
              * Download folder as .zip file
              * 
              * @param {int} spaceId - space identifier
@@ -1047,7 +1059,7 @@
                 // Ready for API v.2
                 //return httpService.createRequest("DELETE", baseUrl + 'unit/' + unitId, {}, "application/json");
             },
-            updateUnit: function (unitId, unit) {
+            updateUnit: function (unit) {
                 // Ready for API v.2
                 //return httpService.createRequest("PUT", baseUrl + 'unit/' + unitId, {unit: unit}, "application/json");
                 return unit;
@@ -1116,7 +1128,7 @@
     // ----- labels -----
     var labels = [{
             id: 1,
-            name: "Důležité",
+            name: "Critical",
             color: "red"
         },
         {

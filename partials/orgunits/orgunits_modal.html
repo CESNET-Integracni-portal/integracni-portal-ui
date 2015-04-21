@@ -23,7 +23,7 @@
             <br/>
             <div class="field">
                 <label>Správce</label>
-                <mac-autocomplete ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" autocomplete="off" name="admin" mac-autocomplete-source="users" mac-autocomplete-label="email" mac-placeholder='"e-mail uživatele"' ng-model="unit.admin" required></mac-autocomplete>
+                <mac-autocomplete ng-pattern="/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/" autocomplete="off" name="admin" mac-autocomplete-source="users" mac-autocomplete-label="email" mac-placeholder='"e-mail uživatele"' ng-model="unit.admins" required></mac-autocomplete>
                 <div ng-show="form.admin.$touched">
                     <span ng-show="form.admin.$error.required"><i class="warning icon"></i>Vyplňte email správce.</span>
                     <span ng-show="form.admin.$error.pattern"><i class="warning icon"></i>Vyplňte validní email doporučitele.</span>

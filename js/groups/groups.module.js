@@ -23,7 +23,7 @@
                 that.reset();
                 //update
             } else {
-                var updatedGroup = groupService.updateGroup(group);
+                var updatedGroup = groupService.updateGroup(group.id, group);
                 $scope.user.groups[$scope.index] = angular.copy(updatedGroup);
                 that.reset();
             }
@@ -32,24 +32,15 @@
         $scope.addMember = function (group) {
             if ($scope.group.users.indexOf(group.member) === -1) {
                 $scope.group.users.push(group.member);
-                var updatedGroup = groupService.updateGroup(group);
+                var updatedGroup = groupService.updateGroup(group.id, group);
                 $scope.user.groups[$scope.index] = angular.copy(updatedGroup);
             }
         };
 
         $scope.deleteMember = function (user, group) {
             $scope.group.users.splice($scope.group.users.indexOf(user), 1);
-            var updatedGroup = groupService.updateGroup(group);
+            var updatedGroup = groupService.updateGroup(group.id, group);
             $scope.user.groups[$scope.index] = angular.copy(updatedGroup);
-        };
-
-        $scope.addUser = function (index) {
-            if ($scope.group.user !== null) {
-                that.users[index].disabled = true;
-                that.users[index].originalIndex = index;
-                $scope.group.users.push($scope.users[index]);
-                $scope.group.user = null;
-            }
         };
 
         $scope.isDisabled = function (user) {

@@ -22,7 +22,7 @@
             } else {
                 // needs to be modified for API v.2 in the future
                 // update label will have labelId parameter
-                var updatedLabel = labelService.updateLabel(label);
+                var updatedLabel = labelService.updateLabel(label.id, label);
                 $scope.user.labels[$scope.index] = angular.copy(updatedLabel);
                 label.name = "";
                 label.color = null;
