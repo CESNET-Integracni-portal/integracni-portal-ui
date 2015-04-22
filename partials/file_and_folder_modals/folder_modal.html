@@ -11,6 +11,11 @@
                 </div>
             </div>
             <div class="field">
+                <h3>Stav</h3>
+                <label><input type="radio" ng-model="folder.state" value="online">Online</label>
+                <label><input type="radio" ng-model="folder.state" value="offline">Offline</label>
+            </div>
+            <div class="field">
                 <h3>Štítky</h3>
                 <table>
                     <tr ng-repeat="label in user.labels">

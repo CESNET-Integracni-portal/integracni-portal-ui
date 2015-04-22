@@ -7,6 +7,11 @@
                 <input id="file1" name="file" type="file">
             </div>
             <div class="field">
+                <h3>Stav</h3>
+                <label><input type="radio" ng-model="file.state" value="online">Online</label><br/>
+                <label><input type="radio" ng-model="file.state" value="offline">Offline</label>
+            </div>
+            <div class="field">
                 <h3>Štítky</h3>
                 <table>
                     <tr ng-repeat="label in user.labels">
@@ -14,7 +19,7 @@
                     </tr>
                 </table>
             </div>
-            <input class="ui button" mac-modal-close type="submit" value="Nahrát soubor"/>
+            <input ng-disabled="form.$invalid" class="ui button" mac-modal-close type="submit" value="Nahrát soubor"/>
         </form>
     </div>
 </mac-modal>
