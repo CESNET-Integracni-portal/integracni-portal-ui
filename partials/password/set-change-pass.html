@@ -1,11 +1,32 @@
 <div class="ui small form">
-    <div class="field">
-        <label>Současné heslo</label>
-        <input type="password">
+    <form class="ui small form" name="form" ng-submit="changePassword(oldpw, newpw)">
+        <div class="field">
+            <label>Současné heslo</label>
+            <input name="oldpw" type="password" ng-model="oldpw" required>
+            <div ng-show="form.oldpw.$touched">
+                <span ng-show="form.oldpw.$error.required"><i class="warning icon"></i>Vyplňte staré heslo.</span>
+            </div>
+        </div>
+        <div class="field">
+            <label>Nové heslo</label>
+            <input name="newpw" type="password" ng-model="newpw" required>
+            <div ng-show="form.newpw.$touched">
+                <span ng-show="form.newpw.$error.required"><i class="warning icon"></i>Vyplňte nové heslo.</span>
+            </div>
+        </div>
+        <div class="field">
+            <label>Nové heslo (kontrola)</label>
+            <input name="newpw2" type="password" ng-model="newpw2" required>
+            <div ng-show="form.newpw2.$touched">
+                <span ng-show="form.newpw2.$error.required"><i class="warning icon"></i>Vyplňte nové heslo znovu pro kontrolu..</span>
+                <span ng-show="newpw !== newpw2"><i class="warning icon"></i>Nová hesla se neshodují.</span>
+            </div>
+        </div>
+        <br/>
+        <input type="submit" class="ui small submit button" ng-disabled="form.$invalid || newpw !== newpw2" ng-click="form.$setUntouched()" value="Provést změny"/>
+    </form>
+    <br/>
+    <div ng-show="message !== null">
+        <big><b>{{message}}</b></big>
     </div>
-    <div class="field">
-        <label>Nové heslo</label>
-        <input type="password">
-    </div>
-    <div class="ui small submit button">Ok</div>
 </div>

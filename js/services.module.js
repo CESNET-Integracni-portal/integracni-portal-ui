@@ -855,12 +855,13 @@
              * Change User's password
              * 
              * @param {int} userId - user identifier
+             * @param {string} oldpassword - old user's password
              * @param {string} password - new user's password
              * @returns {unresolved}
              */
-            changePassword: function (userId, password) {
+            changePassword: function (userId, oldpassword, password) {
                 // Ready for API v.2
-                return httpService.createRequest("POST", baseUrl + 'user/' + userId + '/passwordChange', {password: password}, "application/json");
+                return httpService.createRequest("POST", baseUrl + 'user/' + userId + '/passwordChange', {oldpassword: oldpassword, password: password}, "application/json");
             },
             /**
              * Assign an Organization Unit to a User
