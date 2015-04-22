@@ -726,7 +726,8 @@
         return {
             getAll: function () {
                 // Ready for API v0.2
-                return httpService.createRequest("GET", baseUrl + 'group', {}, "application/json");
+                //return httpService.createRequest("GET", baseUrl + 'group', {}, "application/json");
+                return groups;
             },
             createGroup: function (group) {
                 // Ready for API v0.2
@@ -741,14 +742,6 @@
                 // Ready for API v0.2
                 //return httpService.createRequest("PUT", baseUrl + 'group/' + groupId, {group: group}, "application/json");
                 return group;
-            },
-            // helper methods
-            getById: function (groupId) {
-                //return httpService.createRequest("GET", baseUrl + 'group/' + groupId, {}, "application/json");
-                return utils.findById(groups, groupId);
-            },
-            getForUser: function (userId) {
-                return utils.getAllWhere(groups, "userId", userId);
             }
         };
     });

@@ -14,7 +14,7 @@
             $scope.user = $rootScope.currentUser;
             // needs to be modified for API v.2 in the future
             if ($scope.user !== null) {
-                $scope.user.groups = groupService.getForUser($scope.user.id);
+                $scope.user.groups = groupService.getAll();
                 $scope.user.labels = labelService.getAll();
                 $scope.user.fasts = homeService.getFavorites();
             }

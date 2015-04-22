@@ -3,7 +3,6 @@
 
     // CONTROLLER
     grpmod.controller('groupsCtrl', function ($scope, groupService, userService) {
-        var userId = $scope.user.id;
         var that = this;
         var newgrp = true;
         $scope.users = userService.getAll();
@@ -15,32 +14,39 @@
         };
 
         $scope.saveGroup = function (group) {
-            // create
             if ($scope.index === null) {
-                group.userId = userId;
-                var createdGroup = groupService.createGroup(group);
-                $scope.user.groups.push(angular.copy(createdGroup));
+                // create
+                // Ready for API v0.2
+                //groupService.createGroup(group).success(function (data) {
+                $scope.user.groups.push(angular.copy(group));
                 that.reset();
-                //update
+                //});
             } else {
-                var updatedGroup = groupService.updateGroup(group.id, group);
-                $scope.user.groups[$scope.index] = angular.copy(updatedGroup);
+                //update
+                // Ready for API v0.2
+                //groupService.updateGroup(group.id, group).success(function (data) {
+                $scope.user.groups[$scope.index] = angular.copy(group);
                 that.reset();
+                //});
             }
         };
 
         $scope.addMember = function (group) {
             if ($scope.group.users.indexOf(group.member) === -1) {
                 $scope.group.users.push(group.member);
-                var updatedGroup = groupService.updateGroup(group.id, group);
-                $scope.user.groups[$scope.index] = angular.copy(updatedGroup);
+                // Ready for API v0.2
+                //groupService.updateGroup(group.id, group).success(function(data){
+                $scope.user.groups[$scope.index] = angular.copy(group);
+                //});
             }
         };
 
         $scope.deleteMember = function (user, group) {
             $scope.group.users.splice($scope.group.users.indexOf(user), 1);
-            var updatedGroup = groupService.updateGroup(group.id, group);
-            $scope.user.groups[$scope.index] = angular.copy(updatedGroup);
+            // Ready for API v0.2
+            //groupService.updateGroup(group.id, group).success(function (data) {
+            $scope.user.groups[$scope.index] = angular.copy(group);
+            //});
         };
 
         $scope.isDisabled = function (user) {
@@ -48,8 +54,11 @@
         };
 
         $scope.deleteGroup = function (index) {
+            // Ready for API v0.2
+            // groupService.deleteGroup(index).success(function(data){
             $scope.user.groups.splice(index, 1);
-            groupService.deleteGroup(index);
+
+            // });
         };
 
         $scope.editGroup = function (index, group) {
