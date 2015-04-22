@@ -3,14 +3,12 @@
 <table class="ui basic table compact">
     <thead>
         <tr>
-            <th>&nbsp;</th>
             <th>Štítek</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         <tr ng-repeat="label in user.labels">
-            <td><input type="checkbox"></td>
             <td><i class="bookmark {{label.color}} basic icon"></i>{{label.name}}</td>
             <th class="actions">
                 <a class="action" ng-click="editLabel($index, label)" mac-modal="label"><i class="edit icon"></i></a>

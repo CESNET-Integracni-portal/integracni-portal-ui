@@ -3,37 +3,37 @@
 
     // CONTROLLER
     // All labelService methods return promise, so code will have to be modified
-    
+
     lblmod.controller('lblCtrl', function ($scope, labelService) {
-        var userId = $scope.user.id;
         $scope.label = {};
         $scope.index = null;
 
         $scope.saveLabel = function (label) {
             // create
             if ($scope.index === null) {
-                label.userId = userId;
-                // needs to be modified for API v.2 in the future
-                var createdLabel = labelService.createLabel(label);
-                $scope.user.labels.push(angular.copy(createdLabel));
+                // Ready for API v0.2
+                //labelService.createLabel(label).success(function (data) {
+                $scope.user.labels.push(angular.copy(label));
                 label.name = "";
                 label.color = null;
+                //});
                 //update
             } else {
-                // needs to be modified for API v.2 in the future
-                // update label will have labelId parameter
-                var updatedLabel = labelService.updateLabel(label.id, label);
-                $scope.user.labels[$scope.index] = angular.copy(updatedLabel);
+                // Ready for API v0.2
+                //labelService.updateLabel(label.id, label).success(function (data) {
+                $scope.user.labels[$scope.index] = angular.copy(label);
                 label.name = "";
                 label.color = null;
                 $scope.index = null;
+                //});
             }
         };
 
         $scope.deleteLabel = function (index) {
+            // Ready for API v0.2
+            //labelService.deleteLabel(index).success(function (data) {
             $scope.user.labels.splice(index, 1);
-            // needs to be modified for API v.2 in the future
-            labelService.deleteLabel(index);
+            //});
         };
 
         $scope.editLabel = function (index, label) {
@@ -46,7 +46,7 @@
         };
     });
 
-    lblmod.controller('labelSearchController', function ($scope, homeService, archiveService){
+    lblmod.controller('labelSearchController', function ($scope, homeService, archiveService) {
         // TODO
     });
 

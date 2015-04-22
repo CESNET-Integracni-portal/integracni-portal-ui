@@ -3,7 +3,6 @@
 <table class="ui basic table compact">
     <thead>
         <tr>
-            <th>&nbsp;</th>
             <th>Název</th>
             <th>Správce</th>
             <th>Velikost prostoru (GB)</th>
@@ -12,7 +11,6 @@
     </thead>
     <tbody>
         <tr ng-repeat="unit in units">
-            <td><input type="checkbox"></td>
             <td>{{unit.name}}</td>
             <td>{{unit.admins}}</td>
             <td>{{unit.quota}}</td>
