@@ -15,7 +15,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="folder in home.folders">
+            <tr ng-repeat="folder in home.folders | filter:search">
                 <td><a ui-sref="homeIterate({folderId:folder.id})"><i class="folder outline icon"></i> <span>{{folder.name}}</span></a>
                     <a class="item" ng-repeat="label in folder.labels"><i class="bookmark {{label.color}} basic icon"></i></a>
                 </td>
@@ -28,7 +28,7 @@
                     <a class="action" ng-click="deleteFolder(folder)"><i class="trash icon"></i></a>
                 </td>
             </tr>
-            <tr ng-repeat="file in home.files" attach-sidebar>
+            <tr ng-repeat="file in home.files | filter:search" attach-sidebar>
                 <td><i class="file outline icon"></i>
                     <span>{{file.filename}}</span>
                 </td>
