@@ -2,7 +2,7 @@
     var hmmod = angular.module('home.module', ['services.module', 'utils.module', 'ui.uploader', 'checklist-model']);
 
     // route controller
-    hmmod.controller('indexCtrl', function ($scope, $filter, $stateParams, userService, spaceService, urlService, homeService, uiUploader) {
+    hmmod.controller('indexCtrl', function ($scope, $filter, $stateParams, userService, groupService, spaceService, urlService, homeService, uiUploader) {
         var edit = false;
         var that = this;
         var space = 'cesnet';
@@ -26,19 +26,42 @@
 
         $scope.showSharedWith = function (folder) {
             $scope.folder = angular.copy(folder);
-            $scope.users = userService.getAll();
+            $scope.sharers = userService.getAll();
+            $scope.sharers = $scope.sharers.concat(groupService.getAll());
         };
 
         $scope.deleteSharer = function (sharer) {
-          //  spaceService.unshareFolder(space, $scope.folder.id, sharer).success(function (data) {
-                $scope.shareWith.splice($scope.shareWith.indexOf(sharer), 1);
-           // });
+            //  spaceService.unshareFolder(space, $scope.folder.id, sharer).success(function (data) {
+            $scope.shareWith.splice($scope.shareWith.indexOf(sharer), 1);
+            // });
         };
 
         $scope.addSharer = function (sharer) {
-            if ($scope.shareWith.indexOf(sharer) === -1) {
-                //spaceService.shareFolder(space, $scope.folder.id, sharer).success(function (data) {
-                $scope.shareWith.push(angular.copy(sharer));
+            for (i = 0; i < $scope.sharers.length; i++) {
+                if ($scope.sharers[i].name === sharer.name) {
+                    var shr = $scope.sharers[i];
+                    break;
+                }
+            }
+            var shrrdy = {};
+            if (typeof shr.username === 'undefined') {
+                shrrdy.groupId = shr.id;
+            } else {
+                shrrdy.userId = shr.id;
+            }
+            shrrdy.name = sharer.name;
+            shrrdy.permissions = sharer.permissions;
+
+            var notDuplicate = true;
+            for (i = 0; i < $scope.shareWith.length; i++) {
+                if($scope.shareWith[i].name === shrrdy.name){
+                    notDuplicate = false;
+                    break;
+                }
+            }
+            if (notDuplicate) {
+                //spaceService.shareFolder(space, $scope.folder.id, shrrdy).success(function (data) {
+                $scope.shareWith.push(angular.copy(shrrdy));
                 //});
             }
         };

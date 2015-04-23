@@ -232,7 +232,7 @@
             }
         };
     });
-    // home space service
+    // home space service - Only for testing API v0.1
     srvmod.factory('homeService', function (httpService) {
         /**
          Folder parameters:
@@ -1068,6 +1068,7 @@
         //super user
         {id: 1,
             username: "SuperUser",
+            name: "Pepa Karbanátek",
             email: "super@fel.cvut.cz",
             unitId: 0,
             permissions: {
@@ -1079,7 +1080,8 @@
         },
         // manager of units
         {id: 2,
-            username: "Kateřina Hašlarová",
+            username: "kathaslaaaa",
+            name: "Kateřina Hašlarová",
             email: "haslakat@fel.cvut.cz",
             unitId: 1,
             permissions: {
@@ -1092,6 +1094,7 @@
         // externist
         {id: 3,
             username: "Externist",
+            name: "František Mokrý",
             email: "externista@fel.cvut.cz",
             unitId: 1,
             onuser: "haslakat@fel.cvut.cz",
@@ -1110,6 +1113,7 @@
         // student
         {id: 4,
             username: "Student",
+            name: "Josef Plíhal",
             email: "jan.novak@fel.cvut.cz",
             unitId: 2,
             permissions: {
