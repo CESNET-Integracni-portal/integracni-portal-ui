@@ -2,39 +2,56 @@
     var orgmod = angular.module('orgunits.module', ['utils.module', 'services.module']);
 
     // CONTROLLER
-    // All unitService methods return promise, so code will have to be modified
-
     orgmod.controller('orgunitsCtrl', function ($scope, unitService, userService) {
-        // needs to be modified for API v.2 in the future
+        // Ready for API v0.2
+        //unitService.getAll().success(function(data){
+        //    $scope.units = data;
+        //});
         $scope.units = unitService.getAll();
+        //userService.getAll().success(function (data) {
+        //    $scope.users = data;
+        //});
         $scope.users = userService.getAll();
-        
         var that = this;
 
         $scope.saveUnit = function (unit) {
-            // create
             if ($scope.index === null) {
-                // needs to be modified for API v.2 in the future
-                var createdUnit = unitService.createUnit(unit);
+                // create
+                // Ready for API v0.2
+                // unitService.createUnit(unit).success(function (data) {
+                // var createdUnit = data;
+                var createdUnit = unit;
                 $scope.units.push(angular.copy(createdUnit));
                 that.reset();
-                //update
+                //});
             } else {
-                // needs to be modified for API v.2 in the future
-                var updatedUnit = unitService.updateUnit(unit);
-                $scope.units[$scope.index] = angular.copy(updatedUnit);
+                //update
+                // Ready for API v0.2
+                if (unit.name !== $scope.oldunit.name) {
+                    unitService.renameUnit(unit.id, unit.name);
+                }
+                if (unit.quota !== $scope.oldunit.quota) {
+                    unitService.changeQuota(unit.id, unit.quota);
+                }
+                // todo - userids instead of emails
+                if (unit.admins !== $scope.oldunit.admins) {
+                    unitService.assignAdmins(unit.id, unit.admins);
+                }
+                $scope.units[$scope.index] = angular.copy(unit);
                 that.reset();
             }
         };
 
         $scope.deleteUnit = function (index) {
+            // Ready for API v0.2
+            //unitService.deleteUnit(index).success(function (data) {
             $scope.units.splice(index, 1);
-            // needs to be modified for API v.2 in the future
-            userService.deleteUser(index);
+            //});
         };
 
         $scope.editUnit = function (index, unit) {
             $scope.unit = angular.copy(unit);
+            $scope.oldunit = angular.copy(unit);
             $scope.index = index;
         };
 

@@ -1042,21 +1042,31 @@
                 // Ready for API v0.2
                 return httpService.createRequest("POST", baseUrl + 'unit/' + unitId + '/adminsAssignment', {admins: admins}, "application/json");
             },
-            //  Help method for testing without completed backend
-            getById: function (unitId) {
-                return utils.findById(units, unitId);
-            },
+            // Methods that should be defined by API v0.2
+            /**
+             * Create organisational unit
+             * 
+             * @param {int} unit - array of unit parameters
+             * @returns {promise}
+             */
             createUnit: function (unit) {
+                // Ready for API v0.2
+                //return httpService.createRequest("POST", baseUrl + 'unit', {unit: unit}, "application/json");
                 return unit;
             },
+            /**
+             * Delete organisational unit
+             * 
+             * @param {int} unitId - unit identifier
+             * @returns {promise}
+             */
             deleteUnit: function (unitId) {
                 // Ready for API v.2
                 //return httpService.createRequest("DELETE", baseUrl + 'unit/' + unitId, {}, "application/json");
             },
-            updateUnit: function (unit) {
-                // Ready for API v.2
-                //return httpService.createRequest("PUT", baseUrl + 'unit/' + unitId, {unit: unit}, "application/json");
-                return unit;
+            // Help method for testing without completed backend
+            getById: function (unitId) {
+                return utils.findById(units, unitId);
             }
         };
     });
