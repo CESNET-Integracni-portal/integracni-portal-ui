@@ -5,6 +5,10 @@
     grpmod.controller('groupsCtrl', function ($scope, groupService, userService) {
         var that = this;
         var newgrp = true;
+       // Ready for API v0.2
+       // userService.getAll().success(function(data){
+       //     $scope.users = data;
+       // });
         $scope.users = userService.getAll();
 
         $scope.showMembers = function (index, group) {
@@ -77,6 +81,10 @@
             $scope.group = {};
             $scope.group.users = [];
             $scope.group.user = null;
+            // Ready for API v0.2
+            // userService.getAll().success(function(data){
+            // that.users = userService.getAll(); 
+            //});
             that.users = userService.getAll();
             $scope.index = null;
         };

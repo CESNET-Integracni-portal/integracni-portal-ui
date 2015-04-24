@@ -899,7 +899,7 @@
                 //return httpService.createRequest("GET", baseUrl + 'user/current', {}, "application/json");
                 return utils.findById(users, 2);
             },
-            // Other methods - not defined by API v0.2
+            // Other methods that should be defined by API v0.2
             deleteUser: function (userId) {
             },
             updateUser: function (userId, user) {

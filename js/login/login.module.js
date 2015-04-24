@@ -12,12 +12,14 @@
         };
 
         var assignCurrentUser = function () {
-            // GET CURRENT FROM SERVER
+            // Ready for API v0.2
+            //userService.getCurrent().success(function (data) {
             var curr = userService.getCurrent();
             localStorage.setItem("user", JSON.stringify(curr));
             localStorage.setItem("loggedIn", "true");
             $rootScope.currentUser = curr;
             $rootScope.loggedIn = true;
+            //});
         };
 
         $scope.submitLogin = function (user, psw) {

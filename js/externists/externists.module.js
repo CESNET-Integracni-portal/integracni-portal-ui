@@ -6,34 +6,45 @@
 
     extmod.controller('extrCtrl', function ($scope, userService, unitService) {
         var unitId = $scope.user.unitId;
-        // needs to be modified for API v.2 in the future
+        // Ready for API v0.2
+        //userService.getExternistsForUnit(unitId).success(function(data){
         $scope.externists = userService.getExternistsForUnit(unitId);
+        //});
+        //userService.getAll().success(function(data){
         $scope.users = userService.getAll();
+        //});
+        //unitService.getAll().success(function (data) {
         $scope.units = unitService.getAll();
-        
+        //});
         var that = this;
 
         $scope.saveExternists = function (externist) {
-            // create
+
             if ($scope.index === null) {
+                // create
                 externist.unitId = unitId;
-                // needs to be modified for API v.2 in the future
+                // Ready for API v0.2
+                // userService.createUser(externist).success(function(data){
                 var createdUser = userService.createUser(externist);
                 $scope.externists.push(angular.copy(createdUser));
                 that.reset();
-                //update
+                //});
             } else {
-                // needs to be modified for API v.2 in the future
+                // update
+                // Ready for API v0.2
+                //userService.updateUser(externist.id, externist).success(function (data) {
                 var updatedUser = userService.updateUser(externist.id, externist);
                 $scope.externists[$scope.index] = angular.copy(updatedUser);
                 that.reset();
+                //});
             }
         };
 
         $scope.deleteUser = function (index) {
-            $scope.externists.splice(index, 1);
-            // needs to be modified for API v.2 in the future
-            userService.deleteUser(index);
+            // Ready for API v0.2
+            //userService.deleteUser(index).success(function (data) {
+                $scope.externists.splice(index, 1);
+            //});
         };
 
         $scope.editUser = function (index, externist) {
