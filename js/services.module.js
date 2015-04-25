@@ -312,7 +312,7 @@
     });
     ///////// READY FOR API v.2 ///////////////
     // spaces service
-    srvmod.factory('spaceService', function (httpService) {
+    srvmod.factory('spaceService', function (httpService, utils) {
         /**
          Spaces parameters:
          
@@ -341,15 +341,16 @@
              */
             getShared: function (spaceId, labels) {
                 // Ready for API v0.2
-                if (typeof labels === 'undefined') {
-                    return httpService.createRequest("GET", baseUrl + 'space/' + spaceId + '/shared', {}, "application/json");
-                } else {
-                    var lbls = labels[0];
-                    for (i = 1; i < labels.length; i++) {
-                        lbls.concat(",", labels[i]);
-                    }
-                    return httpService.createRequest("GET", baseUrl + 'space/' + spaceId + '/shared?labels=' + lbls, {}, "application/json");
-                }
+//                if (typeof labels === 'undefined') {
+//                    return httpService.createRequest("GET", baseUrl + 'space/' + spaceId + '/shared', {}, "application/json");
+//                } else {
+//                    var lbls = labels[0];
+//                    for (i = 1; i < labels.length; i++) {
+//                        lbls.concat(",", labels[i]);
+//                    }
+//                    return httpService.createRequest("GET", baseUrl + 'space/' + spaceId + '/shared?labels=' + lbls, {}, "application/json");
+//                }
+                return shared;
             },
             /**
              * Retrive all files and folders in a Space Root
@@ -1074,6 +1075,34 @@
 // ---------------- DATA --------------------------------------
 //-------------------------------------------------------------
 
+    var shared = {
+        "id": "11",
+        "name": "home",
+        "breadcrumbs": [],
+        "folders": [
+            {
+                "id": "12",
+                "name": "prace",
+                "owner": 2,
+                "createdOn": "2014-12-31T13:05+0100",
+                "changedOn": "2014-12-31T13:09+0100"
+            }
+        ],
+        "files": [
+            {
+                "uuid": "1ff076ae-7f8d-4d07-bb03-71aef2141f91",
+                "filename": "todo.txt",
+                "mimetype": "text/plain",
+                "filesize": 86,
+                "owner": 2,
+                "createdOn": "2014-12-31T13:09+0100",
+                "changedOn": "2014-12-31T13:42+0100"
+            }
+        ],
+        "createdOn": "2014-12-31T13:01+0100",
+        "changedOn": "2014-12-31T13:05+0100"
+    };
+
     var users = [
         //super user
         {id: 1,
@@ -1083,6 +1112,7 @@
             unitId: 0,
             permissions: {
                 units: true,
+                main_admin: false,
                 externists: false,
                 password: false
             },
@@ -1096,6 +1126,7 @@
             unitId: 1,
             permissions: {
                 units: true,
+                main_admin: true,
                 externists: true,
                 password: true
             },
@@ -1110,6 +1141,7 @@
             onuser: "haslakat@fel.cvut.cz",
             permissions: {
                 units: false,
+                main_admin: false,
                 externists: false,
                 password: true
             },
@@ -1128,6 +1160,7 @@
             unitId: 2,
             permissions: {
                 units: false,
+                main_admin: false,
                 externists: false,
                 password: false
             },

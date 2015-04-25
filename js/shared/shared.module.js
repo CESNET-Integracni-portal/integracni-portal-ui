@@ -14,12 +14,12 @@
         //  case "home": loadni home; break; etc
 
         if (typeof folderId === 'undefined') {
-            spaceService.getShared(space).success(function (data) {
-                $scope.shared = data;
-                $scope.shared.breadcrumbs = [];
-            });
+            //Ready for API v0.2
+            //spaceService.getShared(space).success(function (data) {
+            $scope.shared = spaceService.getShared(space);
+            //});
         } else {
-            spaceService.getById(folderId).success(function (data) {
+            spaceService.getFolder(space, folderId).success(function (data) {
                 $scope.shared = data;
             });
         }
@@ -197,7 +197,7 @@
         return {
             restrict: "E",
             templateUrl: "./partials/shared/shared_detail.html",
-            controller: "sharedIterateCtrl"
+            controller: "sharedCtrl"
         };
     });
 })();
