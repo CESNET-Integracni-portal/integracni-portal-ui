@@ -1,8 +1,5 @@
-<div class="tiny ui icon buttons right">
-    <div class="ui button" ng-class="{ 'active':table }"  ng-click="showAsTable()"><i class="list layout icon"></i></div>
-    <div class="ui button" ng-class="{ 'active':!table }" ng-click="showAsItems()"><i class="grid layout icon"></i></div>
-</div>
 <div class="clear"></div>
+<div class="divider"></div>
 
 <div ng-show="table">
     <table class="ui basic table compact">
@@ -15,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="folder in home.folders | filter:search">
+            <tr ng-repeat="folder in home.folders| filter:search">
                 <td><a ui-sref="homeIterate({folderId:folder.id})"><i class="folder outline icon"></i> <span>{{folder.name}}</span></a>
                     <a class="item" ng-repeat="label in folder.labels"><i class="bookmark {{label.color}} basic icon"></i></a>
                 </td>
@@ -25,10 +22,10 @@
                     <a class="action" ng-click="favoriteFolder(folder)"><i class="blue pin icon"></i></a>
                     <a class="action" mac-modal="folder" ng-click="editFolder(folder.id)"><i class="edit icon"></i></a>
                     <a class="action" ng-click="downloadFolder(folder.id)"><i class="download disk icon"></i></a>
-                    <a class="action" ng-click="deleteFolder(folder)"><i class="trash icon"></i></a>
+                    <a class="action" ng-click="deleteFolder(folder.id)"><i class="trash icon"></i></a>
                 </td>
             </tr>
-            <tr ng-repeat="file in home.files | filter:search" attach-sidebar>
+            <tr ng-repeat="file in home.files| filter:search">
                 <td><i class="file outline icon"></i>
                     <span>{{file.filename}}</span>
                 </td>
@@ -44,14 +41,35 @@
 </div>
 <div ng-hide="table">
     <div class="ui-items">
+        <div class="ui items">
+            <div class="item" ng-repeat="folder in home.folders">
+                <i class=" massive folder outline icon"></i>
+                <div class="content">
+                    <a class="name center" ui-sref="homeIterate({folderId:folder.id})">{{folder.name}}</a>
+                    <p>Vlastník: {{folder.owner}} </p>
+                    <div class="actions">
+                        <a class="action" ng-click="favoriteFolder(folder)"><i class="blue pin icon"></i></a>
+                        <a class="action" mac-modal="folder" ng-click="editFolder(folder.id)"><i class="edit icon"></i></a>
+                        <a class="action" ng-click="downloadFolder(folder.id)"><i class="download disk icon"></i></a>
+                        <a class="action" ng-click="deleteFolder(folder.id)"><i class="trash icon"></i></a>
+                    </div>
+                </div>
+            </div>
 
+            <div class="item" ng-repeat="file in home.files" >
+                <i class="massive file outline icon"></i>
+                <div class="content">
+                    <a class="name center" ui-sref="homeIterate({folderId:folder.id})">{{file.filename}}</a>
+                    <p>Velikost: {{file.filesize}} </p>
+                    <p>Vlastník: {{file.owner}} </p>
+                    <div class="actions">
+                        <a class="action" ng-click="downloadFile(file)"><i class="download disk icon"></i></a>
+                        <a class="action" ng-click="deleteFolder(folder.id)"><i class="trash icon"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-<div class="ui right vertical sidebar">
-    <a href="#" class="sidebar-hide-btn" title="Close the board sidebar."> 
-        <i class="right arrow icon"></i>
-    </a>
-    přidání štítku, přidání do archivu
 </div>
 <p ng-show="empty()" class="animate-if">
     Složka je prázdná.

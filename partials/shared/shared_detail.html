@@ -11,4 +11,9 @@
     <a class="section" mac-modal="file" ng-click="setUpload()"><i class="blue upload disk icon"></i></a>
 </div>
 
+<div class="tiny ui icon buttons right">
+    <div class="ui button" ng-class="{ 'active':table }"  ng-click="showAsTable()"><i class="list layout icon"></i></div>
+    <div class="ui button" ng-class="{ 'active':!table }" ng-click="showAsItems()"><i class="grid layout icon"></i></div>
+</div>
+
 <div ng-include="'./partials/shared/shared_show.html'"></div>
