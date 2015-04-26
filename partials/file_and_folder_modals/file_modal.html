@@ -1,25 +1,25 @@
-<mac-modal id="file" mac-modal-before-show="clear()">
-    <div class="mac-modal-content">
-        <form name="form" class="ui small form" ng-submit="uploadFile(file)"> 
+<mac-modal id="file" mac-modal-before-show="clear()" mac-modal-after-hide="clear()">
+    <div class="mac-modal-content" flow-init>
+        <form name="form" class="ui small form" ng-upload="uploadFile(file)"> 
             <h1>Nahrát soubor</h1>
             <div class="field">
                 <label>Vyberte soubor</label>
-                <input id="file1" name="file" type="file">
+                <input id="files" name="files[]" type="file" multiple />
             </div>
             <div class="field">
                 <h3>Stav</h3>
-                <label><input type="radio" ng-model="file.state" value="online">Online</label><br/>
-                <label><input type="radio" ng-model="file.state" value="offline">Offline</label>
+                <label><input type="radio" ng-model="fileinfo.state" value="online"/>Online</label>
+                <label><input type="radio" ng-model="fileinfo.state" value="offline"/>Offline</label>
             </div>
             <div class="field">
                 <h3>Štítky</h3>
                 <table>
                     <tr ng-repeat="label in user.labels">
-                        <td><input name="{{label.name}}" value="{{label.name}}" type="checkbox" checklist-model="file.labels" checklist-value="label"/></td><td>{{label.name}}</td><td><i class="bookmark {{label.color}} basic icon"></i></td>
+                        <td><input name="{{label.name}}" value="{{label.name}}" type="checkbox" checklist-model="fileinfo.labels" checklist-value="label"/></td><td>{{label.name}}</td><td><i class="bookmark {{label.color}} basic icon"></i></td>
                     </tr>
                 </table>
             </div>
-            <input ng-disabled="form.$invalid" class="ui button" mac-modal-close type="submit" value="Nahrát soubor"/>
+            <input ng-disabled="form.$invalid || $isLoading" class="ui button" type="submit" value="Nahrát soubor"/>
         </form>
     </div>
 </mac-modal>

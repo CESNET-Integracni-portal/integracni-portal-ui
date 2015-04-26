@@ -1,12 +1,21 @@
 (function () {
-    var hmmod = angular.module('home.module', ['services.module', 'utils.module', 'ui.uploader', 'checklist-model']);
+    var hmmod = angular.module('home.module', ['services.module', 'utils.module', 'checklist-model']);
 
     // route controller
-    hmmod.controller('indexCtrl', function ($scope, $filter, $stateParams, userService, groupService, spaceService, urlService, homeService, uiUploader) {
+    hmmod.controller('indexCtrl', function ($rootScope, $scope, $log, $filter, $stateParams, userService, groupService, spaceService, urlService, homeService) {
         var edit = false;
         var that = this;
         var space = 'cesnet';
         var folderId = $stateParams.folderId;
+
+        // load data with labels
+        // Ready for API v0.2
+//        $rootScope.reloadData = function ( ) {
+//            spaceService.getAll(space, $rootScope.activeLabels).success(function (data) {
+//                $scope.home = data;
+//            });
+//        };
+
         if (typeof folderId === 'undefined') {
             homeService.getAll().success(function (data) {
                 $scope.home = {folders: data};
@@ -54,7 +63,7 @@
 
             var notDuplicate = true;
             for (i = 0; i < $scope.shareWith.length; i++) {
-                if($scope.shareWith[i].name === shrrdy.name){
+                if ($scope.shareWith[i].name === shrrdy.name) {
                     notDuplicate = false;
                     break;
                 }
@@ -195,36 +204,6 @@
         $scope.empty = function () {
             return (typeof $scope.home === 'undefined' || (typeof $scope.home.folders === 'undefined' || $scope.home.folders.length === 0) && (typeof $scope.home.files === 'undefined' || $scope.home.files.length === 0));
         };
-
-//        $scope.setUpload = function () {
-//            var element = document.getElementById('file1');
-//            element.addEventListener('change', function (e) {
-//                var files = e.target.files;
-//                uiUploader.addFiles(files);
-//                $scope.files = uiUploader.getFiles();
-//                $scope.$apply();
-//            });
-//        };
-
-//        $scope.uploadFile = function (file) {
-//            $log.info('uploading...');
-////            alert(JSON.stringify($scope.files[0]));
-////            homeService.addFileToRoot($scope.files[0]).success(function(data){
-////                alert("uploaded");
-////            });
-//            $log.info("file: " + file);
-//            uiUploader.startUpload({
-//                url: 'http://147.32.80.219:8080/integracni-portal/rest/v0.1/archive',
-//                concurrency: 2,
-//                onProgress: function (file) {
-//                    $log.info(file.name + '=' + file.humanSize);
-//                    $scope.$apply();
-//                },
-//                onCompleted: function (file, response) {
-//                    $log.info(file + 'response' + response);
-//                }
-//            });
-//        };
 
         $scope.clear = function () {
             that.reset();

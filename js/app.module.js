@@ -3,7 +3,6 @@
     app = angular.module('app.module',
             ['utils.module',
                 'home.module',
-                'archive.module',
                 'shared.module',
                 'login.module',
                 'externists.module',
@@ -17,7 +16,7 @@
                 'Mac']);
 
     app.run(function ($rootScope, oauthService) {
-        
+
         oauthService.refresh();
     });
 
@@ -64,26 +63,6 @@
                     }
                 })
 
-                // archive
-                .state("archive", {
-                    url: "/archive",
-                    templateUrl: "./partials/archive/archive.html",
-                    controller: 'archiveCtrl',
-                    data: {
-                        requireLogin: true
-                    }
-                })
-
-                // iterates over archive
-                .state("archiveIterate", {
-                    url: "/archive/{folderId:[1-9][0-9]*}",
-                    templateUrl: "./partials/archive/archive_detail.html",
-                    controller: 'archiveIterateCtrl',
-                    data: {
-                        requireLogin: true
-                    }
-                })
-
                 // shared
                 .state('shared', {
                     url: '/shared',
@@ -105,16 +84,6 @@
                 .state("tutorials", {
                     url: "/tutorials",
                     templateUrl: "./partials/tutorial.html",
-                    data: {
-                        requireLogin: true
-                    }
-                })
-
-                // labels
-                .state("labels", {
-                    url: "/label/{labelId:[1-9][0-9]*}",
-                    templateUrl: "./partials/labels/labels.html",
-                    controller: 'labelSearchController',
                     data: {
                         requireLogin: true
                     }

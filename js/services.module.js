@@ -365,12 +365,12 @@
              */
             getAll: function (spaceId, labels) {
                 // Ready for API v0.2
-                if (typeof labels === 'undefined') {
+                if (labels.length === 0) {
                     return httpService.createRequest("GET", baseUrl + 'space/' + spaceId, {}, "application/json");
                 } else {
-                    var lbls = labels[0];
+                    var lbls = "" + labels[0];
                     for (i = 1; i < labels.length; i++) {
-                        lbls.concat(",", labels[i]);
+                        lbls = lbls + "," + labels[i];
                     }
                     return httpService.createRequest("GET", baseUrl + 'space/' + spaceId + '?labels=' + lbls, {}, "application/json");
                 }
@@ -1110,6 +1110,9 @@
             name: "Pepa Karbanátek",
             email: "super@fel.cvut.cz",
             unitId: 0,
+            stats: {
+                spaceleft: 0
+            },
             permissions: {
                 units: true,
                 main_admin: false,
@@ -1124,6 +1127,9 @@
             name: "Kateřina Hašlarová",
             email: "haslakat@fel.cvut.cz",
             unitId: 1,
+            stats: {
+                spaceleft: 3.758
+            },
             permissions: {
                 units: true,
                 main_admin: true,
@@ -1139,6 +1145,9 @@
             email: "externista@fel.cvut.cz",
             unitId: 1,
             onuser: "haslakat@fel.cvut.cz",
+            stats: {
+                spaceleft: 6
+            },
             permissions: {
                 units: false,
                 main_admin: false,
@@ -1158,6 +1167,9 @@
             name: "Josef Plíhal",
             email: "jan.novak@fel.cvut.cz",
             unitId: 2,
+            stats: {
+                spaceleft: 4.8
+            },
             permissions: {
                 units: false,
                 main_admin: false,
