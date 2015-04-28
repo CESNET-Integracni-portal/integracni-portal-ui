@@ -1064,6 +1064,53 @@
                 "id": "12",
                 "name": "prace",
                 "owner": 2,
+                "labels": [{
+                        id: 1,
+                        name: "Critical",
+                        color: "red"
+                    }],
+                "status": "online",
+                "createdOn": "2014-12-31T13:05+0100",
+                "changedOn": "2014-12-31T13:09+0100"
+            },
+            {
+                "id": "15",
+                "name": "skola",
+                "owner": 5,
+                "labels": [
+                    {
+                        id: 2,
+                        name: "TODO",
+                        color: "blue"
+                    }],
+                "status": "online",
+                "createdOn": "2014-12-31T13:05+0100",
+                "changedOn": "2014-12-31T13:09+0100"
+            },
+            {
+                "id": "14",
+                "name": "hobby",
+                "owner": 3,
+                "labels": [],
+                "status": "online",
+                "createdOn": "2014-12-31T13:05+0100",
+                "changedOn": "2014-12-31T13:09+0100"
+            },
+            {
+                "id": "15",
+                "name": "offline_slozka",
+                "owner": 5,
+                "labels": [{
+                        id: 1,
+                        name: "Critical",
+                        color: "red"
+                    },
+                    {
+                        id: 2,
+                        name: "TODO",
+                        color: "blue"
+                    }],
+                "status": "offline",
                 "createdOn": "2014-12-31T13:05+0100",
                 "changedOn": "2014-12-31T13:09+0100"
             }

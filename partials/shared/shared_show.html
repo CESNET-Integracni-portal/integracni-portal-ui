@@ -14,15 +14,15 @@
         <tbody>
             <tr ng-repeat="folder in shared.folders">
                 <td><a ui-sref="sharedIterate({folderId:folder.id})"><i class="folder outline icon"></i> <span>{{folder.name}}</span></a>
-                    <a class="item" ng-repeat="label in folder.labels" ui-sref="labels({labelId:label.id})"><i class="bookmark red basic icon"></i></a>
+                    <a class="item" ng-repeat="label in folder.labels" ui-sref="labels({labelId:label.id})"><i class="bookmark {{label.color}} basic icon"></i></a>
                 </td>
                 <td>{{folder.owner}}</td>
                 <td>-</td>
                 <td class="actions">
-                    <a class="action" ng-click="favoriteFolder(folder)"><i class="blue pin icon"></i></a>
+                    <a class="action" ng-hide="folder.status === 'offline'" ng-click="favoriteFolder(folder)"><i class="blue pin icon"></i></a>
                     <a class="action" mac-modal="folder" ng-click="editFolder(folder.id)"><i class="edit icon"></i></a>
-                    <a class="action" ng-click="downloadFolder(folder)"><i class="download disk icon"></i></a>
-                    <a ng-show="folder.owner === user.email" class="action" ng-click="deleteFolder(folder.id)"><i class="trash icon"></i></a>
+                    <a class="action" ng-hide="folder.status === 'offline'" ng-click="downloadFolder(folder)"><i class="download disk icon"></i></a>
+                    <a ng-show="folder.owner === user.email" class="action" ng-hide="folder.status === 'offline'" ng-click="deleteFolder(folder.id)"><i class="trash icon"></i></a>
                 </td>
             </tr>
             <tr ng-repeat="file in shared.files">
@@ -33,7 +33,7 @@
                 <td>{{file.filesize}} kB</td>
                 <td class="actions">
                     <a class="action" ng-click="downloadFile(file.id)"><i class="download disk icon"></i></a>
-                    <a class="action"  ng-show="folder.owner === user.email" ng-click="deleteFile(file.id)"><i class="trash icon"></i></a>
+                    <a class="action" ng-show="folder.owner === user.email" ng-click="deleteFile(file.id)"><i class="trash icon"></i></a>
                 </td>
             </tr>
         </tbody>

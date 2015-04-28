@@ -3,15 +3,18 @@
 
     // CONTROLLERS
     shrmod.controller('sharedCtrl', function ($scope, $rootScope, $stateParams, userService, spaceService) {
-        $('.sidebar').sidebar('attach events', 'span');
         var space = 'cesnet';
         var that = this;
         var edit = false;
         var folderId = $stateParams.folderId;
 
-        // TODO - make unify controller for all spaces and folders, shared, labels etc. together
-        // switch (jakejprostor){
-        //  case "home": loadni home; break; etc
+        // load data with labels
+        // Ready for API v0.2
+        $rootScope.reloadData = function ( ) {
+            spaceService.getShared(space, $rootScope.activeLabels).success(function (data) {
+                $scope.shared = data;
+            });
+        };
 
         if (typeof folderId === 'undefined') {
             //Ready for API v0.2
@@ -23,31 +26,6 @@
                 $scope.shared = data;
             });
         }
-
-        $scope.setSharedWith = function () {
-            $scope.shareWith = angular.copy($scope.folder.shareWith);
-        };
-
-        $scope.showSharedWith = function (folder) {
-            $scope.folder = angular.copy(folder);
-            $scope.users = userService.getAll();
-        };
-
-        $scope.deleteSharer = function (user) {
-            $scope.shareWith.splice($scope.shareWith.indexOf(user), 1);
-        };
-
-        $scope.addSharer = function (user) {
-            if ($scope.shareWith.indexOf(user) === -1) {
-                $scope.shareWith.push(user);
-            }
-        };
-
-        $scope.shareWithSend = function () {
-            spaceService.shareFolder(space, $scope.folder.id, $scope.shareWith);
-            that.reset();
-        };
-
 
         $scope.downloadFolder = function (folderId) {
             spaceService.downloadFolder(space, folderId).success(function (data) {
