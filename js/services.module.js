@@ -1,6 +1,7 @@
 (function () {
 
     var srvmod = angular.module('services.module', ['utils.module', 'Mac']);
+
     // url of the server, where api is
     var baseUrl = "http://147.32.80.219:8080/integracni-portal/rest/v0.1/";
     // url of the server, where ouath is
@@ -559,27 +560,6 @@
             },
             // FILES
             /**
-             * Upload a file to Space Root
-             * 
-             * @param {int} spaceId - space identifier
-             * @param {type} file
-             * @returns {promise}
-             */
-            uploadFileToRoot: function (spaceId, file) {
-                //TODO
-            },
-            /**
-             * Upload a file to a Folder
-             * 
-             * @param {int} spaceId - space identifier
-             * @param {int} folderId - folder identifier
-             * @param {type} file
-             * @returns {promise}
-             */
-            uploadFile: function (spaceId, folderId, file) {
-                // TODO
-            },
-            /**
              * Retrieve a File metadata
              * 
              * @param {int} spaceId - space identifier
@@ -705,14 +685,14 @@
              * Upload file contents
              * 
              * @param {int} spaceId - space identifier
-             * @param {int} fileId - file identifier
-             * @param {type} file
+             * @param {object} file - file object
+             * @param {string} content
              * @returns {promise}
              */
-            uploadFileContent: function (spaceId, fileId, file) {
+            uploadFileContent: function (spaceId, file, content) {
                 // Ready for API v0.2
-                // TODO
-                return httpService.createRequest("PUT", baseUrl + 'space/' + spaceId + '/file/' + fileId + '/content', {file: file}, "application/json");
+                // TODO fileId????
+                //return httpService.createRequest("PUT", baseUrl + 'space/'+ spaceId + '/file/' + fileId + '/content', {file: file}, "multipart/form-data");  
             }
         };
     });

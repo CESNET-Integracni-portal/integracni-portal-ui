@@ -1,8 +1,14 @@
 <mac-modal id="edit" mac-modal-before-show="clear()" mac-modal-after-hide="clear()">
     <div class="mac-modal-content">
-        <form name="form" class="ui small form" ng-submit="editFile(file)"> 
+        <form name="form" class="ui small form" ng-submit="saveFile(file)"> 
             <h1>Upravit soubor</h1>
-            {{file.filename}}
+            <div class="field">
+                <input type="text" name="name" required ng-pattern='/^[a-zA-Zа-яА-Я0-9_!]+$/' value="{{file.filename}}" ng-model="file.filename"/>
+                <div ng-show="form.name.$touched">
+                    <span ng-show="form.name.$error.required"><i class="warning icon"></i>Vyplňte název souboru.</span>
+                    <span ng-show="form.name.$error.pattern"><i class="warning icon"></i>Název souboru obsahuje nepovolené znaky.</span>
+                </div>
+            </div>
             <div class="field">
                 <h3>Stav</h3>
                 <label><input type="radio" ng-model="file.state" value="online"/>Online</label>

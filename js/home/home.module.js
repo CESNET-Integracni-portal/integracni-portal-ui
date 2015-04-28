@@ -208,11 +208,43 @@
         $scope.editFile = function (file) {
             spaceService.getFile(space, file.id).success(function (data) {
                 $scope.file = data;
+                $scope.oldfile = file;
             });
         };
 
-        $scope.uploadFiles = function () {
-            $scope.uploading = true;
+        $scope.saveFile = function (file) {
+            if ($scope.oldfile.name !== file.name) {
+                spaceService.renameFile(space, file.id, file.name);
+            }
+            if ($scope.oldfile.status !== file.status) {
+                if (file.status === "offline") {
+                    spaceService.setFileOnline(space, file.id);
+                } else {
+                    spaceService.setFileOffline(space, file.id);
+                }
+            }
+            if (JSON.stringify($scope.oldfile.labels) !== JSON.stringify(file.labels)) {
+                // TODO
+            }
+        };
+
+        var file;
+        function handleFileSelect(evt) {
+            file = evt.target.files[0];
+        }
+
+        $scope.setUpload = function () {
+            document.getElementById('file').addEventListener('change', handleFileSelect, false);
+        };
+
+        $scope.upload = function () {
+            var reader = new FileReader();
+            reader.onload = function (file) {
+                return function (e) {
+                    spaceService.uploadFileContent(space, file, e.target.result);
+                };
+            }(file);
+            reader.readAsBinaryString(file);
         };
 
         $scope.clear = function () {

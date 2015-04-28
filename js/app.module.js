@@ -13,7 +13,6 @@
                 'settings.module',
                 'ui.router',
                 'services.module',
-                'flow',
                 'Mac']);
 
     app.run(function ($rootScope, oauthService) {

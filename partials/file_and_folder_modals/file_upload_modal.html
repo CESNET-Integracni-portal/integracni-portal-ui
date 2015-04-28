@@ -1,20 +1,12 @@
-<mac-modal id="upload" mac-modal-before-show="clear()" mac-modal-after-hide="clear()">
-    <div class="mac-modal-content" flow-init>
-        <form name="form" class="ui small form" ng-submit="uploadFiles()"> 
+<mac-modal id="upload" mac-modal-before-show="clear()" mac-modal-after-hide="clear()" mac-modal-after-show="setUpload()">
+    <div class="mac-modal-content">
+        <form name="form" class="ui small form" ng-submit="upload()">
             <h1>Nahrát soubor</h1>
             <div class="field">
                 <h3>Vyberte soubor</h3>
-                <input type="file" flow-btn />
+                <input id="file" name="file" type="file" />
             </div>
-            <table>
-                <thead><tr><th>Uploaded files</th></tr></thead>
-                <tr ng-repeat="file in $flow.files">
-                    <td>{{$index + 1}}</td>
-                    <td>{{file.name}}</td>
-                    <td>{{file.msg}}</td>
-                </tr>
-            </table>
-            <input ng-hide="$uploading" class="ui button" type="submit" value="Nahrát soubory"/>
+            <input class="ui button" mac-close type="submit" value="Nahrát soubor"/>
         </form>
     </div>
 </mac-modal>
