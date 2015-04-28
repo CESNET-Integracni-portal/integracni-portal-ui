@@ -205,6 +205,16 @@
             return (typeof $scope.home === 'undefined' || (typeof $scope.home.folders === 'undefined' || $scope.home.folders.length === 0) && (typeof $scope.home.files === 'undefined' || $scope.home.files.length === 0));
         };
 
+        $scope.editFile = function (file) {
+            spaceService.getFile(space, file.id).success(function (data) {
+                $scope.file = data;
+            });
+        };
+
+        $scope.uploadFiles = function () {
+            $scope.uploading = true;
+        };
+
         $scope.clear = function () {
             that.reset();
         };

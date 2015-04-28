@@ -1,0 +1,22 @@
+<mac-modal id="edit" mac-modal-before-show="clear()" mac-modal-after-hide="clear()">
+    <div class="mac-modal-content">
+        <form name="form" class="ui small form" ng-submit="editFile(file)"> 
+            <h1>Upravit soubor</h1>
+            {{file.filename}}
+            <div class="field">
+                <h3>Stav</h3>
+                <label><input type="radio" ng-model="file.state" value="online"/>Online</label>
+                <label><input type="radio" ng-model="file.state" value="offline"/>Offline</label>
+            </div>
+            <div class="field">
+                <h3>Štítky</h3>
+                <table>
+                    <tr ng-repeat="label in user.labels">
+                        <td><input name="{{label.name}}" value="{{label.name}}" type="checkbox" checklist-model="file.labels" checklist-value="label"/></td><td>{{label.name}}</td><td><i class="bookmark {{label.color}} basic icon"></i></td>
+                    </tr>
+                </table>
+            </div>
+            <input ng-disabled="form.$invalid" class="ui button" type="submit" value="Nahrát soubory"/>
+        </form>
+    </div>
+</mac-modal>

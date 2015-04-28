@@ -55,7 +55,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="item" ng-repeat="file in home.files" >
                 <i class="massive file outline icon"></i>
                 <div class="content">
@@ -64,6 +63,7 @@
                     <p>Vlastník: {{file.owner}} </p>
                     <div class="actions">
                         <a class="action" ng-click="downloadFile(file)"><i class="download disk icon"></i></a>
+                        <a class="action" mac-modal="edit" ng-click="editFile(file)"><i class="edit icon"></i></a>
                         <a class="action" ng-click="deleteFolder(folder.id)"><i class="trash icon"></i></a>
                     </div>
                 </div>
@@ -76,5 +76,6 @@
 </p>
 
 <div ng-include="'./partials/file_and_folder_modals/folder_modal.html'"></div>
-<div ng-include="'./partials/file_and_folder_modals/file_modal.html'"></div>
+<div ng-include="'./partials/file_and_folder_modals/file_upload_modal.html'"></div>
+<div ng-include="'./partials/file_and_folder_modals/file_edit_modal.html'"></div>
 <div ng-include="'./partials/file_and_folder_modals/share_modal.html'"></div>
