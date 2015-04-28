@@ -12,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="folder in shared.folders">
+            <tr ng-repeat="folder in shared.folders| filter:search">
                 <td><a ui-sref="sharedIterate({folderId:folder.id})"><i class="folder outline icon"></i> <span>{{folder.name}}</span></a>
                     <a class="item" ng-repeat="label in folder.labels" ui-sref="labels({labelId:label.id})"><i class="bookmark {{label.color}} basic icon"></i></a>
                 </td>
@@ -25,7 +25,7 @@
                     <a ng-show="folder.owner === user.email" class="action" ng-hide="folder.status === 'offline'" ng-click="deleteFolder(folder.id)"><i class="trash icon"></i></a>
                 </td>
             </tr>
-            <tr ng-repeat="file in shared.files">
+            <tr ng-repeat="file in shared.files| filter:search">
                 <td><i class="file outline icon"></i>
                     <span>{{file.filename}}</span>
                 </td>
