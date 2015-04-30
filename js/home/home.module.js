@@ -87,6 +87,16 @@
             });
         };
 
+        $scope.moveFolder = function (folder) {
+            for (i = 0; i < $scope.home.folders.length; i++) {
+                if($scope.home.folders[i].name === folder.parent){
+                    var parentId = $scope.home.folders[i].id;
+                    break;
+                }
+            }
+            spaceService.moveFolder(space, folderId, parentId);
+        };
+
         $scope.saveFolder = function (newFolder) {
             // save labels for folder also - needed in API v0.2
             // in async call spaceService.setFolderLabel(spaceId, folderId, labelId)
@@ -116,6 +126,9 @@
                         $scope.home.folders.push(data);
                     });
                 }
+            }
+            if (typeof newFolder.parent !== 'undefined' || newFolder.parent !== "") {
+                $scope.moveFolder(newFolder);
             }
             that.reset();
         };

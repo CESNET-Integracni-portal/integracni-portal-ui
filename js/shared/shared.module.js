@@ -71,7 +71,7 @@
             }
             that.reset();
         };
-
+        
         $scope.editFolder = function (folderId) {
             $scope.folder = spaceService.getFolder(space, folderId).success(function (data) {
                 $scope.folder = data;

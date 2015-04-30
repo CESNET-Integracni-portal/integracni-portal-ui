@@ -4,7 +4,7 @@
         <form name="form" class="ui small form" ng-submit="saveFolder(folder)">
             <div class="field">
                 <label>Název složky</label>
-                <input name="name" type="text" ng-model="folder.name" max-length="32" required ng-pattern='/^[a-zA-Zа-яА-Я0-9_!]+$/'/>
+                <input name="name" type="text" ng-model="folder.name" maxlength="32" required ng-pattern='/^[a-zA-Zа-яА-Я0-9_!]+$/'/>
                 <div ng-show="form.name.$touched">
                     <span ng-show="form.name.$error.required"><i class="warning icon"></i>Vyplňte název složky.</span>
                     <span ng-show="form.name.$error.pattern"><i class="warning icon"></i>Název složky obsahuje nepovolené znaky.</span>
@@ -22,6 +22,13 @@
                         <td><input name="{{label.name}}" value="{{label.name}}" type="checkbox" checklist-model="folder.labels" checklist-value="label"/></td><td>{{label.name}}</td><td><i class="bookmark {{label.color}} basic icon"></i></td>
                     </tr>
                 </table>
+            </div>
+            <div class="field">
+                <label>Přesunout do:</label>
+                <mac-autocomplete autocomplete="off" name="parent" ng-pattern='/^[a-zA-Zа-яА-Я0-9_!]+$/' mac-autocomplete-source="home.folders" mac-autocomplete-label="name" mac-placeholder='"název složky"' ng-model="folder.parent"></mac-autocomplete>
+                <div ng-show="form.parent.$touched">
+                    <span ng-show="form.parent.$error.pattern"><i class="warning icon"></i>Název složky obsahuje nepovolené znaky.</span>
+                </div>
             </div>
             <input ng-disabled="form.$invalid" type="submit" value="Uložit složku" mac-modal-close ng-click="form.$setUntouched()" class="ui button"\>
         </form>
