@@ -10,7 +10,7 @@
 
         // load data with labels
         // Ready for API v0.2
-        $rootScope.reloadData = function ( ) {
+        $rootScope.reloadShared = function ( ) {
             spaceService.getShared(space, $rootScope.activeLabels).success(function (data) {
                 $scope.shared = data;
             });
@@ -58,7 +58,6 @@
                     }
                 });
                 that.edit = false;
-                that.reset();
             } else {
                 if (typeof folderId === 'undefined') {
                     spaceService.createFolderInRoot(space, newFolder.name).success(function (data) {
@@ -69,8 +68,8 @@
                         $scope.shared.folders.push(data);
                     });
                 }
-                that.reset();
             }
+            that.reset();
         };
 
         $scope.editFolder = function (folderId) {
@@ -84,7 +83,7 @@
             if (typeof folderId === 'undefined') {
                 spaceService.getFolder(delFolderId).success(function (data) {
                     var folder = data;
-                    $scope.favoriteFolder(folder);
+                    $scope.unfavoriteFolder(folder);
                     spaceService.deleteFolder(delFolderId).success(function (data) {
                         spaceService.getShared(space).success(function (data) {
                             $scope.shared = {folders: data};
@@ -96,7 +95,7 @@
                 var folderToDelete = (typeof delFolderId === 'undefined' ? folderId : delFolderId);
                 spaceService.getFolder(space, folderToDelete).success(function (data) {
                     var folder = data;
-                    $scope.favoriteFolder(folder);
+                    $scope.unfavoriteFolder(folder);
 
                     spaceService.deleteFolder(space, folderToDelete).success(function (data) {
 
@@ -132,6 +131,22 @@
             });
         };
 
+        $scope.unfavoriteFolder = function (folder, index) {
+
+            if (typeof index === 'undefined') {
+                var index = -1;
+                for (i = 0; i < $scope.user.fasts.length; i++) {
+                    if ($scope.user.fasts[i].id === folder.id) {
+                        index = i;
+                        break;
+                    }
+                }
+            }
+            if (index !== -1) {
+                $scope.user.fasts.splice(index, 1);
+            }
+        };
+
         $scope.favoriteFolder = function (folder) {
             var index = -1;
             for (i = 0; i < $scope.user.fasts.length; i++) {
@@ -141,7 +156,7 @@
                 }
             }
             if (index !== -1) {
-                $scope.user.fasts.splice(index, 1);
+                $scope.unfavoriteFolder(folder, index);
             } else {
                 var fast = {
                     id: folder.id,
@@ -158,7 +173,6 @@
 
         this.reset = function () {
             $scope.folder = {};
-            that.edit = false;
         };
         this.reset();
     });

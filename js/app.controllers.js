@@ -28,7 +28,15 @@
             } else {
                 $rootScope.activeLabels.splice(index, 1);
             }
-            $rootScope.reloadData();
+            if($rootScope.activeModule === "shared") {
+                $rootScope.reloadShared();
+            } else {
+                $rootScope.reloadHome();
+            }
+        };
+
+        $scope.activeModule = function (name) {
+            $rootScope.activeModule = name;
         };
 
         $scope.isActive = function (name) {

@@ -4,8 +4,8 @@
     <!-- left navigation -->
     <div class="one wide column" style="">
         <div class="ui secondary vertical menu">
-            <a class="item" ui-sref-active="active" ui-sref="index"><i class="home icon"></i>Můj prostor</a>
-            <a class="item" ui-sref-active="active" ui-sref="shared"><i class="users icon"></i>Sdílené</a>
+            <a class="item" ui-sref-active="active" ui-sref="index" ng-click="activeModule('index')"><i class="home icon"></i>Můj prostor</a>
+            <a class="item" ui-sref-active="active" ui-sref="shared" ng-click="activeModule('shared')"><i class="users icon"></i>Sdílené</a>
             <div class="ui divider"></div>
             <a class="item" ui-sref-active="active" ng-click="activateLabel('archive')"><i class="checkmark icon" ng-show="isActive('archive')"></i><i class="archive icon"></i>Archiv</a>
             <!-- labels -->

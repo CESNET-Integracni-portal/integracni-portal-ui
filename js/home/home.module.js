@@ -10,11 +10,11 @@
 
         // load data with labels
         // Ready for API v0.2
-//        $rootScope.reloadData = function ( ) {
-//            spaceService.getAll(space, $rootScope.activeLabels).success(function (data) {
-//                $scope.home = data;
-//            });
-//        };
+        $rootScope.reloadHome = function () {
+            spaceService.getAll(space, $rootScope.activeLabels).success(function (data) {
+                $scope.home = data;
+            });
+        };
 
         if (typeof folderId === 'undefined') {
             homeService.getAll().success(function (data) {
@@ -106,7 +106,6 @@
                     }
                 });
                 that.edit = false;
-                that.reset();
             } else {
                 if (typeof folderId === 'undefined') {
                     homeService.createFolderInRoot(newFolder.name).success(function (data) {
@@ -117,8 +116,8 @@
                         $scope.home.folders.push(data);
                     });
                 }
-                that.reset();
             }
+            that.reset();
         };
 
         $scope.editFolder = function (folderId) {
@@ -129,11 +128,10 @@
         };
 
         $scope.deleteFolder = function (delFolderId) {
-
             if (typeof folderId === 'undefined') {
                 homeService.getById(delFolderId).success(function (data) {
                     var folder = data;
-                    $scope.favoriteFolder(folder);
+                    $scope.unfavoriteFolder(folder);
                     homeService.deleteFolder(delFolderId).success(function (data) {
                         homeService.getAll().success(function (data) {
                             $scope.home = {folders: data};
@@ -145,7 +143,7 @@
                 var folderToDelete = (typeof delFolderId === 'undefined' ? folderId : delFolderId);
                 homeService.getById(folderToDelete).success(function (data) {
                     var folder = data;
-                    $scope.favoriteFolder(folder);
+                    $scope.unfavoriteFolder(folder);
 
                     homeService.deleteFolder(folderToDelete).success(function (data) {
 
@@ -160,6 +158,7 @@
                                 homeService.getAll().success(function (data) {
                                     $scope.home = {folders: data};
                                     $scope.home.breadcrumbs = [];
+                                    urlService.redirectToHome();
                                 });
                             }
                         } else {
@@ -181,6 +180,22 @@
             });
         };
 
+        $scope.unfavoriteFolder = function (folder, index) {
+            // Unfavorite on server
+            if (typeof index === 'undefined') {
+                var index = -1;
+                for (i = 0; i < $scope.user.fasts.length; i++) {
+                    if ($scope.user.fasts[i].id === folder.id) {
+                        index = i;
+                        break;
+                    }
+                }
+            }
+            if (index !== -1) {
+                $scope.user.fasts.splice(index, 1);
+            }
+        };
+
         $scope.favoriteFolder = function (folder) {
             var index = -1;
             for (i = 0; i < $scope.user.fasts.length; i++) {
@@ -190,7 +205,7 @@
                 }
             }
             if (index !== -1) {
-                $scope.user.fasts.splice(index, 1);
+                $scope.unfavoriteFolder(folder, index);
             } else {
                 var fast = {
                     id: folder.id,
@@ -254,7 +269,6 @@
         this.reset = function () {
             $scope.folder = {};
             $scope.folder.name = null;
-            that.edit = false;
             $scope.shareWith = null;
             $scope.sharer = {};
         };

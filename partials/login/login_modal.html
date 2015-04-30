@@ -5,20 +5,20 @@
             <h2>Přihlásit jako</h2>
             <div class="field">
                 <label>Username</label>
-                <input name="username" type="text" ng-model="username" placeholder="username" required/>
+                <input id="username" name="username" type="text" ng-model="username" placeholder="username" required/>
                 <div ng-show="form.username.$touched">
                     <span ng-show="form.username.$error.required"><i class="warning icon"></i>Vyplňte uživatelské jméno.</span>
                 </div>
             </div>
             <div class="field">
                 <label>Password</label>
-                <input name="password" type="password" ng-model="password"  placeholder="password" required />
+                <input id="password" name="password" type="password" ng-model="password"  placeholder="password" required />
                 <div ng-show="form.password.$touched">
                     <span ng-show="form.password.$error.required"><i class="warning icon"></i>Vyplňte heslo.</span>
                 </div>
             </div>
             <center>
-                <input ng-disabled="form.$invalid" type="submit" value="Přihlásit" mac-modal-close ng-click="form.$setUntouched()" class="ui button"\>
+                <input id="logbtn" ng-disabled="form.$invalid" type="submit" value="Přihlásit" mac-modal-close ng-click="form.$setUntouched()" class="ui button"\>
             </center>
             <br/>
             <center>

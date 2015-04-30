@@ -190,49 +190,6 @@
         };
     });
     // communication with server API
-    // archive service
-    srvmod.factory('archiveService', function (httpService) {
-        /**
-         Users parameters:
-         int id - unique
-         string name
-         array users
-         int userId 
-         */
-        return {
-            // root
-            getAll: function () {
-                return httpService.createRequest("GET", baseUrl + 'archive', {}, "application/json");
-            },
-            createFolderInRoot: function (name) {
-                // create on server side
-                return httpService.createRequest("POST", baseUrl + 'archive', {name: name}, "application/json");
-            },
-            // subfolder of root
-            getById: function (archiveId) {
-                return httpService.createRequest("GET", baseUrl + 'archive/folder/' + archiveId, {}, "application/json");
-            },
-            createFolder: function (folderId, name) {
-                // create on server side
-                return httpService.createRequest("POST", baseUrl + 'archive/folder/' + folderId, {name: name}, "application/json");
-            },
-            renameFolder: function (folderId, name) {
-                // create on server side
-                return httpService.createRequest("PUT", baseUrl + 'archive/folder/' + folderId, {name: name}, "application/json");
-            },
-            deleteFolder: function (folderId) {
-                // create on server side
-                return httpService.createRequest("DELETE", baseUrl + 'archive/folder/' + folderId, {}, "application/json");
-            },
-            addFile: function (folderId, file, name) {
-                // create on server side
-                return httpService.createRequest(
-                        "POST",
-                        baseUrl + 'archive/folder/' + folderId + "/files",
-                        $.param({fileName: file, name: name}), "multipart/form-data");
-            }
-        };
-    });
     // home space service - Only for testing API v0.1
     srvmod.factory('homeService', function (httpService) {
         /**
