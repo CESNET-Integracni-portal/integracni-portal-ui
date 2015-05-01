@@ -20,9 +20,9 @@
                 <td>-</td>
                 <td class="actions">
                     <a class="action" ng-hide="folder.status === 'offline'" ng-click="favoriteFolder(folder)"><i class="blue pin icon"></i></a>
-                    <a class="action" mac-modal="folder" ng-click="editFolder(folder.id)"><i class="edit icon"></i></a>
-                    <a class="action" ng-hide="folder.status === 'offline'" ng-click="downloadFolder(folder)"><i class="download disk icon"></i></a>
-                    <a ng-show="folder.owner === user.email" class="action" ng-hide="folder.status === 'offline'" ng-click="deleteFolder(folder.id)"><i class="trash icon"></i></a>
+                    <a class="action" ng-hide="folder.perm.indexOf('e') === -1" mac-modal="folder" ng-click="editFolder(folder.id)"><i class="edit icon"></i></a>
+                    <a class="action" ng-hide="folder.status === 'offline' || folder.perm.indexOf('d') === -1" ng-click="downloadFolder(folder)"><i class="download disk icon"></i></a>
+                    <a ng-show="folder.owner === user.email" class="action" ng-click="removeFolderFromShared(folder)"><i class="trash icon"></i></a>
                 </td>
             </tr>
             <tr ng-repeat="file in shared.files| filter:search">
@@ -32,8 +32,8 @@
                 <td>{{file.owner}}</td>
                 <td>{{file.filesize}} kB</td>
                 <td class="actions">
-                    <a class="action" ng-click="downloadFile(file.id)"><i class="download disk icon"></i></a>
-                    <a class="action" ng-show="folder.owner === user.email" ng-click="deleteFile(file.id)"><i class="trash icon"></i></a>
+                    <a class="action" ng-hide="file.perm.indexOf('d') === -1" ng-click="downloadFile(file.id)"><i class="download disk icon"></i></a>
+                    <a class="action" ng-click="removeFileFromShared(file.id)"><i class="trash icon"></i></a>
                 </td>
             </tr>
         </tbody>

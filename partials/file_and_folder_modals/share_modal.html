@@ -13,9 +13,8 @@
             
             <table>
                 <thead><tr><td>Oprávnění</h4</td></tr></thead>
-                <tr><td><input name="read" value="Read" type="checkbox" checklist-model="sharer.permissions" checklist-value="'r'"/><label for="read">Read</label></td></tr>
-                <tr><td><input name="write" value="Write" type="checkbox" checklist-model="sharer.permissions" checklist-value="'w'"/><label for="write">Write</label></td></tr>
-                <tr><td><input name="execute" value="Execute" type="checkbox" checklist-model="sharer.permissions" checklist-value="'x'"/><label for="execute">Execute</label></td></tr>
+                <tr><td><input name="edit" value="Edit" type="checkbox" checklist-model="sharer.permissions" checklist-value="'e'"/><label for="edit">Edit</label></td></tr>
+                <tr><td><input name="download" value="Download" type="checkbox" checklist-model="sharer.permissions" checklist-value="'d'"/><label for="download">Download</label></td></tr>
             </table>
             <input ng-disabled="form.$invalid" type="submit" ng-click="form.$setUntouched()" value="Sdílet" class="ui button"/>
             <br/>

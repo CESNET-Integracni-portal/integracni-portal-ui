@@ -27,6 +27,23 @@
             });
         }
 
+        $scope.removeFolderFromShared = function (folder) {
+            $scope.unfavoriteFolder(folder);
+            spaceService.removeFolderSharing(space, folder.id).success(function (data) {
+                spaceService.getShared().success(function () {
+                    $scope.shared = data;
+                });
+            });
+        };
+
+        $scope.removeFileFromShared = function (fileId) {
+            spaceService.removeFileSharing(space, fileId).success(function (data) {
+                spaceService.getShared().success(function () {
+                    $scope.shared = data;
+                });
+            });
+        };
+
         $scope.downloadFolder = function (folderId) {
             spaceService.downloadFolder(space, folderId).success(function (data) {
                 saveAs(data, folderId + ".zip");
@@ -71,7 +88,7 @@
             }
             that.reset();
         };
-        
+
         $scope.editFolder = function (folderId) {
             $scope.folder = spaceService.getFolder(space, folderId).success(function (data) {
                 $scope.folder = data;

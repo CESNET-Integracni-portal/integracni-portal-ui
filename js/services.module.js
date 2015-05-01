@@ -407,19 +407,41 @@
                 return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/trash', {}, "application/json");
             },
             /**
-             * Make Folder online
+             * Removes current user from sharedWith on given folder
              * 
-             * Change the state of the folder (and all child files and folders)
-             *  in CESNET storage to online.
-             * 
-             * @param {int} spaceId
-             * @param {int} folderId
+             * @param {int} spaceId - space identifier
+             * @param {int} folderId - folder identifier
              * @returns {promise}
              */
-            setFolderOnline: function (spaceId, folderId) {
-                // Ready for API v0.2
-                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/online', {}, "application/json");
+            removeFolderSharing: function (spaceId, folderId) {
+                // Ready for API v0.2- not defined by API v0.2 yet
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/removeSharing', {}, "application/json");
             },
+            /**
+             * Removes current user from sharedWith on given file
+             * 
+             * @param {int} spaceId - space identifier
+             * @param {int} fileId - file identifier
+             * @returns {promise}
+             */
+            removeFileSharing: function (spaceId, fileId) {
+                // Ready for API v0.2- not defined by API v0.2 yet
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/file/' + fileId + '/removeSharing', {}, "application/json");
+            },
+                    /**
+                     * Make Folder online
+                     * 
+                     * Change the state of the folder (and all child files and folders)
+                     *  in CESNET storage to online.
+                     * 
+                     * @param {int} spaceId
+                     * @param {int} folderId
+                     * @returns {promise}
+                     */
+                    setFolderOnline: function (spaceId, folderId) {
+                        // Ready for API v0.2
+                        return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/online', {}, "application/json");
+                    },
             /**
              * Make Folder offline
              * 
