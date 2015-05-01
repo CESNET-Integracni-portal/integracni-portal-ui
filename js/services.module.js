@@ -184,6 +184,9 @@
             redirectToHome: function () {
                 $location.path("");
             },
+            redirectToShared: function () {
+                $location.path("shared");
+            },
             redirect: function () {
                 $location.path(this.basePath());
             }
@@ -428,20 +431,20 @@
                 // Ready for API v0.2- not defined by API v0.2 yet
                 return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/file/' + fileId + '/removeSharing', {}, "application/json");
             },
-                    /**
-                     * Make Folder online
-                     * 
-                     * Change the state of the folder (and all child files and folders)
-                     *  in CESNET storage to online.
-                     * 
-                     * @param {int} spaceId
-                     * @param {int} folderId
-                     * @returns {promise}
-                     */
-                    setFolderOnline: function (spaceId, folderId) {
-                        // Ready for API v0.2
-                        return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/online', {}, "application/json");
-                    },
+            /**
+             * Make Folder online
+             * 
+             * Change the state of the folder (and all child files and folders)
+             *  in CESNET storage to online.
+             * 
+             * @param {int} spaceId
+             * @param {int} folderId
+             * @returns {promise}
+             */
+            setFolderOnline: function (spaceId, folderId) {
+                // Ready for API v0.2
+                return httpService.createRequest("POST", baseUrl + 'space/' + spaceId + '/folder/' + folderId + '/online', {}, "application/json");
+            },
             /**
              * Make Folder offline
              * 
@@ -1043,6 +1046,7 @@
                 "id": "12",
                 "name": "prace",
                 "owner": 2,
+                "perm": ["d", "e"],
                 "labels": [{
                         id: 1,
                         name: "Critical",
@@ -1056,6 +1060,7 @@
                 "id": "15",
                 "name": "skola",
                 "owner": 5,
+                "perm": ["e"],
                 "labels": [
                     {
                         id: 2,
@@ -1070,6 +1075,7 @@
                 "id": "14",
                 "name": "hobby",
                 "owner": 3,
+                "perm": ["d"],
                 "labels": [],
                 "status": "online",
                 "createdOn": "2014-12-31T13:05+0100",
@@ -1079,6 +1085,7 @@
                 "id": "15",
                 "name": "offline_slozka",
                 "owner": 5,
+                "perm": [],
                 "labels": [{
                         id: 1,
                         name: "Critical",
@@ -1099,6 +1106,7 @@
                 "uuid": "1ff076ae-7f8d-4d07-bb03-71aef2141f91",
                 "filename": "todo.txt",
                 "mimetype": "text/plain",
+                "perm": ["d"],
                 "filesize": 86,
                 "owner": 2,
                 "createdOn": "2014-12-31T13:09+0100",
