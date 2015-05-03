@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-        <meta name="author" content="Kateřina Hašlarová">
+        <meta name="author" content="Kateřina Hašlarová, Jiří Blažek">
         <title ng-bind="user.username + ' - Integrační portál'">Integrační portál</title>
         <link href="./css/semantic.css" ng-href="./css/semantic.css" rel="stylesheet" type="text/css">
         <link rel="shortcut icon" href="favicon.ico" >
@@ -26,7 +26,7 @@
                         <a class="item" ui-sref="admin">Admin</a>
                         <a class="item" ui-sref="settings">Osobní astavení</a>
                         <a class="item" ui-sref="tutorials">Nápověda</a>
-                        <a class="item" ng-click="logout()"> <i class="icon sign out"></i>Odhlásit</a>
+                        <a id="lgout" class="item" ng-click="logout()"> <i class="icon sign out"></i>Odhlásit</a>
                     </div>
                 </div>
 

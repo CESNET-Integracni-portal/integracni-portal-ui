@@ -1137,9 +1137,9 @@
         },
         // manager of units
         {id: 2,
-            username: "kathaslaaaa",
-            name: "Kateřina Hašlarová",
-            email: "haslakat@fel.cvut.cz",
+            username: "admin",
+            name: "Jiří Blažek",
+            email: "blazej18@fel.cvut.cz",
             unitId: 1,
             stats: {
                 spaceleft: 3.758
