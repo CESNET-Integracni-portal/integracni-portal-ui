@@ -24,7 +24,7 @@
                         <div class="item">{{user.username}}</div>
                         <div class="item">Využitý prostor: {{user.stats.spaceleft}}GB / {{user.quota}}GB</div>
                         <a class="item" ui-sref="admin">Admin</a>
-                        <a class="item" ui-sref="settings">Osobní astavení</a>
+                        <a class="item" ui-sref="settings">Osobní nastavení</a>
                         <a class="item" ui-sref="tutorials">Nápověda</a>
                         <a id="lgout" class="item" ng-click="logout()"> <i class="icon sign out"></i>Odhlásit</a>
                     </div>
@@ -36,17 +36,19 @@
                         <i class="search icon"></i>
                     </div>
                 </div>
-                <a ui-sref="admin" class="item" ng-show="user.permissions.externists || user.permissions.units"><i class="setting icon"></i></a>
-                <a ui-sref="settings" class="item"> <i class="settings icon"></i></a>
+                <a id='admin' ui-sref="admin" class="item" ng-show="user.permissions.externists || user.permissions.units"><i class="setting icon"></i></a>
+                <a id='settings' ui-sref="settings" class="item"> <i class="settings icon"></i></a>
                 <div class="ui dropdown link item" href="#">
                     {{user.username}} <i class="dropdown icon"></i>
                     <div class="menu ui transition hidden">
-                        <div class="item">Využití Prostor: {{user.stats.spaceleft}}GB / {{user.quota}}GB</div>
-                        <a class="item" ui-sref="tutorials"> Nápověda </a>
+                        <div class="item">Využitý prostor: {{user.stats.spaceleft}}GB / {{user.quota}}GB</div>
+                        <a class="item" ui-sref="admin">Admin</a>
+                        <a class="item" ui-sref="settings">Osobní nastavení</a>
+                        <a class="item" ui-sref="tutorials">Nápověda</a>
                         <a class="item" ng-click="logout()"> <i class="icon sign out"></i> Odhlásit </a>
                     </div>
                 </div>
-                <a ng-click="logout()" class="item"> <i class="icon sign out"></i></a>
+                <a id='lgout' ng-click="logout()" class="item"> <i class="icon sign out"></i></a>
             </div>
         </div>
 
