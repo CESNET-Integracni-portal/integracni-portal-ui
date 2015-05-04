@@ -45,11 +45,19 @@ var IpHomePage = function () {
         element(by.model('search')).sendKeys(search);
     };
 
-    this.favoriteFolder = function ( ) {
+    this.favoriteFolder = function () {
         element(by.css('[ng-click="favoriteFolder(folder)"]')).click();
     };
 
-    this.getFavorites = function ( ) {
+    this.getToShared = function () {
+        element(by.css('[ui-sref="shared"]')).click();
+    };
+    
+    this.getShared = function () {
+        return element.all(by.repeater('folder in shared.folders'))
+    };
+
+    this.getFavorites = function () {
         return element.all(by.repeater('fast in user.fasts'));
     };
 };

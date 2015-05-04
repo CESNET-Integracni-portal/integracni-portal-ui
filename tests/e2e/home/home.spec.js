@@ -46,13 +46,21 @@ describe('integracni-portal - homepage', function () {
 
     // pin, unpin
     it('should pin folder to favorites', function () {
+        var count = home.getFavorites();
         home.favoriteFolder();
-        expect(home.getFavorites().count() > 0);
+        expect(home.getFavorites().count() > count);
     });
 
     it('should unpin folder from favorites', function () {
+        var count = home.getFavorites();
         home.favoriteFolder();
-        expect(home.getFavorites().count() === 0);
+        expect(home.getFavorites().count() === count - 1);
+    });
+    
+    // get shared
+    it('should open shared folders and files', function () {
+       home.getToShared();
+       expect(home.getShared().count() > 0);
     });
 
     // logout
