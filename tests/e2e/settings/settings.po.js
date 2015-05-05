@@ -27,19 +27,19 @@ var Settings = function () {
         element(by.css('[mac-modal="label"]')).click();
         element(by.model('label.name')).sendKeys(name);
         element.all(by.model('label.color')).get(color).click();
-        element(by.css('[type="submit"]'));
+        element(by.css('[type="submit"]')).click();
     };
 
     this.editLabel = function (name, color) {
-        element(by.css('ng-click="editLabel($index, label)"')).click();
+        element(by.css('[ng-click="editLabel($index, label)"]')).click();
         element(by.model('label.name')).clear();
         element(by.model('label.name')).sendKeys(name);
         element.all(by.model('label.color')).get(color).click();
-        element(by.css('[type="submit"]'));
+        element(by.css('[type="submit"]')).click();
     };
 
     this.deleteLabel = function () {
-        element(by.css('ng-click="deleteLabel($index)"')).click();
+        element(by.css('[ng-click="deleteLabel($index)"]')).click();
     };
 
     // groups
@@ -54,44 +54,44 @@ var Settings = function () {
     this.createGroup = function (name) {
         element(by.css('[mac-modal="group"]')).click();
         element(by.model('group.name')).sendKeys(name);
-        element(by.css('[type="submit"]')).click();
+        element(by.css('[value="Vytvořit skupinu"]')).click();
     };
 
     this.editGroup = function (name) {
         element(by.css('[ng-click="editGroup($index, group)"]')).click();
         element(by.model('group.name')).clear();
         element(by.model('group.name')).sendKeys(name);
-        element(by.css('[type="submit"]')).click();
+        element(by.css('[value="Vytvořit skupinu"]')).click();
     };
 
     this.deleteGroup = function () {
-        element(by.css('ng-click="deleteGroup($index)"')).click();
+        element(by.css('[ng-click="deleteGroup($index)"]')).click();
     };
 
     this.showMembers = function () {
         element(by.css('[mac-modal="members"]')).click();
     };
-    
+
     this.hideMembers = function () {
-        element(by.css('[mac-modal-close=""]')).click();
+        var parent = element(by.id('members'));
+        parent.element(by.css('[mac-modal-close=""]')).click();
     };
-    
+
     this.getMembers = function () {
         return element.all(by.repeater('user in group.users'));
     };
 
     this.addMember = function (member) {
         element(by.model('group.member')).sendKeys(member);
-        element(by.css('[type="submit"]')).click();
+        element(by.css('[value="Přidat člena"]')).click();
     };
 
     this.deleteMember = function () {
-        element(by.css('[mac-modal="members"]')).click();
         element(by.css('[ng-click="deleteMember(user, group)"]')).click();
     };
 
     this.getToPassword = function () {
-        element(by.css('[ng-click="tab.setTab(6)"]')).click();
+        element(by.css('[ng-click="tab.setTab(5)"]')).click();
     };
 };
 module.exports = Settings;

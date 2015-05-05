@@ -9,5 +9,8 @@ exports.config = {
     },
     capabilities: {
         browserName: 'firefox'
+    },
+    onPrepare: function () {
+        browser.driver.manage().window().setSize(1024, 768);
     }
 };

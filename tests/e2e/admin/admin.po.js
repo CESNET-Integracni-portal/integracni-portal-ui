@@ -28,7 +28,7 @@ var Admin = function () {
         element(by.model('unit.name')).sendKeys(name);
         element(by.model('unit.quota')).sendKeys(quota);
         element(by.model('unit.admins')).sendKeys(admins);
-        element(by.css('[type="submit"]')).click();
+        element(by.css('[value="Uložit"]')).click();
     };
 
     this.editUnit = function (name, quota, admins) {
@@ -42,7 +42,7 @@ var Admin = function () {
         vquota.sendKeys(quota);
         vadmins.clear();
         vadmins.sendKeys(admins);
-        element(by.css('[type="submit"]')).click();
+        element(by.css('[value="Uložit"]')).click();
     };
 
     this.deleteUnit = function () {
@@ -53,6 +53,7 @@ var Admin = function () {
     this.getToExternists = function () {
         element(by.css('[ng-click="tab.setTab(4)"]')).click();
     };
+
     this.getExternists = function () {
         return element.all(by.repeater('external in externists'));
     };
@@ -64,7 +65,7 @@ var Admin = function () {
         element(by.model('external.quota')).sendKeys(quota);
         element(by.model('external.unit')).sendKeys(unit);
         element(by.model('external.onuser')).sendKeys(onuser);
-        element(by.css('[type="submit"]')).click();
+        element(by.css('[value="Registrovat externistu"]')).click();
     };
 
     this.editExternist = function (name, email, quota, unit, onuser) {
@@ -84,7 +85,7 @@ var Admin = function () {
         vunit.sendKeys(unit);
         vonuser.clear();
         vonuser.sendKeys(onuser);
-        element(by.css('[type="submit"]')).click();
+        element(by.css('[value="Registrovat externistu"]')).click();
     };
 
     this.deleteExternist = function () {

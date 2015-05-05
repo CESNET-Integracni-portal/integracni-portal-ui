@@ -18,24 +18,26 @@ describe('integracni-portal - admin', function () {
     });
 
     it('should load org units', function () {
+        admin.getToExternists();
+        admin.getToUnits();
         expect(admin.getUnits().count() > 0);
     });
 
     it('should create orgunit', function () {
-        var count = admin.getUnits().count();
+        var units = admin.getUnits();
         admin.createUnit('newUnit', 34, 'email@gege.com');
-        expect(admin.getUnits.count() === count + 1);
+        expect(admin.getUnits.count() === units.count() + 1);
     });
 
     it('should edit orgunit', function () {
         admin.editUnit('editted', 1, 'gege@gegw.gew');
-        expect(admin.getUnits().row(0).getText()).toContain('editted', 'gege@gegw.gew');
+        expect(admin.getUnits().first().getText()).toContain('editted', 'gege@gegw.gew');
     });
 
     it('should delete orgunit', function () {
-        var count = admin.getUnits();
+        var units = admin.getUnits();
         admin.deleteUnit();
-        expect(admin.getUnits().count() === count - 1);
+        expect(admin.getUnits().count() === units.count() - 1);
     });
 
     // externists
@@ -45,20 +47,20 @@ describe('integracni-portal - admin', function () {
     });
 
     it('should create externist', function () {
-        var count = admin.getExternists().count();
+        var exts = admin.getExternists();
         admin.createExternist('newUser', 'email@gege.com', 32, 'testunit', 'onuser@gre.hre');
-        expect(admin.getExternists.count() === count + 1);
+        expect(admin.getExternists.count() === exts.count() + 1);
     });
 
     it('should edit externist', function () {
         admin.editExternist('edittedUser', 'email@gegewge.com', 52, 'testunit2', 'onuser2@gre.hre');
-        expect(admin.getExternists().row(0).getText()).toContain('edittedUser', 'email@gegewge.com');
+        expect(admin.getExternists().first().getText()).toContain('edittedUser', 'email@gegewge.com');
     });
 
     it('should delete externist', function () {
-        var count = admin.getExternists();
+        var exts = admin.getExternists();
         admin.deleteExternist();
-        expect(admin.getExternists().count() === count - 1);
+        expect(admin.getExternists().count() === exts.count() - 1);
     });
 
     // back to units

@@ -14,12 +14,12 @@ describe('integracni-portal - settings', function () {
 
     it('should show personal settings page', function () {
         stgs.getToSettings();
+        expect(browser.getCurrentUrl()).toContain('settings');
     });
 
     // pw
     it('should show password change page', function () {
         stgs.getToPassword();
-        // TODO
         expect(true);
     });
 
@@ -48,7 +48,7 @@ describe('integracni-portal - settings', function () {
     });
 
     // groups
-    it('should get groups', function () {
+    it('should get to groups', function () {
         stgs.getToGroups();
         expect(stgs.getGroups().count() > 0);
     });
@@ -69,8 +69,10 @@ describe('integracni-portal - settings', function () {
         stgs.showMembers();
         var count = stgs.getMembers().count();
         stgs.addMember('pepa@gege.com');
-        expect(stgs.getMembers().count() === count + 1);
-        expect(stgs.getMembers().last().getText()).toContain('pepa@gege.com');
+        var newcount = stgs.getMembers().count();
+        var m = stgs.getMembers().last().getText();
+        expect(newcount === count + 1);
+        expect(m).toContain('pepa@gege.com');
         stgs.hideMembers();
     });
 
@@ -78,7 +80,8 @@ describe('integracni-portal - settings', function () {
         stgs.showMembers();
         var count = stgs.getMembers().count();
         stgs.deleteMember();
-        expect(stgs.getMembers().count() === count - 1);
+        var newcount = stgs.getMembers().count();
+        expect(newcount === count - 1);
         stgs.hideMembers();
     });
 
