@@ -8,7 +8,7 @@
         var unitId = $scope.user.unitId;
         // Ready for API v0.2
         //userService.getExternistsForUnit(unitId).success(function(data){
-        $scope.externists = userService.getExternistsForUnit(unitId);
+        $scope.user.externists = userService.getExternistsForUnit(unitId);
         //});
         //userService.getAll().success(function(data){
         $scope.users = userService.getAll();
@@ -26,7 +26,7 @@
                 // Ready for API v0.2
                 // userService.createUser(externist).success(function(data){
                 var createdUser = userService.createUser(externist);
-                $scope.externists.push(angular.copy(createdUser));
+                $scope.user.externists.push(angular.copy(createdUser));
                 that.reset();
                 //});
             } else {
@@ -34,7 +34,7 @@
                 // Ready for API v0.2
                 //userService.updateUser(externist.id, externist).success(function (data) {
                 var updatedUser = userService.updateUser(externist.id, externist);
-                $scope.externists[$scope.index] = angular.copy(updatedUser);
+                $scope.user.externists[$scope.index] = angular.copy(updatedUser);
                 that.reset();
                 //});
             }
@@ -43,7 +43,7 @@
         $scope.deleteUser = function (index) {
             // Ready for API v0.2
             //userService.deleteUser(index).success(function (data) {
-                $scope.externists.splice(index, 1);
+                $scope.user.externists.splice(index, 1);
             //});
         };
 

@@ -7,7 +7,7 @@
         //unitService.getAll().success(function(data){
         //    $scope.units = data;
         //});
-        $scope.units = unitService.getAll();
+        $scope.user.units = unitService.getAll();
         //userService.getAll().success(function (data) {
         //    $scope.users = data;
         //});
@@ -21,7 +21,7 @@
                 // unitService.createUnit(unit).success(function (data) {
                 // var createdUnit = data;
                 var createdUnit = unit;
-                $scope.units.push(angular.copy(createdUnit));
+                $scope.user.units.push(angular.copy(createdUnit));
                 that.reset();
                 //});
             } else {
@@ -37,7 +37,7 @@
                 if (unit.admins !== $scope.oldunit.admins) {
                     unitService.assignAdmins(unit.id, unit.admins);
                 }
-                $scope.units[$scope.index] = angular.copy(unit);
+                $scope.user.units[$scope.index] = angular.copy(unit);
                 that.reset();
             }
         };
@@ -45,7 +45,7 @@
         $scope.deleteUnit = function (index) {
             // Ready for API v0.2
             //unitService.deleteUnit(index).success(function (data) {
-            $scope.units.splice(index, 1);
+            $scope.user.units.splice(index, 1);
             //});
         };
 

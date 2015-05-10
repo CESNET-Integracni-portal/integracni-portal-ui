@@ -20,7 +20,7 @@ describe('integracni-portal - admin', function () {
     it('should load org units', function () {
         admin.getToExternists();
         admin.getToUnits();
-        expect(admin.getUnits().count() > 0);
+        expect(admin.getUnits().get(0)).toBe('grehre');
     });
 
     it('should create orgunit', function () {
@@ -40,34 +40,34 @@ describe('integracni-portal - admin', function () {
         expect(admin.getUnits().count() === units.count() - 1);
     });
 
-    // externists
-    it('should go to externists', function () {
-        admin.getToExternists();
-        expect(admin.getExternists().count() > 0);
-    });
-
-    it('should create externist', function () {
-        var exts = admin.getExternists();
-        admin.createExternist('newUser', 'email@gege.com', 32, 'testunit', 'onuser@gre.hre');
-        expect(admin.getExternists.count() === exts.count() + 1);
-    });
-
-    it('should edit externist', function () {
-        admin.editExternist('edittedUser', 'email@gegewge.com', 52, 'testunit2', 'onuser2@gre.hre');
-        expect(admin.getExternists().first().getText()).toContain('edittedUser', 'email@gegewge.com');
-    });
-
-    it('should delete externist', function () {
-        var exts = admin.getExternists();
-        admin.deleteExternist();
-        expect(admin.getExternists().count() === exts.count() - 1);
-    });
-
-    // back to units
-    it('should go to orgunits', function () {
-        admin.getToUnits();
-        expect(admin.getUnits().count() > 0);
-    });
+//    // externists
+//    it('should go to externists', function () {
+//        admin.getToExternists();
+//        expect(admin.getExternists().count() > 0);
+//    });
+//
+//    it('should create externist', function () {
+//        var exts = admin.getExternists();
+//        admin.createExternist('newUser', 'email@gege.com', 32, 'testunit', 'onuser@gre.hre');
+//        expect(admin.getExternists.count() === exts.count() + 1);
+//    });
+//
+//    it('should edit externist', function () {
+//        admin.editExternist('edittedUser', 'email@gegewge.com', 52, 'testunit2', 'onuser2@gre.hre');
+//        expect(admin.getExternists().first().getText()).toContain('edittedUser', 'email@gegewge.com');
+//    });
+//
+//    it('should delete externist', function () {
+//        var exts = admin.getExternists();
+//        admin.deleteExternist();
+//        expect(admin.getExternists().count() === exts.count() - 1);
+//    });
+//
+//    // back to units
+//    it('should go to orgunits', function () {
+//        admin.getToUnits();
+//        expect(admin.getUnits().count() > 0);
+//    });
 });
 
 

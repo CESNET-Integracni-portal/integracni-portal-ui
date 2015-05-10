@@ -20,7 +20,7 @@ var Admin = function () {
     };
 
     this.getUnits = function () {
-        return element.all(by.repeater('unit in units'));
+        return element.all(by.repeater('unit in user.units'));
     };
 
     this.createUnit = function (name, quota, admins) {
@@ -55,7 +55,7 @@ var Admin = function () {
     };
 
     this.getExternists = function () {
-        return element.all(by.repeater('external in externists'));
+        return element.all(by.repeater('external in user.externists'));
     };
 
     this.createExternist = function (name, email, quota, unit, onuser) {
