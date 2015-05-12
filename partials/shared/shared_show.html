@@ -13,7 +13,8 @@
         </thead>
         <tbody>
             <tr ng-repeat="folder in shared.folders| filter:search">
-                <td><a ui-sref="sharedIterate({folderId:folder.id})"><i class="folder outline icon"></i> <span>{{folder.name}}</span></a>
+                <td><a ng-show="folder.perm.indexOf('r') !== -1" ui-sref="sharedIterate({folderId:folder.id})"><i class="folder outline icon"></i><span>{{folder.name}}</span></a>
+                    <span ng-show="folder.perm.indexOf('r') === -1"><i class="folder outline icon"></i>{{folder.name}}</span>
                     <a class="item" ng-repeat="label in folder.labels" ui-sref="labels({labelId:label.id})"><i class="bookmark {{label.color}} basic icon"></i></a>
                 </td>
                 <td>{{folder.owner}}</td>
@@ -26,8 +27,7 @@
                 </td>
             </tr>
             <tr ng-repeat="file in shared.files| filter:search">
-                <td><i class="file outline icon"></i>
-                    <span>{{file.filename}}</span>
+                <td><i class="file outline icon"></i><span>{{file.filename}}</span>
                 </td>
                 <td>{{file.owner}}</td>
                 <td>{{file.filesize}} kB</td>

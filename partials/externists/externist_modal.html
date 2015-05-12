@@ -4,6 +4,7 @@
         <form name="form" class="ui small form" ng-submit="saveExternists(externist)" novalidate>
             <div class="field">
                 <label>Uživatelské jméno externisty</label>
+                <input name="username" type="text" ng-model="externist.username" ng-pattern='/^[a-zA-Zа-яА-Я0-9_!+]+$/' required/>
                 <div ng-show="form.username.$touched">
                     <span ng-show="form.username.$error.required"><i class="warning icon"></i>Vyplňte uživatelské jméno.</span>
                     <span ng-show="form.username.$error.pattern"><i class="warning icon"></i>Uživatelské jméno obsahuje nepovolené znaky.</span>

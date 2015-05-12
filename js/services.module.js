@@ -327,13 +327,15 @@
             getAll: function (spaceId, labels) {
                 // Ready for API v0.2
                 if (labels.length === 0) {
-                    return httpService.createRequest("GET", baseUrl + 'space/' + spaceId, {}, "application/json");
+                    return httpService.createRequest("GET", baseUrl + 'space/' 
+                            + spaceId, {}, "application/json");
                 } else {
                     var lbls = "" + labels[0];
                     for (i = 1; i < labels.length; i++) {
                         lbls = lbls + "," + labels[i];
                     }
-                    return httpService.createRequest("GET", baseUrl + 'space/' + spaceId + '?labels=' + lbls, {}, "application/json");
+                    return httpService.createRequest("GET", baseUrl + 'space/' 
+                            + spaceId + '?labels=' + lbls, {}, "application/json");
                 }
             },
             // FOLDERS
@@ -1046,7 +1048,7 @@
                 "id": "12",
                 "name": "prace",
                 "owner": 2,
-                "perm": ["d", "e"],
+                "perm": ["d", "e", "r"],
                 "labels": [{
                         id: 1,
                         name: "Critical",
@@ -1075,7 +1077,7 @@
                 "id": "14",
                 "name": "hobby",
                 "owner": 3,
-                "perm": ["d"],
+                "perm": ["d","r"],
                 "labels": [],
                 "status": "online",
                 "createdOn": "2014-12-31T13:05+0100",

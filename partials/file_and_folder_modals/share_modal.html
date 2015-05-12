@@ -10,9 +10,9 @@
                 <span ng-show="form.sharer.$error.pattern"><i class="warning icon"></i>Vyplňte validní email uživatele.</span>
             </div>
             <br/>
-            
             <table>
-                <thead><tr><td>Oprávnění</h4</td></tr></thead>
+                <thead><tr><th>Oprávnění</th></tr></thead>
+                <tr><td><input name="download" value="Read" type="checkbox" checklist-model="sharer.permissions" checklist-value="'r'"/><label for="read">Read</label></td></tr>
                 <tr><td><input name="edit" value="Edit" type="checkbox" checklist-model="sharer.permissions" checklist-value="'e'"/><label for="edit">Edit</label></td></tr>
                 <tr><td><input name="download" value="Download" type="checkbox" checklist-model="sharer.permissions" checklist-value="'d'"/><label for="download">Download</label></td></tr>
             </table>

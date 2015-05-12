@@ -25,8 +25,10 @@
         $scope.submitLogin = function (user, psw) {
             oauthService.loginWithPass(user, psw).success(function () {
                 assignCurrentUser();
+                psw = "";
             }).error(function (data, status, headers, config) {
                 handleError(data, status, headers, config);
+                psw = "";
                 oauthService.login();
             });
         };
