@@ -7,9 +7,11 @@ exports.config = {
         admin: './admin/admin.spec.js',
         settings: './settings/settings.spec.js'
     },
-    capabilities: {
-        browserName: 'firefox'
-    },
+    multiCapabilities: [{
+            browserName: 'firefox'
+        }, {
+            browserName: 'chrome'
+        }],
     onPrepare: function () {
         browser.driver.manage().window().setSize(1024, 768);
     }
