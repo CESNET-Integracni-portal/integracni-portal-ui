@@ -1,0 +1,273 @@
+//@import "_layout.scss";
+@import "_bootstrap.scss";
+
+/*******************************
+            Global
+*******************************/
+
+html, body {
+	font-size: 15px;
+	height: 100%;
+}
+
+body {
+	font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	background: #FFFFFF;
+	margin: 0;
+	padding: 0;
+	color: #555555;
+	text-rendering: optimizeLegibility;
+	min-width: 320px;
+}
+
+a.action {
+	cursor: pointer;
+}
+
+/*******************************
+            Global
+*******************************/
+
+.center {
+	margin: 0 0 auto;
+}
+
+/*-------------------
+        Layout
+--------------------*/
+
+.left-menu {
+	width: 250px;
+	float: left;
+	padding: 10px
+}
+
+.main {
+	position: absolute;
+	top: 70px;
+	left: 250px;
+	bottom: 0;
+	right: 0;
+
+	> .container-fluid {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+	}
+}
+
+.selected, .selected td {
+	background-color: #fff97d !important;
+}
+
+.selecting, .selecting td {
+	background-color: #cccdff !important;
+}
+
+.select-helper {
+	position: absolute;
+	border: 1px dashed blue;
+	background: #5d59ff;
+	opacity: 0.2;
+}
+
+/*-------------------
+     Upload view
+--------------------*/
+
+.upload-view {
+	width: 400px;
+	height: 350px;
+	position: fixed;
+	bottom: 0;
+	right: 20px;
+
+	.modal-header {
+		cursor: pointer;
+	}
+
+	table {
+		margin-bottom: 0;
+	}
+
+	table.header th:last-child, .scroll-container td:last-child {
+		width: 150px;
+	}
+	.scroll-container {
+		overflow-y: auto;
+		max-height: 280px;
+	}
+
+	.modal-header {
+		padding: 0 15px;
+	}
+	.modal-body {
+		padding: 0;
+	}
+	.progress {
+		margin-bottom: 0;
+	}
+}
+
+/*-------------------
+        Breadcrumb
+--------------------*/
+.breadcrumb {
+	padding-left: 0.5em;
+}
+
+.breadcrumb a {
+	text-decoration: none;
+}
+
+.breadcrumb .action i {
+	margin: 0;
+}
+
+/*-------------------
+       Inbox
+--------------------*/
+
+#feed .inbox.tab {
+	background-color: #FFFFFF;
+}
+
+#feed .inbox.tab .item {
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+#feed .inbox.tab .item .rating {
+	margin-top: 0.2rem;
+}
+
+#feed .inbox.tab .item .description {
+	margin-left: 2em;
+}
+
+#feed .page {
+	float: right;
+	margin-top: 0.9em;
+}
+
+#feed .middle.column {
+	padding: 1em 2em;
+}
+
+#feed .middle.column h2 {
+	margin-top: 0em;
+}
+
+/*rtl:ignore*/
+#feed .right.column {
+	padding: 1em 2em;
+	background-color: #FAFAFA;
+}
+
+/*-------------------
+       Login
+--------------------*/
+
+.login-content {
+	position: fixed;
+	background: white;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 10000;
+	padding: 30px;
+	padding-top: 100px;
+}
+
+.modal .fileupload-drop {
+	height: 100px;
+	cursor: pointer;
+	border: 10px solid #EEE;
+}
+
+.modal .fileupload-drop.dragover {
+	border: 10px solid #80afee;
+}
+
+/*******************************
+          Responsive
+*******************************/
+
+/* Mobile Only */
+
+@media only screen and (max-width: 768px) {
+	.ui.page.grid.segment {
+		padding-top: 2rem;
+		padding-bottom: 2rem;
+	}
+	/*rtl:ignore*/
+	.menu .right.menu > .item {
+		display: none;
+	}
+	/*rtl:ignore*/
+	.menu .right.menu > .mobile.item {
+		display: block;
+	}
+
+	h1.ui.header {
+		font-size: 1.5em;
+	}
+
+	.masthead.segment {
+		background-size: auto;
+	}
+
+	.masthead.segment .information {
+		margin-left: 190px;
+	}
+
+	.masthead.segment .image {
+		bottom: -65px;
+		width: 150px;
+	}
+
+	.masthead.segment .button {
+		font-size: 1rem;
+	}
+
+	.overview .divided.grid .header .icon {
+		font-size: 1.5em;
+	}
+
+	.overview .divided.grid .header + p {
+		min-height: 0px;
+	}
+
+	.masthead.segment .column {
+		font-size: 0.7rem;
+	}
+
+	.masthead.segment .column p {
+		display: none;
+	}
+	/*rtl:ignore*/
+	.selection.list .right.floated {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 1000px) {
+
+}
+
+/*******************************
+          div
+*******************************/
+
+.divider {
+	height: 1px;
+	margin: 9px 0;
+	overflow: hidden;
+	background-color: #e5e5e5;
+}
+
+// Different media resolutions are at the end of the file to override all default settings
+@import "_media.scss";

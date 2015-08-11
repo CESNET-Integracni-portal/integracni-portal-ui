@@ -1,0 +1,15 @@
+<div class="modal-header">
+	<h3 class="modal-title">Přejmenovat</h3>
+</div>
+<div class="modal-body">
+	<form>
+		<div class="form-group">
+			<label>Nový název</label>
+			<input type="text" ng-model="vm.name" class="form-control"/>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-success" ng-click="vm.ok()">Vytvořit</button>
+	<button class="btn" ng-click="vm.cancel()">Storno</button>
+</div>

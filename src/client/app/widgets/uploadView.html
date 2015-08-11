@@ -1,0 +1,29 @@
+<div class="upload-view modal-content" ng-style="{ bottom: vm.opened ? '0' : '-315px'}">
+	<div class="modal-header" ng-class="{dropup: !vm.opened}" ng-click="vm.opened = !vm.opened">
+		<span class="caret pull-right"></span>
+		<h5>Nahrané soubory</h5>
+	</div>
+	<div class="modal-body">
+		<table class="header table table-condensed">
+			<tr>
+				<th>Soubor</th>
+				<th>Stav nahrávání</th>
+			</tr>
+		</table>
+		<div class="scroll-container">
+			<table class="table table-condensed">
+				<tr ng-repeat="upload in vm.files">
+					<td>{{upload.file.name}}</td>
+					<td>
+						<progressbar class="progress-striped"
+									 ng-class="{'progress-striped': !upload.done, active: !upload.done}"
+									 value="upload.percents"
+									 type="warning">
+							<i>{{upload.percents}} %</i>
+						</progressbar>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>

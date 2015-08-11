@@ -1,0 +1,19 @@
+<div class="modal-header">
+	<h3 class="modal-title">Přejmenovat skupinu</h3>
+</div>
+<div class="modal-body">
+	<form>
+		<div class="form-group">
+			<label>Název skupiny</label>
+			<input type="text" class="form-control" name="name" ng-model="vm.groupName" ng-pattern="/^[a-zA-Zа-яА-Я0-9_ ]+$/" required>
+			<div ng-show="form.name.$touched">
+				<span ng-show="form.name.$error.required"><i class="warning icon"></i>Vyplňte název skupiny.</span>
+				<span ng-show="form.name.$error.pattern"><i class="warning icon"></i>Název obsahuje nepovolené znaky.</span>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-success" ng-click="vm.ok()">Přejmenovat</button>
+	<button class="btn" ng-click="vm.cancel()">Storno</button>
+</div>

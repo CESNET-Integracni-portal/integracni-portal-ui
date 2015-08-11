@@ -1,0 +1,76 @@
+<div class="clear"></div>
+<div class="divider"></div>
+
+<div ng-show="table">
+    <table class="ui basic table compact">
+        <thead>
+            <tr>
+                <th>Název</th>
+                <th>Vlastník</th>
+                <th>Velikost</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="folder in shared.folders| filter:search">
+                <td><a ui-sref="sharedIterate({folderId:folder.id})"><i class="folder outline icon"></i> <span>{{folder.name}}</span></a>
+                    <a class="item" ng-repeat="label in folder.labels" ui-sref="labels({labelId:label.id})"><i class="bookmark {{label.color}} basic icon"></i></a>
+                </td>
+                <td>{{folder.owner}}</td>
+                <td>-</td>
+                <td class="actions">
+                    <a class="action" ng-hide="folder.status === 'offline'" ng-click="favoriteFolder(folder)"><i class="blue pin icon"></i></a>
+                    <a class="action" ng-hide="folder.perm.indexOf('e') === -1" mac-modal="folder" ng-click="editFolder(folder.id)"><i class="edit icon"></i></a>
+                    <a class="action" ng-hide="folder.status === 'offline' || folder.perm.indexOf('d') === -1" ng-click="downloadFolder(folder)"><i class="download disk icon"></i></a>
+                    <a ng-show="folder.owner === user.email" class="action" ng-click="removeFolderFromShared(folder)"><i class="trash icon"></i></a>
+                </td>
+            </tr>
+            <tr ng-repeat="file in shared.files| filter:search">
+                <td><i class="file outline icon"></i>
+                    <span>{{file.filename}}</span>
+                </td>
+                <td>{{file.owner}}</td>
+                <td>{{file.filesize}} kB</td>
+                <td class="actions">
+                    <a class="action" ng-hide="file.perm.indexOf('d') === -1" ng-click="downloadFile(file.id)"><i class="download disk icon"></i></a>
+                    <a class="action" ng-click="removeFileFromShared(file.id)"><i class="trash icon"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div ng-hide="table">
+
+    <div class="ui items">
+        <div class="item" ng-repeat="folder in shared.folders">
+            <i class=" massive folder outline icon"></i>
+            <div class="content">
+                <a class="name center" ui-sref="sharedIterate({folderId:folder.id})">{{folder.name}}</a>
+                <p>Vlastník: {{folder.owner}} </p>
+                <div class="actions">
+                    <a class="action" ng-click="favoriteFolder(folder)"><i class="blue pin icon"></i></a>
+                    <a class="action" mac-modal="folder" ng-click="editFolder(folder.id)"><i class="edit icon"></i></a>
+                    <a class="action" ng-click="downloadFolder(folder.id)"><i class="download disk icon"></i></a>
+                    <a class="action" ng-click="deleteFolder(folder.id)"><i class="trash icon"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="item" ng-repeat="file in shared.files" >
+            <i class="massive file outline icon"></i>
+            <div class="content">
+                <a class="name center" ui-sref="sharedIterate({folderId:folder.id})">{{file.filename}}</a>
+                <p>Velikost: {{file.filesize}} </p>
+                <p>Vlastník: {{file.owner}} </p>
+                <div class="actions">
+                    <a class="action" ng-click="downloadFile(file)"><i class="download disk icon"></i></a>
+                    <a class="action" mac-modal="edit" ng-click="editFile(file)"><i class="edit icon"></i></a>
+                    <a class="action" ng-click="deleteFolder(folder.id)"><i class="trash icon"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p ng-show="empty()" class="animate-if">
+    Složka je prázdná.
+</p>

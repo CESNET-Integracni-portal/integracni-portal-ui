@@ -1,0 +1,41 @@
+<ol class="breadcrumb">
+	<li><a ui-sref="space.root"><i class="glyphicon glyphicon-home"></i></a></li>
+	<li ng-if="vm.folder.breadcrumbs.length >= 8">...</li>
+	<li ng-if="vm.folder.breadcrumbs.length >= 8"><a ui-sref="space.folder({folderId: vm.folder.breadcrumbs[vm.folder.breadcrumbs.length - 1].id})">{{vm.folder.breadcrumbs[vm.folder.breadcrumbs.length - 1].name}}</a></li>
+    <li ng-repeat="breadcrumb in vm.folder.breadcrumbs" ng-if="vm.folder.breadcrumbs.length < 8"><a ui-sref="space.folder({folderId: breadcrumb.id})">{{breadcrumb.name}}</a></li>
+	<li ng-if="vm.folder.id">{{vm.folder.name}}</li>
+</ol>
+<ul class="nav nav-pills">
+	<li role="presentation" class="dropdown" data-dropdown ng-if="!vm.isLabelView">
+		<a class="dropdown-toggle" data-dropdown-toggle href="#" role="button" aria-haspopup="true" aria-expanded="false">
+			<i class="glyphicon glyphicon-plus"></i> <span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<li><a href ng-click="vm.openCreateFolderModal()">Vytvořit složku</a></li>
+			<li><a href ng-click="vm.openUploadFilesModal()">Přidat soubor(y)</a></li>
+		</ul>
+	</li>
+	<li role="presentation" ng-if="vm.selectedNodes.length == 1">
+		<a href ng-click="vm.openRenameModal()"><i class="glyphicon glyphicon-pencil"></i> Přejmenovat</a>
+	</li>
+	<li role="presentation" ng-if="vm.selectedNodes.length > 0">
+		<a href ng-click="vm.download()"><i class="glyphicon glyphicon-download"></i> Stáhnout</a>
+	</li>
+	<li role="presentation" ng-if="vm.selectedNodes.length > 0">
+		<a href ng-click="vm.delete()"><i class="glyphicon glyphicon-trash"></i> Smazat</a>
+	</li>
+	<li role="presentation" class="dropdown" ng-if="vm.selectedNodes.length > 0" data-dropdown>
+		<a class="dropdown-toggle" data-dropdown-toggle href="#" role="button" aria-haspopup="true" aria-expanded="false">
+			<i class="glyphicon glyphicon-option-vertical"></i> <span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<li><a href ng-click="vm.toggleFavorite()"><i class="glyphicon glyphicon-star"></i> Přidat do oblíbených</a></li>
+			<li role="separator" class="divider"></li>
+			<li ng-repeat="label in vm.userLabels"><a href ng-click="vm.toggleLabel(label)" ng-class="{active: vm.hasLabel(label)}"><i class="glyphicon glyphicon-tag text-{{label.color}}"></i> {{label.name}}</a></li>
+		</ul>
+	</li>
+</ul>
+
+<div ng-include="'app/space/folder.view.html'"></div>
+
+<div upload-view></div>

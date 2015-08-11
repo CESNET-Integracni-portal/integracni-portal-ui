@@ -1,0 +1,41 @@
+<div data-ngf-drop
+	 ng-model="vm.filesToUpload"
+	 class="drop-box"
+	 data-ngf-drag-over-class="dragover"
+	 data-ngf-multiple="true"
+	 data-ngf-allow-dir="true"
+	 data-ngf-change="vm.uploadFiles($files, $event)">
+
+	<table class="ui basic table compact" data-multiple-selection-zone data-model="vm.selectedNodes">
+		<thead>
+			<tr>
+				<th>Název</th>
+				<th>Sdílení</th>
+				<th>Velikost</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="folder in vm.folder.folders | filter:search" data-multiple-selection-item data-value="folder" ng-class="{selected: isSelected, selecting: isSelecting}">
+				<td>
+					<i class="glyphicon glyphicon-folder-open"></i>&nbsp;
+					<a ui-sref="space.folder({folderId: folder.id})"><span>{{folder.name}}</span></a>
+					<span ng-repeat="label in folder.labels" node-label data="label"></span>
+				</td>
+				<td>-</td>
+				<td>-</td>
+			</tr>
+			<tr ng-repeat="file in vm.folder.files | filter:search" data-multiple-selection-item data-value="file" ng-class="{selected: isSelected, selecting: isSelecting}">
+				<td>
+					<span>{{file.filename}}</span>
+					<span ng-repeat="label in file.labels" node-label data="label"></span>
+				</td>
+				<td>-</td>
+				<td>{{file.filesize | bytes}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p ng-show="vm.empty()" class="animate-if">
+	Složka je prázdná.
+</p>

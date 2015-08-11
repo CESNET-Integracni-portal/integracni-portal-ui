@@ -1,0 +1,17 @@
+<div class="ui breadcrumb">
+    <a ui-sref="index" class="section"><i class="users icon"></i> </a>
+    <a ng-show="shared.breadcrumbs.length >= 8" ui-sref="sharedIterate({folderId:shared.breadcrumbs[shared.breadcrumbs.length - 1].id})" class="margin-right-xs">/ . . . </a>/
+    <span ng-repeat="breadcrumb in shared.breadcrumbs" ng-if="shared.breadcrumbs.length < 8">
+        <a ui-sref="sharedIterate({folderId:breadcrumb.id})" class="margin-right-xs">{{breadcrumb.name}}</a> / 
+    </span>
+    <h2 class="section">{{shared.name}}</h2>
+    <a class="action" mac-modal="folder"><i class="blue add sign icon"></i></a>
+    <a class="section" ng-hide="shared.perm.indexOf('d') === -1" ng-click="downloadFolder(shared.id)"><i class="blue download disk icon"></i></a>
+</div>
+
+<div class="tiny ui icon buttons right">
+    <div class="ui button" ng-class="{ 'active':table }"  ng-click="showAsTable()"><i class="list layout icon"></i></div>
+    <div class="ui button" ng-class="{ 'active':!table }" ng-click="showAsItems()"><i class="grid layout icon"></i></div>
+</div>
+
+<div ng-include="'app/space/shared.html'"></div>

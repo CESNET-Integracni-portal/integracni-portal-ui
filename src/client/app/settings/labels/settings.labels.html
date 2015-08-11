@@ -1,0 +1,25 @@
+<ul class="nav nav-pills">
+	<li role="presentation">
+		<a href ng-click="vm.createLabel()"><i class="glyphicon glyphicon-plus"></i> Přidat</a>
+	</li>
+	<li role="presentation">
+		<a href ng-click="vm.editLabel()" ng-if="vm.selectedLabels.length == 1"><i class="glyphicon glyphicon-pencil"></i> Upravit</a>
+	</li>
+	<li role="presentation">
+		<a href ng-click="vm.deleteLabels()" ng-if="vm.selectedLabels.length > 0"><i class="glyphicon glyphicon-trash"></i> Smazat</a>
+	</li>
+</ul>
+
+<table class="table" data-multiple-selection-zone data-model="vm.selectedLabels">
+	<thead>
+		<tr>
+			<th>Štítek</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="label in vm.labels" data-multiple-selection-item data-value="label" class="lead" ng-class="{selected: isSelected, selecting: isSelecting}">
+			<td><node-label data="label"></node-label></td>
+		</tr>
+	</tbody>
+</table>
+

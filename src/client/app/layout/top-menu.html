@@ -1,0 +1,30 @@
+<nav class="navbar navbar-inverse navbar-default navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href ui-sref="index">Integrační portál</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a ui-sref="index" class="item"><i class="glyphicon glyphicon-home"></i> Domů</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li ng-show="user.permissions.externists || user.permissions.units"><a id='admin' ui-sref="admin" class="item" >Administrace</a></li>
+				<li><a id='settings' ui-sref="settings" class="item">Nastavení</a></li>
+				<li class="dropdown" data-dropdown>
+					<a href class="dropdown-toggle" data-dropdown-toggle role="button" aria-haspopup="true" aria-expanded="false">{{user.username}} <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Využitý prostor: {{user.stats.spaceleft}}GB / {{user.quota}}GB</a></li>
+						<li><a class="item" ui-sref="admin">Admin</a></li>
+						<li><a class="item" ui-sref="settings">Osobní nastavení</a></li>
+						<li><a class="item" ui-sref="tutorials">Nápověda</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a class="item" ng-click="logout()"> <i class="icon sign out"></i> Odhlásit </a></li>
+					</ul>
+				</li>
+				<li><a href id='lgout' ng-click="logout()" class="item">Odhlásit</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>

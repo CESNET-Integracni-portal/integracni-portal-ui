@@ -1,0 +1,10 @@
+plugins:
+  - angular
+
+rules:
+  quotes:
+    - 2
+    - 'single'
+
+globals:
+  angular: true

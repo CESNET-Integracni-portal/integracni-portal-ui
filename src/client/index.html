@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="cz" ng-app="app.module" ng-controller="MainController as mainCtrl">
+<head>
+    <style>
+        .ng-hide { display: none!important; }
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="author" content="Kateřina Hašlarová, Jiří Blažek, Radek Ježdík">
+    <title>Integrační portál</title>
+    <link rel="shortcut icon" href="favicon.ico" >
+
+    <!-- build:css styles/css/lib.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css styles/css/app.css -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- endbuild -->
+
+    <base href="/">
+
+	<style>
+		body {
+			padding-top: 70px;
+		}
+	</style>
+</head>
+
+<body>
+
+
+<div ng-include="'app/layout/top-menu.html'"></div>
+<div ng-include="'app/layout/main.html'"></div>
+
+<!-- build:js js/lib.js -->
+<!-- bower:js -->
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:js js/app.js -->
+<!-- inject:js -->
+<!-- endinject -->
+
+<!-- inject:templates:js -->
+<!-- endinject -->
+<!-- endbuild -->
+
+</body>
+</html>

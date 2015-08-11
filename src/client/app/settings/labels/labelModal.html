@@ -1,0 +1,30 @@
+<div class="modal-header">
+	<h3 class="modal-title">{{vm.editing ? 'Upravit štítek' : 'Přidat štítek'}}</h3>
+</div>
+<div class="modal-body">
+	<form>
+		<div class="form-group">
+			<label>Název štítku</label>
+			<input type="text" class="form-control" name="name" ng-model="vm.label.name" required>
+			<div ng-show="form.name.$touched">
+				<span ng-show="form.name.$error.required"><i class="warning icon"></i>Vyplňte název štítku.</span>
+				<span ng-show="form.name.$error.pattern"><i class="warning icon"></i>Název obsahuje nepovolené znaky.</span>
+			</div>
+		</div>
+		<br/>
+
+		<div class="form-group">
+			<label>Barva</label>
+			<div ng-repeat="color in vm.colors" class="radio lead">
+				<label>
+					<input type="radio" value="{{color}}" ng-model="vm.label.color" style="display: none">
+					<span node-label data="{name: vm.label.name || '&lt;název&gt;', color: color}" ng-style="{border: color === vm.label.color ? '2px solid blue' : '0' }"></span>
+				</label>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-success" ng-click="vm.ok()">{{vm.editing ? 'Upravit' : 'Vytvořit'}}</button>
+	<button class="btn" ng-click="vm.cancel()">Storno</button>
+</div>

@@ -1,0 +1,11 @@
+<div class="ui breadcrumb">
+	<h2 class="section">Sdílené</h2>
+	<a class="section" ng-click="downloadFolder(shared.id)"><i class="blue download disk icon"></i></a>
+</div>
+
+<div class="tiny ui icon buttons right">
+	<div class="ui button" ng-class="{ 'active':table }"  ng-click="showAsTable()"><i class="list layout icon"></i></div>
+	<div class="ui button" ng-class="{ 'active':!table }" ng-click="showAsItems()"><i class="grid layout icon"></i></div>
+</div>
+
+<div ng-include="'app/space/shared_show.html'"></div>
