@@ -198,6 +198,17 @@
 						controllerAs: 'vm'
 					}
 				}
+			})
+
+			.state("settings.password", {
+				url: "/password",
+				views: {
+					'main@': {
+						templateUrl: 'app/settings/password/settings.password.html',
+						controller: 'pswCtrl',
+						controllerAs: 'vm'
+					}
+				}
 			});
 	}
 })();

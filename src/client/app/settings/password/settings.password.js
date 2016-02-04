@@ -6,31 +6,33 @@
         var that = this;
         $scope.message = null;
 
-        $scope.changePassword = /* @ngInject */ function (oldpw, newpw) {
+        $scope.changePassword = function ($oldpw, $newpw, $newpw2) {
             $scope.message = null;
-            userService.changePassword($scope.user.id, oldpw, newpw).success(function (data) {
+            userService.changePassword(userService.getLoggedUserId(), $oldpw, $newpw,$newpw2, 'application/json').success(function () {
                 // change was successfull
                 $scope.message = "Změna hesla proběhla úspěšně.";
-            }).error(function(data){
-                // error while changing pw
+            }).error(function(){
+                // change failed
                 $scope.message = "Nastala chyba při změně hesla.";
             });
             that.reset();
         };
 
-        this.reset = function () {
-            $scope.oldpw = "";
-            $scope.newpw = "";
-            $scope.newpw2 = "";
+        this.reset = function() {
+            $scope.oldPsw = "";
+            $scope.newPsw1 = "";
+            $scope.newPsw2 = "";
         };
-    });
 
-    // DIRECTIVE
-    pswmod.directive("setChangePass", /* @ngInject */ function () {
-        return {
-            restrict: 'E',
-            templateUrl: "app/settings/password/set-change-pass.html",
-            controller: 'pswCtrl'
+        $scope.checkPass2 = function(){
+            if($scope.newPsw1 != $scope.newPsw2){
+                $scope.newPsw2Error = "Hesla se neshodují.";
+                return(false);
+            }
+            else{
+                $scope.newPsw2Error = "";
+                return(true);
+            }
         };
     });
 })();

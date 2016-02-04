@@ -59,12 +59,14 @@
 			 * @param {int} userId - user identifier
 			 * @param {string} oldpassword - old user's password
 			 * @param {string} password - new user's password
+			 * @param {string} password2 - new password confirmations
 			 * @returns {unresolved}
 			 */
-			changePassword: function (userId, oldpassword, password) {
+			changePassword: function (userId, oldpassword, password, password2) {
 				return httpService.createRequest("POST", 'user/' + userId + '/passwordChange', {
-					oldpassword: oldpassword,
-					password: password
+					oldPassword: oldpassword,
+					password: password,
+					password2: password2
 				}, "application/json");
 			},
 			/**

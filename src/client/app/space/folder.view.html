@@ -12,6 +12,7 @@
 				<th>Název</th>
 				<th>Sdílení</th>
 				<th>Velikost</th>
+				<th>Úložiště</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -24,6 +25,13 @@
 				</td>
 				<td>-</td>
 				<td>-</td>
+				<td>
+					<div class="repositorySwitch">
+						<input id="{{folder.id}}" class="cmn-toggle cmn-toggle-yes-no" type="checkbox" name="folderRepositoryCheckBox"
+							   ng-model="folder.online" ng-change="changeFolderRepository(folder.id,folder.online)">
+						<label for="{{folder.id}}" data-on="Online" data-off="Offline"></label>
+					</div>
+				</td>
 			</tr>
 			<tr ng-repeat="file in vm.folder.files | filter:search" data-multiple-selection-item data-value="file" ng-class="{selected: isSelected, selecting: isSelecting}">
 				<td>
@@ -32,6 +40,13 @@
 				</td>
 				<td>-</td>
 				<td>{{file.filesize | bytes}}</td>
+				<td>
+					<div class="repositorySwitch">
+						<input id="{{file.uuid}}" class="cmn-toggle cmn-toggle-yes-no" type="checkbox" name="fileRepositoryCheckBox"
+							   ng-model="file.online" ng-change="changeFileRepository(file.uuid,file.online)">
+						<label for="{{file.uuid}}" data-on="Online" data-off="Offline"></label>
+					</div>
+				</td>
 			</tr>
 		</tbody>
 	</table>

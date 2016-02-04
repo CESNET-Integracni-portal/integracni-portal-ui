@@ -33,6 +33,26 @@
 			}
 		});
 
+		$scope.changeFileRepository = function(fileId, status){
+			if(status){
+				spaceService.setFileOnline(vm.space, fileId);
+			}
+			else{
+				spaceService.setFileOffline(vm.space, fileId);
+			}
+		};
+
+		$scope.changeFolderRepository = function(folderId, status){
+			if(status){
+				spaceService.setFolderOnline(vm.space, folderId);
+				console.log("request change to folder " + status + " on " + folderId);
+			}
+			else{
+				spaceService.setFolderOffline(vm.space, folderId);
+				console.log("request change to folder " + status + " on " + folderId);
+			}
+		};
+
 		function uploadFiles(files) {
 			if (files && files.length) {
 				fileuploadService.uploadFiles(files, vm.space, vm.folderId);
