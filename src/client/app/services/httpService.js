@@ -50,6 +50,24 @@
 						responseType: 'blob'
 					});
 				}
+			},
+			downloadSelection: function (url, nodeSelection) {
+				var accessToken = cookieService.getCookie(this._accessTokenId);
+				var tokenType = cookieService.getCookie(this._tokenType);
+				if (accessToken !== null && tokenType !== null) {
+
+					this._first = true;
+					return $http({
+						method: 'POST',
+						url: config.baseUrl + '/' + url,
+						data: nodeSelection || {},
+						headers: {
+							Authorization: tokenType + " " + accessToken,
+							"Content-Type": 'application/json'
+						},
+						responseType: 'blob'
+					});
+				}
 			}
 		};
 	}

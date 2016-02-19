@@ -273,7 +273,7 @@
 			 */
 			downloadFolder: function (spaceId, folderId) {
 				// Ready for API v0.2
-				return httpService.createRequest("GET", 'space/' + spaceId + '/folder/' + folderId + '/download', {});
+				return httpService.downloadFile('space/' + spaceId + '/folder/' + folderId + '/download');
 			},
 			// FILES
 			/**
@@ -386,6 +386,13 @@
 				// Ready for API v0.2
 				// TODO fileId????
 				//return httpService.createRequest("PUT", 'space/'+ spaceId + '/file/' + fileId + '/content', {file: file}, "multipart/form-data");
+			},
+
+			downloadSelection: function(spaceId, nodeGroup){
+				return httpService.downloadSelection('space/' + spaceId + '/downloadSelection', {
+					files: nodeGroup.files,
+					folders: nodeGroup.folders,
+				});
 			}
 		};
 	}
